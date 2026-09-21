@@ -31,9 +31,9 @@ export default function Contact() {
     return lines.join("\n");
   };
 
-  const waLink = `https://wa.me/910000000000?text=${encodeURIComponent(getMessage())}`;
+  const waLink = `https://wa.me/919959896378?text=${encodeURIComponent(getMessage())}`;
   const mailSubject = `Project enquiry${name ? ` from ${name}` : ""}`;
-  const mailLink = `mailto:hello@brightframe.example?subject=${encodeURIComponent(mailSubject)}&body=${encodeURIComponent(getMessage())}`;
+  const mailLink = `mailto:webworks247designs@gmail.com?subject=${encodeURIComponent(mailSubject)}&body=${encodeURIComponent(getMessage())}`;
 
   return (
     <section className="sec" id="contact" style={{ paddingTop: 0 }}>
@@ -47,7 +47,8 @@ export default function Contact() {
               <a className="btn btn-ghost" href={mailLink}><svg className="ic"><use href="#i-mail"/></svg>Send an email</a>
             </div>
             <div className="direct">
-              <span><b>Email</b> <span>hello@brightframe.example</span></span>
+              <span><b>Email</b> <span>webworks247designs@gmail.com</span></span>
+              <span><b>WhatsApp</b> <span>+91 9959896378</span></span>
               <span><b>Reply time</b> Within a few hours on working days</span>
             </div>
           </div>

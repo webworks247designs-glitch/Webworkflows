@@ -344,7 +344,7 @@ img{ max-width:100%; }
    ============================================================ */
 .about-grid{ display:grid; grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr); gap:clamp(32px, 6vw, 80px); align-items:start; }
 .portrait{
-  position:relative; aspect-ratio:4/5; border-radius:32px; background:var(--cobalt); overflow:hidden;
+  position:relative; aspect-ratio:1/1; border-radius:32px; background:var(--cobalt); overflow:hidden;
   display:grid; place-items:center; color:var(--on-cobalt);
 }
 .portrait::before{ content:""; position:absolute; width:62%; aspect-ratio:1; border-radius:50%; background:var(--butter); left:-14%; bottom:-10%; }
@@ -451,13 +451,13 @@ textarea.field{ min-height:104px; resize:vertical; }
     padding:12px 24px 20px; background:var(--bg); border-bottom:1px solid var(--line);
   }
   .nav.open .links a{ padding:10px 0; font-size:1.1rem; color:var(--ink); }
-  .hero-grid{ grid-template-columns:1fr; }
+  .hero-grid{ grid-template-columns:1fr; gap:80px; }
+  .scene-wrap{ margin:60px 0 20px; }
   .scene{ width:min(100%, 360px); }
   .steps{ grid-template-columns:1fr; gap:26px; }
   .steps::before{ top:22px; bottom:22px; left:21px; right:auto; width:2px; height:auto; }
   .step{ padding-left:64px; }
   .step .n{ position:absolute; left:0; top:0; margin:0; }
-  .about-grid{ grid-template-columns:1fr; }
   .portrait{ max-width:380px; }
   .pkgs{ grid-template-columns:1fr; }
   .pkg.feat{ transform:none; }
@@ -475,6 +475,7 @@ textarea.field{ min-height:104px; resize:vertical; }
   .info .btn{ margin-top:0; }
   .svc-grid{ grid-template-columns:1fr; }
   .why{ grid-template-columns:1fr; }
+  .about-grid{ grid-template-columns:1fr; }
 }
 @media (max-width:560px){
   .wrap{ padding:0 18px; }

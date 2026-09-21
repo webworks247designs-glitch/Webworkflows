@@ -3,6 +3,18 @@
 import { useEffect, useRef } from "react";
 
 const PROJECTS = [
+  { name: 'The Boat House', kind: 'Restaurant website with online ordering', year: '2026', domain: 'boat-house-site.vercel.app', mock: 'boathouse',
+    colors: { b: '#1C1917', f: '#FFFFFF', a: '#EAB308', s: '#292524', on: '#000000' }, font: "Georgia,'Times New Roman',serif",
+    desc: 'A premium Arabic restaurant needed an elegant website highlighting their slow-smoked Mandi and dum biryani, with a seamless online ordering menu.',
+    result: 'Increased online orders and a stronger brand presentation.', tags: ['Restaurant', 'Online ordering', 'Web design'], shot: '' },
+  { name: 'Srishanth M. Portfolio', kind: 'Personal portfolio for AI Engineer', year: '2026', domain: 'srishanth-seven.vercel.app', mock: 'srishanth',
+    colors: { b: '#0B1120', f: '#FFFFFF', a: '#06B6D4', s: '#1E293B', on: '#000000' }, font: "system-ui,'Segoe UI',sans-serif",
+    desc: 'A personal portfolio for an AI & Embedded Systems builder. It showcases skills and projects with a sleek, technical dark mode aesthetic.',
+    result: 'A compelling professional presence that highlights engineering expertise.', tags: ['Portfolio', 'Dark mode', 'Personal brand'], shot: '' },
+  { name: "Shobana Men's Salon", kind: 'Barbershop website with bookings', year: '2026', domain: 'shobanamensalon.vercel.app', mock: 'salon',
+    colors: { b: '#171717', f: '#ffffff', a: '#FDE047', s: '#262626', on: '#000000' }, font: "system-ui,'Segoe UI',sans-serif",
+    desc: 'A premium men\'s salon needed a sleek online presence for bookings and service menus. I built a dark-themed site with a clear service list and instant booking.',
+    result: 'Elevated brand image and streamlined appointment booking.', tags: ['Website design', 'Booking flow', 'Dark mode'], shot: '' },
   { name: 'Kaveri Kitchen', kind: 'Restaurant website with online ordering', year: '2026', domain: 'kaverikitchen.example', mock: 'food',
     colors: { b: '#FFF3DC', f: '#3B1D0E', a: '#D9480F', s: '#FFE0AE', on: '#FFFFFF' }, font: "Georgia,'Times New Roman',serif",
     desc: 'A home-style tiffin service wanted customers to order without phoning. I designed a menu-first site with a three-tap ordering flow and built it to load fast on mobile data.',
@@ -10,19 +22,7 @@ const PROJECTS = [
   { name: 'Northwind Physio', kind: 'Clinic website with online booking', year: '2026', domain: 'northwindphysio.example', mock: 'clinic',
     colors: { b: '#EAF7F6', f: '#0B3B3C', a: '#0E8F9B', s: '#CDEEEB', on: '#FFFFFF' }, font: "system-ui,'Segoe UI',sans-serif",
     desc: 'A physiotherapy clinic needed new patients to book easily. I simplified the service pages and put a booking widget on the first screen.',
-    result: 'Booking takes under a minute on any phone.', tags: ['Website design', 'Booking UI', 'Accessibility'], shot: '' },
-  { name: 'Loom & Leaf', kind: 'Online store for handmade textiles', year: '2025', domain: 'loomandleaf.example', mock: 'store',
-    colors: { b: '#EEF1E6', f: '#26301B', a: '#5F7332', s: '#DCE3C8', on: '#FFFFFF' }, font: "Georgia,'Times New Roman',serif",
-    desc: 'A textile shop had beautiful products and a slow, cluttered store. I redesigned product pages, simplified the filters and trimmed page weight.',
-    result: 'Larger product photos and quicker pages, without losing the handmade feel.', tags: ['E-commerce', 'Shopify theme', 'Speed'], shot: '' },
-  { name: 'Finlytics', kind: 'SaaS landing page and dashboard UI', year: '2025', domain: 'finlytics.example', mock: 'saas',
-    colors: { b: '#0F1224', f: '#E7E9FF', a: '#5B8CFF', s: '#1B2040', on: '#0F1224' }, font: "system-ui,'Segoe UI',sans-serif",
-    desc: 'A finance start-up needed a landing page and dashboard that feel trustworthy. I created the design system and built both in React.',
-    result: 'One consistent interface across the marketing site and the product.', tags: ['Landing page', 'Dashboard UI', 'Design system'], shot: '' },
-  { name: 'Studio Ren', kind: 'Portfolio site for a photographer', year: '2025', domain: 'studioren.example', mock: 'photo',
-    colors: { b: '#F3F3F1', f: '#161616', a: '#4B3FE0', s: '#E4E4E0', on: '#FFFFFF' }, font: "system-ui,'Segoe UI',sans-serif",
-    desc: 'A photographer wanted the pictures to lead. I built full-screen galleries with smooth transitions that still load quickly on mobile.',
-    result: 'Galleries open instantly and stay sharp on any screen.', tags: ['Portfolio', 'Gallery', 'Motion'], shot: '' }
+    result: 'Booking takes under a minute on any phone.', tags: ['Website design', 'Booking UI', 'Accessibility'], shot: '' }
 ];
 
 const MockFood = () => (
@@ -126,8 +126,38 @@ const MockPhoto = () => (
   </>
 );
 
+const MockSalon = () => (
+  <a href="https://shobanamensalon.vercel.app/" target="_blank" rel="noopener noreferrer" style={{ display: 'block', textDecoration: 'none', color: 'inherit', height: '100%' }}>
+    <img src="/images/Screenshot 2026-09-22 at 12.23.13 AM.png" alt="Shobana Men's Salon 1" style={{ width: '100%', display: 'block' }} />
+    <img src="/images/Screenshot 2026-09-22 at 12.23.31 AM.png" alt="Shobana Men's Salon 2" style={{ width: '100%', display: 'block' }} />
+    <img src="/images/Screenshot 2026-09-22 at 12.23.46 AM.png" alt="Shobana Men's Salon 3" style={{ width: '100%', display: 'block' }} />
+    <img src="/images/Screenshot 2026-09-22 at 12.24.17 AM.png" alt="Shobana Men's Salon 4" style={{ width: '100%', display: 'block' }} />
+    <img src="/images/Screenshot 2026-09-22 at 12.25.27 AM.png" alt="Shobana Men's Salon 5" style={{ width: '100%', display: 'block' }} />
+    <img src="/images/Screenshot 2026-09-22 at 12.25.47 AM.png" alt="Shobana Men's Salon 6" style={{ width: '100%', display: 'block' }} />
+  </a>
+);
+
+const MockSrishanth = () => (
+  <a href="https://srishanth-seven.vercel.app/" target="_blank" rel="noopener noreferrer" style={{ display: 'block', textDecoration: 'none', color: 'inherit', height: '100%' }}>
+    <img src="/images/Screenshot 2026-09-22 at 12.40.47 AM.png" alt="Srishanth Portfolio 1" style={{ width: '100%', display: 'block' }} />
+    <img src="/images/Screenshot 2026-09-22 at 12.41.22 AM.png" alt="Srishanth Portfolio 2" style={{ width: '100%', display: 'block' }} />
+    <img src="/images/Screenshot 2026-09-22 at 12.41.38 AM.png" alt="Srishanth Portfolio 3" style={{ width: '100%', display: 'block' }} />
+  </a>
+);
+
+const MockBoatHouse = () => (
+  <a href="https://boat-house-site.vercel.app/" target="_blank" rel="noopener noreferrer" style={{ display: 'block', textDecoration: 'none', color: 'inherit', height: '100%' }}>
+    <img src="/images/Screenshot 2026-09-22 at 12.45.17 AM.png" alt="Boat House 1" style={{ width: '100%', display: 'block' }} />
+    <img src="/images/Screenshot 2026-09-22 at 12.45.38 AM.png" alt="Boat House 2" style={{ width: '100%', display: 'block' }} />
+    <img src="/images/Screenshot 2026-09-22 at 12.46.02 AM.png" alt="Boat House 3" style={{ width: '100%', display: 'block' }} />
+  </a>
+);
+
 const getMockComponent = (mockName: string) => {
   switch (mockName) {
+    case 'boathouse': return <MockBoatHouse />;
+    case 'srishanth': return <MockSrishanth />;
+    case 'salon': return <MockSalon />;
     case 'food': return <MockFood />;
     case 'clinic': return <MockClinic />;
     case 'store': return <MockStore />;
