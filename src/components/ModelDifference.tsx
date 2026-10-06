@@ -7,9 +7,16 @@ export default function ModelDifference() {
           <p>Everything you need to launch, run, and grow your online presence—included as standard.</p>
         </div>
 
-        <div className="svc-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))' }}>
+        <div className="svc-grid" style={{ 
+          display: 'flex', 
+          overflowX: 'auto', 
+          scrollSnapType: 'x mandatory', 
+          gap: '24px', 
+          paddingBottom: '24px', 
+          WebkitOverflowScrolling: 'touch' 
+        }}>
           
-          <div className="panel" style={{ background: 'var(--surface)', border: '1px solid var(--line)', padding: '32px 24px' }}>
+          <div className="panel" style={{ flex: '0 0 calc(85vw - 48px)', maxWidth: '320px', scrollSnapAlign: 'start', background: 'var(--surface)', border: '1px solid var(--line)', padding: '32px 24px' }}>
             <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: 'var(--cobalt)', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '20px', fontSize: '1.2rem', fontWeight: 'bold' }}>
               ✦
             </div>
@@ -19,7 +26,7 @@ export default function ModelDifference() {
             </p>
           </div>
 
-          <div className="panel" style={{ background: 'var(--surface)', border: '1px solid var(--line)', padding: '32px 24px' }}>
+          <div className="panel" style={{ flex: '0 0 calc(85vw - 48px)', maxWidth: '320px', scrollSnapAlign: 'start', background: 'var(--surface)', border: '1px solid var(--line)', padding: '32px 24px' }}>
             <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: 'var(--butter)', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '20px', fontSize: '1.2rem', fontWeight: 'bold' }}>
               ⌖
             </div>
@@ -29,7 +36,7 @@ export default function ModelDifference() {
             </p>
           </div>
 
-          <div className="panel" style={{ background: 'var(--surface)', border: '1px solid var(--line)', padding: '32px 24px' }}>
+          <div className="panel" style={{ flex: '0 0 calc(85vw - 48px)', maxWidth: '320px', scrollSnapAlign: 'start', background: 'var(--surface)', border: '1px solid var(--line)', padding: '32px 24px' }}>
             <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: 'var(--mint)', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '20px', fontSize: '1.2rem', fontWeight: 'bold' }}>
               ⚡
             </div>
@@ -39,7 +46,7 @@ export default function ModelDifference() {
             </p>
           </div>
 
-          <div className="panel" style={{ background: 'var(--surface)', border: '1px solid var(--line)', padding: '32px 24px' }}>
+          <div className="panel" style={{ flex: '0 0 calc(85vw - 48px)', maxWidth: '320px', scrollSnapAlign: 'start', background: 'var(--surface)', border: '1px solid var(--line)', padding: '32px 24px' }}>
             <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: 'var(--surface)', border: '1px solid var(--line-strong)', color: 'var(--ink)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '20px', fontSize: '1.2rem', fontWeight: 'bold' }}>
               📱
             </div>
@@ -49,7 +56,7 @@ export default function ModelDifference() {
             </p>
           </div>
 
-          <div className="panel" style={{ background: 'var(--surface)', border: '1px solid var(--line)', padding: '32px 24px' }}>
+          <div className="panel" style={{ flex: '0 0 calc(85vw - 48px)', maxWidth: '320px', scrollSnapAlign: 'start', background: 'var(--surface)', border: '1px solid var(--line)', padding: '32px 24px' }}>
             <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: 'var(--surface)', border: '1px solid var(--line-strong)', color: 'var(--ink)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '20px', fontSize: '1.2rem', fontWeight: 'bold' }}>
               🔍
             </div>
@@ -59,7 +66,7 @@ export default function ModelDifference() {
             </p>
           </div>
 
-          <div className="panel" style={{ background: 'var(--surface)', border: '1px solid var(--line)', padding: '32px 24px' }}>
+          <div className="panel" style={{ flex: '0 0 calc(85vw - 48px)', maxWidth: '320px', scrollSnapAlign: 'start', background: 'var(--surface)', border: '1px solid var(--line)', padding: '32px 24px' }}>
             <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: 'var(--surface)', border: '1px solid var(--line-strong)', color: 'var(--ink)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '20px', fontSize: '1.2rem', fontWeight: 'bold' }}>
               📊
             </div>
