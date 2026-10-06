@@ -1,72 +1,74 @@
 export default function ModelDifference() {
   return (
-    <section className="sec" id="model-difference" style={{ paddingTop: 0 }}>
+    <section className="sec" id="services" style={{ paddingTop: 0 }}>
       <div className="wrap">
         <div className="sec-head">
           <h2>More Than a Website</h2>
-          <p>A website is useful. A website designed around customer action is more useful.</p>
+          <p>Everything you need to launch, run, and grow your online presence—included as standard.</p>
         </div>
 
-        <div className="svc-grid">
-          <div className="panel" style={{ background: 'var(--surface)', border: '1px solid var(--line)' }}>
-            <h3 style={{ marginBottom: '24px' }}>Traditional Website Service</h3>
-            <ul style={{ display: 'grid', gap: '16px' }}>
-              <li style={{ display: 'flex', gap: '12px' }}>
-                <span style={{ color: 'var(--muted)' }}>—</span>
-                <span>Pay a large amount upfront(approx 30k)</span>
-              </li>
-              <li style={{ display: 'flex', gap: '12px' }}>
-                <span style={{ color: 'var(--muted)' }}>—</span>
-                <span>Website gets delivered</span>
-              </li>
-              <li style={{ display: 'flex', gap: '12px' }}>
-                <span style={{ color: 'var(--muted)' }}>—</span>
-                <span>Success is difficult to measure</span>
-              </li>
-              <li style={{ display: 'flex', gap: '12px' }}>
-                <span style={{ color: 'var(--muted)' }}>—</span>
-                <span>Mostly focused on appearance</span>
-              </li>
-              <li style={{ display: 'flex', gap: '12px' }}>
-                <span style={{ color: 'var(--muted)' }}>—</span>
-                <span>Traffic and enquiries are often not part of the service</span>
-              </li>
-            </ul>
+        <div className="svc-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))' }}>
+          
+          <div className="panel" style={{ background: 'var(--surface)', border: '1px solid var(--line)', padding: '32px 24px' }}>
+            <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: 'var(--cobalt)', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '20px', fontSize: '1.2rem', fontWeight: 'bold' }}>
+              ✦
+            </div>
+            <h3 style={{ marginBottom: '12px', fontSize: '1.2rem' }}>Custom Web Design</h3>
+            <p style={{ color: 'var(--muted)', fontSize: '0.95rem', lineHeight: 1.6, margin: 0 }}>
+              Tailored, high-converting interfaces designed specifically for your brand and your target audience.
+            </p>
           </div>
 
-          <div className="panel p-cobalt">
-            <h3 style={{ marginBottom: '24px' }}>Our Model</h3>
-            <ul style={{ display: 'grid', gap: '16px' }}>
-              <li style={{ display: 'flex', gap: '12px' }}>
-                <span style={{ color: 'var(--butter)' }}>✓</span>
-                <span>Low initial setup</span>
-              </li>
-              <li style={{ display: 'flex', gap: '12px' }}>
-                <span style={{ color: 'var(--butter)' }}>✓</span>
-                <span>Website designed around enquiries</span>
-              </li>
-              <li style={{ display: 'flex', gap: '12px' }}>
-                <span style={{ color: 'var(--butter)' }}>✓</span>
-                <span>Enquiries are tracked</span>
-              </li>
-              <li style={{ display: 'flex', gap: '12px' }}>
-                <span style={{ color: 'var(--butter)' }}>✓</span>
-                <span>Clear billing based on measurable activity</span>
-              </li>
-              <li style={{ display: 'flex', gap: '12px' }}>
-                <span style={{ color: 'var(--butter)' }}>✓</span>
-                <span>No charge for simple website visits</span>
-              </li>
-              <li style={{ display: 'flex', gap: '12px' }}>
-                <span style={{ color: 'var(--butter)' }}>✓</span>
-                <span>No charge for untrackable walk-ins</span>
-              </li>
-              <li style={{ display: 'flex', gap: '12px' }}>
-                <span style={{ color: 'var(--butter)' }}>✓</span>
-                <span>Transparent reporting</span>
-              </li>
-            </ul>
+          <div className="panel" style={{ background: 'var(--surface)', border: '1px solid var(--line)', padding: '32px 24px' }}>
+            <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: 'var(--butter)', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '20px', fontSize: '1.2rem', fontWeight: 'bold' }}>
+              ⌖
+            </div>
+            <h3 style={{ marginBottom: '12px', fontSize: '1.2rem' }}>Lead Generation</h3>
+            <p style={{ color: 'var(--muted)', fontSize: '0.95rem', lineHeight: 1.6, margin: 0 }}>
+              Built-in forms, WhatsApp integrations, and clear calls-to-action that turn casual visitors into leads.
+            </p>
           </div>
+
+          <div className="panel" style={{ background: 'var(--surface)', border: '1px solid var(--line)', padding: '32px 24px' }}>
+            <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: 'var(--mint)', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '20px', fontSize: '1.2rem', fontWeight: 'bold' }}>
+              ⚡
+            </div>
+            <h3 style={{ marginBottom: '12px', fontSize: '1.2rem' }}>Fast & Secure Hosting</h3>
+            <p style={{ color: 'var(--muted)', fontSize: '0.95rem', lineHeight: 1.6, margin: 0 }}>
+              Lightning-fast cloud hosting with SSL certificates included, ensuring your site is always online and secure.
+            </p>
+          </div>
+
+          <div className="panel" style={{ background: 'var(--surface)', border: '1px solid var(--line)', padding: '32px 24px' }}>
+            <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: 'var(--surface)', border: '1px solid var(--line-strong)', color: 'var(--ink)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '20px', fontSize: '1.2rem', fontWeight: 'bold' }}>
+              📱
+            </div>
+            <h3 style={{ marginBottom: '12px', fontSize: '1.2rem' }}>Mobile-First</h3>
+            <p style={{ color: 'var(--muted)', fontSize: '0.95rem', lineHeight: 1.6, margin: 0 }}>
+              Flawless responsive design that looks and works perfectly on smartphones, tablets, and desktops alike.
+            </p>
+          </div>
+
+          <div className="panel" style={{ background: 'var(--surface)', border: '1px solid var(--line)', padding: '32px 24px' }}>
+            <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: 'var(--surface)', border: '1px solid var(--line-strong)', color: 'var(--ink)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '20px', fontSize: '1.2rem', fontWeight: 'bold' }}>
+              🔍
+            </div>
+            <h3 style={{ marginBottom: '12px', fontSize: '1.2rem' }}>SEO Optimization</h3>
+            <p style={{ color: 'var(--muted)', fontSize: '0.95rem', lineHeight: 1.6, margin: 0 }}>
+              On-page search engine optimization so local customers can easily find your business on Google.
+            </p>
+          </div>
+
+          <div className="panel" style={{ background: 'var(--surface)', border: '1px solid var(--line)', padding: '32px 24px' }}>
+            <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: 'var(--surface)', border: '1px solid var(--line-strong)', color: 'var(--ink)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '20px', fontSize: '1.2rem', fontWeight: 'bold' }}>
+              📊
+            </div>
+            <h3 style={{ marginBottom: '12px', fontSize: '1.2rem' }}>Tracking & Analytics</h3>
+            <p style={{ color: 'var(--muted)', fontSize: '0.95rem', lineHeight: 1.6, margin: 0 }}>
+              Transparent reporting and event tracking so you always know exactly how your website is performing.
+            </p>
+          </div>
+
         </div>
       </div>
     </section>

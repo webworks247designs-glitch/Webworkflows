@@ -364,7 +364,7 @@ img{ max-width:100%; }
 /* ============================================================
    PROCESS
    ============================================================ */
-.steps{ position:relative; display:grid; grid-template-columns:repeat(5, minmax(0,1fr)); gap:22px; counter-reset:step; }
+.steps{ position:relative; display:grid; grid-template-columns:repeat(var(--cols, 4), minmax(0,1fr)); gap:22px; counter-reset:step; }
 .steps::before{ content:""; position:absolute; top:22px; left:22px; right:22px; height:2px; background:var(--line-strong); }
 .step{ position:relative; }
 .step .n{
@@ -533,3 +533,13 @@ textarea.field{ min-height:104px; resize:vertical; }
   .layer,.stack,.card,.btn,.fab{ transition:none !important; }
   .page,.card:hover .page{ transition-duration:.01ms !important; }
 }
+
+@media (min-width: 768px) {
+  .show-mobile { display: none !important; }
+}
+@media (max-width: 767px) {
+  .show-desktop { display: none !important; }
+}
+
+/* Hide Next.js Dev Tools Indicator */
+nextjs-portal, [data-nextjs-toast] { display: none !important; }

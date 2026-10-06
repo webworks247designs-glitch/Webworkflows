@@ -3,37 +3,6 @@ export default function CostFlow() {
     <section className="sec" id="cost-flow" style={{ paddingTop: 0 }}>
       <div className="wrap">
         
-        {/* THE DIFFERENCE */}
-        <div className="sec-head">
-          <h2>The Difference Is How You Pay</h2>
-        </div>
-        
-        <div className="svc-grid" style={{ marginBottom: '64px', gap: '48px' }}>
-          <div>
-            <span style={{ display: 'block', color: 'var(--muted)', fontSize: '0.95rem', fontWeight: 600, letterSpacing: '0.05em', textTransform: 'uppercase', marginBottom: '16px' }}>Typical Fixed-Price Model</span>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-              <div style={{ padding: '16px 24px', background: 'var(--surface)', border: '1px solid var(--line)', borderRadius: '12px', fontWeight: 500 }}>Large upfront project fee</div>
-              <div style={{ color: 'var(--muted)', textAlign: 'center' }}>↓</div>
-              <div style={{ padding: '16px 24px', background: 'var(--surface)', border: '1px solid var(--line)', borderRadius: '12px', fontWeight: 500 }}>Website delivered</div>
-              <div style={{ color: 'var(--muted)', textAlign: 'center' }}>↓</div>
-              <div style={{ padding: '16px 24px', background: 'var(--surface)', border: '1px solid var(--line)', borderRadius: '12px', fontWeight: 500 }}>Project completed</div>
-            </div>
-          </div>
-
-          <div>
-            <span style={{ display: 'block', color: 'var(--muted)', fontSize: '0.95rem', fontWeight: 600, letterSpacing: '0.05em', textTransform: 'uppercase', marginBottom: '16px' }}>Our Model</span>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-              <div style={{ padding: '16px 24px', background: 'var(--surface)', border: '1px solid var(--line)', borderRadius: '12px', fontWeight: 500, borderColor: 'var(--cobalt)' }}>₹3,000 launch</div>
-              <div style={{ color: 'var(--cobalt)', textAlign: 'center' }}>↓</div>
-              <div style={{ padding: '16px 24px', background: 'var(--surface)', border: '1px solid var(--line)', borderRadius: '12px', fontWeight: 500, borderColor: 'var(--cobalt)' }}>Website goes live</div>
-              <div style={{ color: 'var(--cobalt)', textAlign: 'center' }}>↓</div>
-              <div style={{ padding: '16px 24px', background: 'var(--surface)', border: '1px solid var(--line)', borderRadius: '12px', fontWeight: 500, borderColor: 'var(--cobalt)' }}>Qualified enquiries are tracked</div>
-              <div style={{ color: 'var(--cobalt)', textAlign: 'center' }}>↓</div>
-              <div style={{ padding: '16px 24px', background: 'var(--surface)', border: '1px solid var(--line)', borderRadius: '12px', fontWeight: 500, borderColor: 'var(--cobalt)' }}>Pay according to genuine enquiries</div>
-            </div>
-          </div>
-        </div>
-
         {/* EXAMPLE */}
         <div style={{ maxWidth: '600px', margin: '0 auto', background: 'var(--surface)', border: '1px solid var(--line)', borderRadius: '16px', padding: '32px' }}>
           <span style={{ display: 'block', color: 'var(--muted)', fontSize: '0.95rem', fontWeight: 600, letterSpacing: '0.05em', textTransform: 'uppercase', marginBottom: '24px' }}>Example of Our Model</span>
