@@ -165,7 +165,6 @@ export default function Pricing() {
           </article>
 
           <article className="pkg" style={{ 
-            background: 'var(--surface)', 
             border: '1px solid var(--cobalt)', 
             borderRadius: '16px', 
             padding: '16px 12px',
