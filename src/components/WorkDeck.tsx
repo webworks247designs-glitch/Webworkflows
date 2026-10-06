@@ -14,15 +14,7 @@ const PROJECTS = [
   { name: "Shobana Men's Salon", kind: 'Barbershop website with bookings', year: '2026', domain: 'shobanamensalon.vercel.app', mock: 'salon',
     colors: { b: '#171717', f: '#ffffff', a: '#FDE047', s: '#262626', on: '#000000' }, font: "system-ui,'Segoe UI',sans-serif",
     desc: 'A premium men\'s salon needed a sleek online presence for bookings and service menus. I built a dark-themed site with a clear service list and instant booking.',
-    result: 'Elevated brand image and streamlined appointment booking.', tags: ['Website design', 'Booking flow', 'Dark mode'], shot: '' },
-  { name: 'Kaveri Kitchen', kind: 'Restaurant website with online ordering', year: '2026', domain: 'kaverikitchen.example', mock: 'food',
-    colors: { b: '#FFF3DC', f: '#3B1D0E', a: '#D9480F', s: '#FFE0AE', on: '#FFFFFF' }, font: "Georgia,'Times New Roman',serif",
-    desc: 'A home-style tiffin service wanted customers to order without phoning. I designed a menu-first site with a three-tap ordering flow and built it to load fast on mobile data.',
-    result: 'Customers order in three taps, with no phone call needed.', tags: ['UI/UX design', 'Frontend build', 'Ordering flow'], shot: '' },
-  { name: 'Northwind Physio', kind: 'Clinic website with online booking', year: '2026', domain: 'northwindphysio.example', mock: 'clinic',
-    colors: { b: '#EAF7F6', f: '#0B3B3C', a: '#0E8F9B', s: '#CDEEEB', on: '#FFFFFF' }, font: "system-ui,'Segoe UI',sans-serif",
-    desc: 'A physiotherapy clinic needed new patients to book easily. I simplified the service pages and put a booking widget on the first screen.',
-    result: 'Booking takes under a minute on any phone.', tags: ['Website design', 'Booking UI', 'Accessibility'], shot: '' }
+    result: 'Elevated brand image and streamlined appointment booking.', tags: ['Website design', 'Booking flow', 'Dark mode'], shot: '' }
 ];
 
 const MockFood = () => (
