@@ -34,11 +34,10 @@ export default function Navbar() {
           </a>
           <nav className="links" id="links" aria-label="Main">
             <a href="#work" onClick={() => setMenuOpen(false)}>Work</a>
-            <a href="#services" onClick={() => setMenuOpen(false)}>Services</a>
-            <a href="#process" onClick={() => setMenuOpen(false)}>Process</a>
-            <a href="#about" onClick={() => setMenuOpen(false)}>About</a>
-            <a href="#packages" onClick={() => setMenuOpen(false)}>Packages</a>
-            <a href="#faq" onClick={() => setMenuOpen(false)}>FAQ</a>
+            <a href="#how-it-works" onClick={() => setMenuOpen(false)}>Process</a>
+            <a href="#pricing" onClick={() => setMenuOpen(false)}>Pricing</a>
+            <a href="#cost-flow" onClick={() => setMenuOpen(false)}>Example</a>
+            <a href="#protection" onClick={() => setMenuOpen(false)}>Why Us</a>
           </nav>
           <button 
             className="icon-btn" 

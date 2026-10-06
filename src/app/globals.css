@@ -116,6 +116,7 @@ img{ max-width:100%; }
   width:40px; height:40px; border-radius:50%; border:1.5px solid var(--line-strong);
   background:transparent; color:var(--ink); display:grid; place-items:center; cursor:pointer;
 }
+.icon-btn svg { pointer-events: none; }
 .menu-btn{ display:none; }
 
 /* ============================================================
@@ -137,7 +138,7 @@ img{ max-width:100%; }
 .facts li:nth-child(3)::before{ background:var(--mint); }
 
 .scene-wrap{ margin:0; }
-.scene{ --px:0; --py:0; position:relative; width:min(100%, 430px); aspect-ratio:1/1.02; margin-inline:auto; perspective:1300px; }
+.scene{ --px:0; --py:0; position:relative; width:min(100%, 430px); aspect-ratio:1/1.02; margin-inline:auto; perspective:1300px; flex-shrink: 0; }
 .stack{
   position:absolute; inset:15% 13% 15% 13%; transform-style:preserve-3d;
   transform:rotateX(calc(58deg + var(--py) * -5deg)) rotateZ(calc(-34deg + var(--px) * 9deg));
@@ -165,6 +166,45 @@ img{ max-width:100%; }
 .l-code pre{ margin:0; font:500 .8rem/1.6 var(--mono); white-space:pre-wrap; }
 .l-code .k{ color:#8FA0FF; } .l-code .s{ color:var(--mint); } .l-code .y{ color:var(--butter); }
 .scene-cap{ margin-top:14px; text-align:center; color:var(--muted); font-size:.95rem; }
+
+/* Floating Badges */
+.floating-badge {
+  position: absolute;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  padding: 8px 16px;
+  border-radius: 99px;
+  box-shadow: 0 10px 20px -10px rgba(var(--shadow), 0.2);
+  white-space: nowrap;
+  animation: float-bob 6s ease-in-out infinite;
+}
+
+.badge-1 { top: 0%; left: -10%; animation-delay: 0s; }
+.badge-2 { top: 15%; right: -15%; animation-delay: 1.2s; }
+.badge-3 { top: 45%; left: -20%; animation-delay: 2.4s; }
+.badge-4 { bottom: 10%; right: -10%; animation-delay: 3.6s; }
+.badge-5 { bottom: -5%; left: 10%; animation-delay: 4.8s; }
+
+.badge-icon {
+  font-size: 1.2rem;
+}
+.badge-text {
+  font: 600 0.9rem var(--body);
+  color: var(--ink);
+}
+
+@keyframes float-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+@media (max-width: 768px) {
+  .floating-badge { display: none; }
+}
 
 /* ============================================================
    WORK DECK

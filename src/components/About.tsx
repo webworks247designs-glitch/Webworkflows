@@ -3,7 +3,7 @@ export default function About() {
     <section className="sec" id="about" style={{ paddingTop: 0 }}>
       <div className="wrap about-grid">
         <div className="portrait" id="portrait" aria-hidden="true" style={{ overflow: 'hidden', padding: 0, backgroundColor: '#0B1120', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <img src="/images/Screenshot 2026-09-22 at 1.00.16 AM.png" alt="Portrait" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+          <img src="/images/portrait.png" alt="Portrait" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
         </div>
         <div className="about-copy">
           <h2>One designer, from first sketch to launch day.</h2>

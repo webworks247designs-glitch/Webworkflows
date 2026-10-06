@@ -128,28 +128,28 @@ const MockPhoto = () => (
 
 const MockSalon = () => (
   <a href="https://shobanamensalon.vercel.app/" target="_blank" rel="noopener noreferrer" style={{ display: 'block', textDecoration: 'none', color: 'inherit', height: '100%' }}>
-    <img src="/images/Screenshot 2026-09-22 at 12.23.13 AM.png" alt="Shobana Men's Salon 1" style={{ width: '100%', display: 'block' }} />
-    <img src="/images/Screenshot 2026-09-22 at 12.23.31 AM.png" alt="Shobana Men's Salon 2" style={{ width: '100%', display: 'block' }} />
-    <img src="/images/Screenshot 2026-09-22 at 12.23.46 AM.png" alt="Shobana Men's Salon 3" style={{ width: '100%', display: 'block' }} />
-    <img src="/images/Screenshot 2026-09-22 at 12.24.17 AM.png" alt="Shobana Men's Salon 4" style={{ width: '100%', display: 'block' }} />
-    <img src="/images/Screenshot 2026-09-22 at 12.25.27 AM.png" alt="Shobana Men's Salon 5" style={{ width: '100%', display: 'block' }} />
-    <img src="/images/Screenshot 2026-09-22 at 12.25.47 AM.png" alt="Shobana Men's Salon 6" style={{ width: '100%', display: 'block' }} />
+    <img src="/images/salon1.png" alt="Shobana Men's Salon 1" style={{ width: '100%', display: 'block' }} />
+    <img src="/images/salon2.png" alt="Shobana Men's Salon 2" style={{ width: '100%', display: 'block' }} />
+    <img src="/images/salon3.png" alt="Shobana Men's Salon 3" style={{ width: '100%', display: 'block' }} />
+    <img src="/images/salon4.png" alt="Shobana Men's Salon 4" style={{ width: '100%', display: 'block' }} />
+    <img src="/images/salon5.png" alt="Shobana Men's Salon 5" style={{ width: '100%', display: 'block' }} />
+    <img src="/images/salon6.png" alt="Shobana Men's Salon 6" style={{ width: '100%', display: 'block' }} />
   </a>
 );
 
 const MockSrishanth = () => (
   <a href="https://srishanth-seven.vercel.app/" target="_blank" rel="noopener noreferrer" style={{ display: 'block', textDecoration: 'none', color: 'inherit', height: '100%' }}>
-    <img src="/images/Screenshot 2026-09-22 at 12.40.47 AM.png" alt="Srishanth Portfolio 1" style={{ width: '100%', display: 'block' }} />
-    <img src="/images/Screenshot 2026-09-22 at 12.41.22 AM.png" alt="Srishanth Portfolio 2" style={{ width: '100%', display: 'block' }} />
-    <img src="/images/Screenshot 2026-09-22 at 12.41.38 AM.png" alt="Srishanth Portfolio 3" style={{ width: '100%', display: 'block' }} />
+    <img src="/images/srishanth1.png" alt="Srishanth Portfolio 1" style={{ width: '100%', display: 'block' }} />
+    <img src="/images/srishanth2.png" alt="Srishanth Portfolio 2" style={{ width: '100%', display: 'block' }} />
+    <img src="/images/srishanth3.png" alt="Srishanth Portfolio 3" style={{ width: '100%', display: 'block' }} />
   </a>
 );
 
 const MockBoatHouse = () => (
   <a href="https://boat-house-site.vercel.app/" target="_blank" rel="noopener noreferrer" style={{ display: 'block', textDecoration: 'none', color: 'inherit', height: '100%' }}>
-    <img src="/images/Screenshot 2026-09-22 at 12.45.17 AM.png" alt="Boat House 1" style={{ width: '100%', display: 'block' }} />
-    <img src="/images/Screenshot 2026-09-22 at 12.45.38 AM.png" alt="Boat House 2" style={{ width: '100%', display: 'block' }} />
-    <img src="/images/Screenshot 2026-09-22 at 12.46.02 AM.png" alt="Boat House 3" style={{ width: '100%', display: 'block' }} />
+    <img src="/images/boathouse1.png" alt="Boat House 1" style={{ width: '100%', display: 'block' }} />
+    <img src="/images/boathouse2.png" alt="Boat House 2" style={{ width: '100%', display: 'block' }} />
+    <img src="/images/boathouse3.png" alt="Boat House 3" style={{ width: '100%', display: 'block' }} />
   </a>
 );
 

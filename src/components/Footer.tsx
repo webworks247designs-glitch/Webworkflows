@@ -9,11 +9,10 @@ export default function Footer() {
         </a>
         <nav aria-label="Footer">
           <a href="#work">Work</a>
-          <a href="#services">Services</a>
-          <a href="#process">Process</a>
-          <a href="#about">About</a>
-          <a href="#packages">Packages</a>
-          <a href="#faq">FAQ</a>
+          <a href="#how-it-works">Process</a>
+          <a href="#pricing">Pricing</a>
+          <a href="#cost-flow">Example</a>
+          <a href="#protection">Why Us</a>
           <a href="#contact">Contact</a>
         </nav>
         <p className="copy">&copy; {year} <span>Webworkflows</span>. Designed and built by hand.</p>

@@ -5,14 +5,10 @@ import { useEffect, useRef, useState } from "react";
 export default function Hero() {
   const heroRef = useRef<HTMLElement>(null);
   const sceneRef = useRef<HTMLDivElement>(null);
-  const [isPre, setIsPre] = useState(true);
+  const [isPre, setIsPre] = useState(false);
 
   useEffect(() => {
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        setIsPre(false);
-      });
-    });
+    // We already set isPre to false initially to prevent hydration mismatch/hiding
   }, []);
 
   const handlePointerMove = (e: React.PointerEvent) => {
@@ -67,6 +63,28 @@ export default function Hero() {
             role="img"
             aria-label="Three floating layers: structure, interface and code"
           >
+            {/* Floating Badges pinned to the scene itself */}
+            <div className="floating-badge badge-1">
+              <span className="badge-icon">🎨</span>
+              <span className="badge-text">UI/UX Design</span>
+            </div>
+            <div className="floating-badge badge-2">
+              <span className="badge-icon">⚡</span>
+              <span className="badge-text">Fast Hosting</span>
+            </div>
+            <div className="floating-badge badge-3">
+              <span className="badge-icon">📱</span>
+              <span className="badge-text">Mobile-First</span>
+            </div>
+            <div className="floating-badge badge-4">
+              <span className="badge-icon">📈</span>
+              <span className="badge-text">SEO Optimized</span>
+            </div>
+            <div className="floating-badge badge-5">
+              <span className="badge-icon">💬</span>
+              <span className="badge-text">Enquiry Systems</span>
+            </div>
+
             <div className="stack">
               <div className="layer l-struct">
                 <span className="wf" style={{ left: "7%", top: "6%", right: "7%", height: "10%" }}></span>

@@ -40,11 +40,11 @@ export default function Contact() {
       <div className="wrap">
         <div className="contact-panel">
           <div>
-            <h2>Tell me about your project.</h2>
-            <p className="lede">Choose what you need and add a line or two. Your message opens ready to send in WhatsApp or your email app.</p>
+            <h2>Let's Work Out the Right Model for Your Business</h2>
+            <p className="lede">Tell us about your business and we'll work out the right enquiry structure.</p>
             <div className="cta-row">
-              <a className="btn btn-wa" href={waLink} target="_blank" rel="noopener noreferrer"><svg className="ic"><use href="#i-wa"/></svg>Chat on WhatsApp</a>
-              <a className="btn btn-ghost" href={mailLink}><svg className="ic"><use href="#i-mail"/></svg>Send an email</a>
+              <a className="btn btn-wa" href={waLink} target="_blank" rel="noopener noreferrer"><svg className="ic"><use href="#i-wa"/></svg>Get My Pricing</a>
+              <a className="btn btn-ghost" href={mailLink}><svg className="ic"><use href="#i-mail"/></svg>See How It Works</a>
             </div>
             <div className="direct">
               <span><b>Email</b> <span>webworks247designs@gmail.com</span></span>
