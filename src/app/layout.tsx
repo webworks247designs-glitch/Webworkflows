@@ -17,9 +17,9 @@ const figtree = Figtree({
 });
 
 export const metadata: Metadata = {
-  title: "Webworkflows | Freelance web design and frontend development",
+  title: "Freelance Web Designer in Hyderabad | Webworkflows",
   description:
-    "Freelance web designer and frontend developer. I design, build and launch fast, good-looking websites for small businesses, start-ups and creators.",
+    "Expert freelance web designer and frontend developer in Hyderabad. I design, build, and launch fast, good-looking websites for small businesses, start-ups, and creators.",
 };
 
 export const viewport: Viewport = {
@@ -40,7 +40,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${bricolage.variable} ${figtree.variable}`}>
-        <ThemeProvider attribute="data-theme" defaultTheme="system" enableSystem>
+        <ThemeProvider attribute="data-theme" defaultTheme="dark" enableSystem>
           {children}
         </ThemeProvider>
       </body>

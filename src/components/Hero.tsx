@@ -42,8 +42,8 @@ export default function Hero() {
       <div className="wrap hero-grid">
         <div className="hero-copy">
           <p className="chip-live"><span className="live" aria-hidden="true"></span><span>Open for new projects</span></p>
-          <h1>Websites that turn visitors into enquiries.</h1>
-          <p className="lede"><span>Webworkflows</span> is a freelance web design studio. I design, build and launch fast, good-looking websites for small businesses, start-ups and creators, and I handle every step myself.</p>
+          <h1>Websites that turn visitors into Leads.</h1>
+          <p className="lede"><span>Webworkflows</span> is an expert freelance web designer in Hyderabad. I design, build and launch fast, good-looking websites for small businesses, start-ups and creators, and I handle every step myself.</p>
           <div className="cta-row">
             <a className="btn btn-wa" href="#contact"><svg className="ic"><use href="#i-wa" /></svg>Chat on WhatsApp</a>
             <a className="btn btn-ghost" href="#contact"><svg className="ic"><use href="#i-mail" /></svg>Send an email</a>
