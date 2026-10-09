@@ -565,10 +565,28 @@ textarea.field{ min-height:104px; resize:vertical; }
   .hero-grid{ grid-template-columns:1fr; gap:80px; }
   .scene-wrap{ margin:60px 0 20px; }
   .scene{ width:min(100%, 360px); }
-  .steps{ grid-template-columns:1fr; gap:26px; }
-  .steps::before{ top:22px; bottom:22px; left:21px; right:auto; width:2px; height:auto; }
-  .step{ padding-left:64px; }
-  .step .n{ position:absolute; left:0; top:0; margin:0; }
+  .steps{ 
+    display:flex; 
+    overflow-x:auto; 
+    scroll-snap-type:x mandatory; 
+    gap:20px; 
+    padding-bottom:16px;
+    margin: 0 -24px; /* bleed out of wrap */
+    padding: 0 24px 24px; /* inner padding */
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+  }
+  .steps::-webkit-scrollbar{ display:none; }
+  .steps::before{ display:none; }
+  .step{ 
+    flex:0 0 85%; 
+    scroll-snap-align:center; 
+    padding:24px; 
+    background:var(--surface); 
+    border:1px solid var(--line); 
+    border-radius:24px; 
+  }
+  .step .n{ position:relative; left:auto; top:auto; margin:0 0 16px 0; }
   .portrait{ max-width:380px; }
   .pkgs{ grid-template-columns:1fr; }
   .pkg.feat{ transform:none; }
