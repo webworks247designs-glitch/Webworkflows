@@ -21,7 +21,7 @@ export default function Contact() {
   const getMessage = () => {
     const need = selectedServices.length > 0 ? selectedServices.join(", ") : "a new website";
     const lines = [
-      `Hi Webworkflows, ${name ? `I'm ${name}.` : "I found your portfolio."}`,
+      `Hi Webworkflo's, ${name ? `I'm ${name}.` : "I found your portfolio."}`,
       `I'm looking for: ${need}.`,
       `Timeline: ${selectedWhen.toLowerCase()}.`
     ];

@@ -46,7 +46,7 @@ export default function Pricing() {
             </div>
 
             {/* Right Panel */}
-            <div className="panel p-mint" style={{ display: 'flex', flexDirection: 'column' }}>
+            <div className="panel panel-pricing-model" style={{ display: 'flex', flexDirection: 'column' }}>
               <h3 style={{ marginBottom: '16px' }}>Our Enquiry-Based Model</h3>
               
               <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px' }}>
@@ -64,7 +64,7 @@ export default function Pricing() {
                 <p style={{ fontSize: '0.85rem', margin: 0, opacity: 0.8 }}>Business-specific enquiry rate</p>
               </div>
               
-              <p style={{ background: 'rgba(255,255,255,0.2)', padding: '12px', borderRadius: '8px', fontWeight: 600, marginBottom: '24px' }}>
+              <p className="pricing-note-bg" style={{ padding: '12px', borderRadius: '8px', fontWeight: 600, marginBottom: '24px' }}>
                 No compulsory monthly website subscription.
               </p>
 

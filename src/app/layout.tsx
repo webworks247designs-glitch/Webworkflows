@@ -17,7 +17,7 @@ const figtree = Figtree({
 });
 
 export const metadata: Metadata = {
-  title: "Freelance Web Designer in Hyderabad | Webworkflows",
+  title: "Freelance Web Designer in Hyderabad | Webworkflo's",
   description:
     "Expert freelance web designer and frontend developer in Hyderabad. I design, build, and launch fast, good-looking websites for small businesses, start-ups, and creators.",
 };

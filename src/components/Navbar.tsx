@@ -30,7 +30,7 @@ export default function Navbar() {
         <div className="wrap nav-in">
           <a className="brand" href="#top">
             <span className="mark" aria-hidden="true"></span>
-            <span>Webworkflows</span>
+            <span>Webworkflo's</span>
           </a>
           <nav className="links" id="links" aria-label="Main">
             <a href="#work" onClick={() => setMenuOpen(false)}>Work</a>

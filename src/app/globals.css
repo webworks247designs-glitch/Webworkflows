@@ -9,29 +9,29 @@
   --vh:100vh;
 
   /* Vibrant Light Theme Colors */
-  --bg:#F8F9FE;
+  --bg:#F5F2ED;
   --surface:rgba(255, 255, 255, 0.7); /* Glassmorphic */
-  --ink:#05050A;
-  --muted:#5C617A;
-  --line:rgba(0, 0, 0, 0.08);
-  --line-strong:rgba(0, 0, 0, 0.18);
+  --ink:#136F3F;
+  --muted:#548261;
+  --line:rgba(19, 111, 63, 0.12);
+  --line-strong:rgba(19, 111, 63, 0.25);
 
-  --cobalt:#6E42FF; /* Neon Purple */
+  --cobalt:#156D38; /* Primary Green Accent */
   --on-cobalt:#FFFFFF;
-  --butter:#FFB800; /* Vibrant Yellow */
-  --mint:#FF2A85; /* Neon Pink */
-  --on-tint:#000000;
+  --butter:#C6DBBC; /* Light Sage Green */
+  --mint:#34965A; /* Vibrant Leaf Green */
+  --on-tint:#136F3F;
   --wa:#25D366;
   --on-wa:#FFFFFF;
 
-  --code-bg:#F0F2FA;
-  --code-fg:#14163A;
+  --code-bg:#E5EFE2;
+  --code-fg:#136F3F;
   --shade:#FFFFFF;
-  --shadow:0,0,0;
+  --shadow:21, 109, 56;
   
-  --h1-grad-start: #14163A;
-  --h1-grad-end: #6E42FF;
-  --ghost-border: rgba(0,0,0,0.15);
+  --h1-grad-start: #11532B;
+  --h1-grad-end: #34965A;
+  --ghost-border: rgba(19, 111, 63, 0.2);
 
   --display: var(--font-bricolage), 'Trebuchet MS', 'Segoe UI', system-ui, sans-serif;
   --body: var(--font-figtree), 'Segoe UI', system-ui, -apple-system, sans-serif;
@@ -53,10 +53,15 @@
     --line:rgba(255, 255, 255, 0.08);
     --line-strong:rgba(255, 255, 255, 0.18);
     --butter:#00F0FF; 
+    --mint:#FF2A85; /* Restore Neon Pink */
+    --cobalt:#6E42FF; /* Restore Neon Purple */
+    --on-cobalt:#FFFFFF;
+    --on-tint:#000000;
     --on-wa:#000000;
     --code-bg:#0A0C16;
     --code-fg:#DDE0FF;
     --shade:#000000;
+    --shadow:0,0,0;
     --h1-grad-start: #FFFFFF;
     --h1-grad-end: #A3A8D6;
     --ghost-border: rgba(255,255,255,0.15);
@@ -70,10 +75,15 @@
     --line:rgba(255, 255, 255, 0.08);
     --line-strong:rgba(255, 255, 255, 0.18);
     --butter:#00F0FF; 
+    --mint:#FF2A85; /* Restore Neon Pink */
+    --cobalt:#6E42FF; /* Restore Neon Purple */
+    --on-cobalt:#FFFFFF;
+    --on-tint:#000000;
     --on-wa:#000000;
     --code-bg:#0A0C16;
     --code-fg:#DDE0FF;
     --shade:#000000;
+    --shadow:0,0,0;
     --h1-grad-start: #FFFFFF;
     --h1-grad-end: #A3A8D6;
     --ghost-border: rgba(255,255,255,0.15);
@@ -208,12 +218,12 @@ img{ max-width:100%; }
   display: flex;
   align-items: center;
   gap: 8px;
-  background: rgba(20, 22, 36, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
   backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
   padding: 8px 16px;
   border-radius: 99px;
-  box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 15px 30px -10px rgba(var(--shadow), 0.25);
   white-space: nowrap;
   animation: float-bob 6s ease-in-out infinite;
 }
@@ -397,6 +407,15 @@ img{ max-width:100%; }
 .p-cobalt{ background:var(--cobalt); color:var(--on-cobalt); }
 .p-butter{ background:var(--butter); color:var(--on-tint); }
 .p-mint{ background:var(--mint); color:var(--on-tint); }
+
+.panel-pricing-model { background: var(--surface); border: 1px solid var(--line); }
+.pricing-note-bg { background: var(--code-bg); }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .panel-pricing-model { background: var(--mint); color: var(--on-tint); border: none; }
+  :root:not([data-theme="light"]) .pricing-note-bg { background: rgba(255,255,255,0.2); }
+}
+:root[data-theme="dark"] .panel-pricing-model { background: var(--mint); color: var(--on-tint); border: none; }
+:root[data-theme="dark"] .pricing-note-bg { background: rgba(255,255,255,0.2); }
 .p-ink{ background:var(--ink); color:var(--bg); }
 .svc-note{ margin-top:28px; display:flex; flex-wrap:wrap; align-items:center; gap:14px 22px; color:var(--muted); }
 
