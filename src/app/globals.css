@@ -112,7 +112,7 @@ h3{ font-size:1.35rem; letter-spacing:-.015em; line-height:1.15; }
 p{ margin:0; }
 a{ color:inherit; }
 ul{ margin:0; padding:0; list-style:none; }
-img{ max-width:100%; }
+img{ max-width:100%; height:auto; }
 .wrap{ max-width:1180px; margin:0 auto; padding:0 24px; }
 .sec{ padding:clamp(72px, 10vw, 136px) 0; }
 .sec-head{ max-width:660px; margin-bottom:clamp(32px, 5vw, 56px); }
@@ -534,12 +534,53 @@ textarea.field{ min-height:104px; resize:vertical; }
 /* ============================================================
    FOOTER + FAB
    ============================================================ */
-.foot{ padding:44px 0 56px; border-top:1px solid var(--line); }
+.foot{ padding:56px 0 44px; border-top:1px solid var(--line); background:var(--bg); }
 .foot-in{ display:flex; flex-wrap:wrap; gap:24px 40px; align-items:center; justify-content:space-between; }
-.foot nav{ display:flex; flex-wrap:wrap; gap:8px 22px; font-size:.97rem; }
-.foot nav a{ text-decoration:none; color:var(--muted); }
-.foot nav a:hover{ color:var(--ink); }
-.copy{ color:var(--muted); font-size:.92rem; }
+.foot-grid{ display:grid; grid-template-columns:1.3fr 1fr auto; gap:44px; align-items:start; }
+
+.foot-brand{ display:flex; flex-direction:column; gap:12px; max-width:320px; }
+.foot-desc{ color:var(--muted); font-size:.9rem; line-height:1.55; margin:0; }
+
+.foot-nav-col{ display:flex; flex-direction:column; gap:14px; }
+.foot-col-title{ font-size:.78rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); }
+.foot-nav{ display:grid; grid-template-columns:1fr 1fr; gap:10px 28px; font-size:.95rem; }
+.foot-nav a{ text-decoration:none; color:var(--muted); transition:color .2s ease; }
+.foot-nav a:hover{ color:var(--ink); }
+
+.foot-google{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:18px;
+  box-shadow:0 10px 28px -14px rgba(var(--shadow), 0.22);
+  transition:border-color .2s ease, transform .2s ease, box-shadow .2s ease;
+  overflow:hidden;
+}
+.foot-google:hover{
+  border-color:color-mix(in srgb, var(--cobalt) 40%, var(--line));
+  transform:translateY(-2px);
+  box-shadow:0 14px 32px -12px rgba(var(--shadow), 0.32);
+}
+.foot-google-link{
+  display:flex; flex-direction:column; align-items:center; gap:12px;
+  padding:16px 20px; text-decoration:none; color:inherit; text-align:center;
+}
+.foot-google-info{ display:flex; flex-direction:column; align-items:center; gap:4px; }
+.foot-google-header{ display:flex; align-items:center; gap:8px; }
+.foot-google-title{ font-size:.92rem; font-weight:700; color:var(--ink); }
+.foot-google-sub{ font-size:.78rem; color:var(--muted); }
+.foot-google-cta{ font-size:.78rem; font-weight:600; color:var(--cobalt); margin-top:2px; display:inline-flex; align-items:center; gap:4px; }
+.foot-google-qr-wrap{
+  background:#ffffff; padding:6px; border-radius:12px;
+  display:inline-flex; align-items:center; justify-content:center;
+  box-shadow:0 2px 8px rgba(0,0,0,0.06);
+}
+.foot-google-qr{ border-radius:8px; display:block; }
+
+.foot-bottom{
+  margin-top:40px; padding-top:24px; border-top:1px solid var(--line);
+  display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;
+}
+.copy{ color:var(--muted); font-size:.9rem; }
 .fab{
   position:fixed; right:calc(16px + env(safe-area-inset-right, 0px)); bottom:calc(16px + env(safe-area-inset-bottom, 0px)); z-index:60;
   display:flex; align-items:center; gap:10px; padding:14px 20px 14px 16px; border-radius:999px;
@@ -605,6 +646,19 @@ textarea.field{ min-height:104px; resize:vertical; }
   .svc-grid{ grid-template-columns:1fr; }
   .why{ grid-template-columns:1fr; }
   .about-grid{ grid-template-columns:1fr; }
+  .foot{ padding:44px 0 84px; }
+  .foot-grid{ display:flex; flex-direction:column; gap:28px; }
+  .foot-brand{ max-width:100%; }
+  .foot-nav{ grid-template-columns:1fr 1fr; gap:10px 24px; }
+  .foot-google{ width:100%; }
+  .foot-google-link{
+    flex-direction:row; align-items:center; justify-content:space-between;
+    text-align:left; padding:14px 18px; gap:14px;
+  }
+  .foot-google-info{ align-items:flex-start; gap:4px; flex:1; }
+  .foot-google-qr-wrap{ padding:4px; border-radius:10px; flex-shrink:0; }
+  .foot-google-qr{ width:72px !important; height:72px !important; }
+  .foot-bottom{ margin-top:28px; padding-top:18px; }
 }
 @media (max-width:560px){
   .wrap{ padding:0 18px; }
