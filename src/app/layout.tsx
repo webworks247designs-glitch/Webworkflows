@@ -11,7 +11,6 @@ const bricolage = Bricolage_Grotesque({
 
 const figtree = Figtree({
   variable: "--font-figtree",
-  weight: ["400", "500", "600", "700"],
   subsets: ["latin"],
   display: "swap",
 });
