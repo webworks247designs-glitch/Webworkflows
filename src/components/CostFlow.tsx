@@ -1,40 +1,194 @@
+"use client";
+
+import { useState } from "react";
+import Image from "next/image";
+
+const EXAMPLES = [
+  {
+    id: "restaurant",
+    name: "Restaurant",
+    icon: "🍽️",
+    launch: "₹3,000",
+    hosting: "Actual cost (~₹0)",
+    enquiryType: "Table reservation / online order",
+    rate: "₹100",
+    leads: "15",
+    totalCharge: "₹1,500",
+    estimatedValue: "₹15,000+",
+    image: "/images/boathouse1.png",
+    exampleText: "If 15 table reservations or dining orders are generated, your enquiry investment is ₹1,500 for over ₹15,000+ in dining receipts.",
+  },
+  {
+    id: "salon",
+    name: "Men's Salon",
+    icon: "✂️",
+    launch: "₹3,000",
+    hosting: "Actual cost (~₹0)",
+    enquiryType: "Haircut & grooming appointment",
+    rate: "₹80",
+    leads: "25",
+    totalCharge: "₹2,000",
+    estimatedValue: "₹18,000+",
+    image: "/images/salon1.png",
+    exampleText: "If 25 grooming appointments are booked through the website, your enquiry cost is ₹2,000, bringing in repeat clients worth thousands.",
+  },
+  {
+    id: "bakery",
+    name: "Bakery / Cafe",
+    icon: "🥐",
+    launch: "₹3,000",
+    hosting: "Actual cost (~₹0)",
+    enquiryType: "Custom cake / catering preorder",
+    rate: "₹120",
+    leads: "10",
+    totalCharge: "₹1,200",
+    estimatedValue: "₹22,000+",
+    image: "/images/bakery-showcase.jpg",
+    exampleText: "High-ticket custom cakes or event catering enquiries at ₹120 each generate substantial profit margins on every confirmed bake.",
+  },
+  {
+    id: "clinic",
+    name: "Physio / Clinic",
+    icon: "🩺",
+    launch: "₹3,000",
+    hosting: "Actual cost (~₹0)",
+    enquiryType: "Consultation appointment",
+    rate: "₹150",
+    leads: "20",
+    totalCharge: "₹3,000",
+    estimatedValue: "₹30,000+",
+    image: "/images/clinic-showcase.jpg",
+    exampleText: "A clinic charging ₹1,500 per session pays just ₹150 for a patient who often requires 4 to 8 follow-up sessions.",
+  },
+  {
+    id: "ecommerce",
+    name: "Boutique Store",
+    icon: "🛍️",
+    launch: "₹3,000",
+    hosting: "Actual cost (~₹0)",
+    enquiryType: "Curated order / bulk enquiry",
+    rate: "₹100",
+    leads: "30",
+    totalCharge: "₹3,000",
+    estimatedValue: "₹45,000+",
+    image: "/images/ecommerce-showcase.jpg",
+    exampleText: "Bespoke home decor orders and bulk corporate gifting requests generate high-margin turnover with direct UPI payments.",
+  },
+];
+
 export default function CostFlow() {
+  const [activeIdx, setActiveIdx] = useState(0);
+  const cur = EXAMPLES[activeIdx];
+
   return (
     <section className="sec" id="cost-flow" style={{ paddingTop: 0 }}>
       <div className="wrap">
         
-        {/* EXAMPLE */}
-        <div style={{ maxWidth: '600px', margin: '0 auto', background: 'var(--surface)', border: '1px solid var(--line)', borderRadius: '16px', padding: '32px' }}>
-          <span style={{ display: 'block', color: 'var(--muted)', fontSize: '0.95rem', fontWeight: 600, letterSpacing: '0.05em', textTransform: 'uppercase', marginBottom: '24px' }}>Example of Our Model</span>
-          <h3 style={{ marginBottom: '24px' }}>Restaurant</h3>
-          
-          <ul style={{ display: 'grid', gap: '16px', marginBottom: '32px', borderBottom: '1px solid var(--line)', paddingBottom: '32px' }}>
-            <li style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <span style={{ color: 'var(--muted)' }}>Launch & Infrastructure:</span>
-              <span style={{ fontWeight: 600 }}>₹3,000</span>
-            </li>
-            <li style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <span style={{ color: 'var(--muted)' }}>Hosting:</span>
-              <span style={{ fontWeight: 600 }}>Actual cost</span>
-            </li>
-            <li style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <span style={{ color: 'var(--muted)' }}>Qualified enquiry rate:</span>
-              <span style={{ fontWeight: 600, textAlign: 'right' }}>Set according to the business</span>
-            </li>
-            <li style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <span style={{ color: 'var(--muted)' }}>Website enquiries:</span>
-              <span style={{ fontWeight: 600, textAlign: 'right' }}>Measured through the website</span>
-            </li>
-          </ul>
+        <div className="sec-head" style={{ textAlign: 'center', marginInline: 'auto' }}>
+          <h2>Interactive Model Simulator</h2>
+          <p>Select your business type to see how the one-time launch and pay-per-enquiry model works in practice:</p>
+        </div>
 
-          <div style={{ background: 'var(--bg)', padding: '24px', borderRadius: '12px', border: '1px solid var(--line)' }}>
-            <p style={{ margin: 0, fontWeight: 500, lineHeight: 1.6 }}>
-              Example:<br/>
-              If a restaurant's agreed enquiry rate is ₹100 and the website generates 12 qualified enquiries, the enquiry charge is ₹1,200.
-            </p>
+        {/* Industry Selector Pills */}
+        <div style={{ display: 'flex', gap: '8px', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '32px' }}>
+          {EXAMPLES.map((ex, idx) => (
+            <button
+              key={ex.id}
+              type="button"
+              onClick={() => setActiveIdx(idx)}
+              className={`sample-pill ${activeIdx === idx ? 'active' : ''}`}
+            >
+              <span>{ex.icon}</span>
+              <span>{ex.name}</span>
+            </button>
+          ))}
+        </div>
+
+        {/* Simulator Card */}
+        <div style={{ 
+          maxWidth: '880px', 
+          margin: '0 auto', 
+          background: 'var(--surface)', 
+          border: '1px solid var(--line)', 
+          borderRadius: '24px', 
+          padding: 'clamp(20px, 4vw, 36px)',
+          boxShadow: '0 20px 50px -20px rgba(var(--shadow), 0.3)'
+        }}>
+          
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '32px', alignItems: 'center' }}>
+            
+            {/* Left: Financial Breakdown */}
+            <div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '20px' }}>
+                <span style={{ fontSize: '1.6rem' }}>{cur.icon}</span>
+                <h3 style={{ margin: 0, fontSize: '1.4rem' }}>{cur.name}</h3>
+              </div>
+              
+              <ul style={{ display: 'grid', gap: '14px', marginBottom: '24px', borderBottom: '1px solid var(--line)', paddingBottom: '24px' }}>
+                <li style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <span style={{ color: 'var(--muted)', fontSize: '0.92rem' }}>Launch &amp; Infrastructure:</span>
+                  <span style={{ fontWeight: 700, color: 'var(--ink)' }}>{cur.launch}</span>
+                </li>
+                <li style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <span style={{ color: 'var(--muted)', fontSize: '0.92rem' }}>Cloud Hosting:</span>
+                  <span style={{ fontWeight: 700, color: 'var(--ink)' }}>{cur.hosting}</span>
+                </li>
+                <li style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <span style={{ color: 'var(--muted)', fontSize: '0.92rem' }}>Enquiry Type:</span>
+                  <span style={{ fontWeight: 600, color: 'var(--cobalt)', fontSize: '0.88rem', textAlign: 'right' }}>{cur.enquiryType}</span>
+                </li>
+                <li style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <span style={{ color: 'var(--muted)', fontSize: '0.92rem' }}>Agreed Enquiry Rate:</span>
+                  <span style={{ fontWeight: 700, color: 'var(--wa)' }}>{cur.rate} / lead</span>
+                </li>
+              </ul>
+
+              <div style={{ background: 'var(--bg)', padding: '16px', borderRadius: '14px', border: '1px solid var(--line)' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
+                  <span style={{ fontSize: '0.82rem', color: 'var(--muted)' }}>Example: {cur.leads} verified enquiries</span>
+                  <span style={{ fontSize: '0.82rem', fontWeight: 700, color: 'var(--ink)' }}>{cur.totalCharge} charge</span>
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', paddingTop: '8px', borderTop: '1px dashed var(--line)' }}>
+                  <span style={{ fontSize: '0.84rem', fontWeight: 600, color: 'var(--muted)' }}>Est. Business Revenue:</span>
+                  <span style={{ fontSize: '0.9rem', fontWeight: 800, color: 'var(--mint)' }}>{cur.estimatedValue}</span>
+                </div>
+                <p style={{ margin: '12px 0 0', fontSize: '0.82rem', color: 'var(--muted)', lineHeight: 1.5 }}>
+                  {cur.exampleText}
+                </p>
+              </div>
+            </div>
+
+            {/* Right: Visual Sample Preview */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              <div style={{ 
+                position: 'relative', 
+                width: '100%', 
+                aspectRatio: '16/10', 
+                borderRadius: '16px', 
+                overflow: 'hidden', 
+                border: '1px solid var(--line)',
+                boxShadow: '0 12px 28px -12px rgba(0,0,0,0.5)'
+              }}>
+                <Image
+                  src={cur.image}
+                  alt={`${cur.name} Website Sample`}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 400px"
+                  style={{ objectFit: 'cover', objectPosition: 'top' }}
+                />
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <span style={{ fontSize: '0.78rem', color: 'var(--muted)' }}>Design Sample</span>
+                <a href="#contact" className="btn btn-ghost btn-sm" style={{ padding: '6px 14px', fontSize: '0.8rem' }}>
+                  Get estimate for your business &rarr;
+                </a>
+              </div>
+            </div>
+
           </div>
-          <p style={{ color: 'var(--muted)', fontSize: '0.85rem', marginTop: '16px', fontStyle: 'italic', textAlign: 'center' }}>
-            * The actual enquiry rate is agreed before launch.
+
+          <p style={{ color: 'var(--muted)', fontSize: '0.82rem', marginTop: '24px', fontStyle: 'italic', textAlign: 'center', marginInline: 'auto', maxWidth: '600px' }}>
+            * The enquiry rate is mutually agreed upon before launch, specifically aligned with your average order or customer transaction value.
           </p>
         </div>
 

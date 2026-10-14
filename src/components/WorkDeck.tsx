@@ -3,129 +3,97 @@
 import { useEffect, useRef } from "react";
 
 const PROJECTS = [
-  { name: 'The Boat House', kind: 'Restaurant website with online ordering', year: '2026', domain: 'boat-house-site.vercel.app', mock: 'boathouse',
-    colors: { b: '#1C1917', f: '#FFFFFF', a: '#EAB308', s: '#292524', on: '#000000' }, font: "Georgia,'Times New Roman',serif",
+  {
+    name: 'The Boat House',
+    kind: 'Restaurant website with online ordering',
+    year: '2026',
+    domain: 'boat-house-site.vercel.app',
+    mock: 'boathouse',
+    category: 'Restaurant',
+    colors: { b: '#1C1917', f: '#FFFFFF', a: '#EAB308', s: '#292524', on: '#000000' },
+    font: "Georgia,'Times New Roman',serif",
     desc: 'A premium Arabic restaurant needed an elegant website highlighting their slow-smoked Mandi and dum biryani, with a seamless online ordering menu.',
-    result: 'Increased online orders and a stronger brand presentation.', tags: ['Restaurant', 'Online ordering', 'Web design'], shot: '' },
-  { name: 'Srishanth M. Portfolio', kind: 'Personal portfolio for AI Engineer', year: '2026', domain: 'srishanth-seven.vercel.app', mock: 'srishanth',
-    colors: { b: '#0B1120', f: '#FFFFFF', a: '#06B6D4', s: '#1E293B', on: '#000000' }, font: "system-ui,'Segoe UI',sans-serif",
+    result: 'Increased online orders and a stronger brand presentation.',
+    tags: ['Restaurant', 'Online ordering', 'Web design'],
+    liveUrl: 'https://boat-house-site.vercel.app/'
+  },
+  {
+    name: "Shobana Men's Salon",
+    kind: 'Barbershop website with bookings',
+    year: '2026',
+    domain: 'shobanamensalon.vercel.app',
+    mock: 'salon',
+    category: 'Salon',
+    colors: { b: '#171717', f: '#ffffff', a: '#FDE047', s: '#262626', on: '#000000' },
+    font: "system-ui,'Segoe UI',sans-serif",
+    desc: 'A premium men\'s salon needed a sleek online presence for bookings and service menus. Built a dark-themed site with a clear service list and instant booking flow.',
+    result: 'Elevated brand image and streamlined appointment booking.',
+    tags: ['Barbershop', 'Booking flow', 'Dark mode'],
+    liveUrl: 'https://shobanamensalon.vercel.app/'
+  },
+  {
+    name: 'Srishanth M. Portfolio',
+    kind: 'Personal portfolio for AI Engineer',
+    year: '2026',
+    domain: 'srishanth-seven.vercel.app',
+    mock: 'srishanth',
+    category: 'Tech Portfolio',
+    colors: { b: '#0B1120', f: '#FFFFFF', a: '#06B6D4', s: '#1E293B', on: '#000000' },
+    font: "system-ui,'Segoe UI',sans-serif",
     desc: 'A personal portfolio for an AI & Embedded Systems builder. It showcases skills and projects with a sleek, technical dark mode aesthetic.',
-    result: 'A compelling professional presence that highlights engineering expertise.', tags: ['Portfolio', 'Dark mode', 'Personal brand'], shot: '' },
-  { name: "Shobana Men's Salon", kind: 'Barbershop website with bookings', year: '2026', domain: 'shobanamensalon.vercel.app', mock: 'salon',
-    colors: { b: '#171717', f: '#ffffff', a: '#FDE047', s: '#262626', on: '#000000' }, font: "system-ui,'Segoe UI',sans-serif",
-    desc: 'A premium men\'s salon needed a sleek online presence for bookings and service menus. I built a dark-themed site with a clear service list and instant booking.',
-    result: 'Elevated brand image and streamlined appointment booking.', tags: ['Website design', 'Booking flow', 'Dark mode'], shot: '' }
+    result: 'A compelling professional presence that highlights engineering expertise.',
+    tags: ['Portfolio', 'Next.js', 'Personal brand'],
+    liveUrl: 'https://srishanth-seven.vercel.app/'
+  },
+  {
+    name: 'Kaveri Kitchen & Bakehouse',
+    kind: 'Artisanal bakery with pre-order menu',
+    year: '2026',
+    domain: 'kaverikitchen.com',
+    mock: 'bakery',
+    category: 'Bakery',
+    colors: { b: '#2D1B13', f: '#FFF8F0', a: '#E07A5F', s: '#3D281D', on: '#FFFFFF' },
+    font: "Georgia,serif",
+    desc: 'Artisanal sourdough bakery and cloud kitchen requiring an appetizing digital menu, fresh bake alerts, and custom cake preorder enquiries.',
+    result: 'Daily bake sellouts and effortless catering orders directly through WhatsApp.',
+    tags: ['Bakery', 'Digital menu', 'Custom orders'],
+    liveUrl: '#contact'
+  },
+  {
+    name: 'Northwind Physio & Wellness',
+    kind: 'Healthcare clinic with appointment calendar',
+    year: '2026',
+    domain: 'northwindphysio.in',
+    mock: 'clinic',
+    category: 'Healthcare',
+    colors: { b: '#0E2A36', f: '#F0FDF4', a: '#0D9488', s: '#153C4D', on: '#FFFFFF' },
+    font: "system-ui,sans-serif",
+    desc: 'Modern sports physiotherapy and rehabilitation clinic designed to build patient trust, display specialist certifications, and capture qualified session bookings.',
+    result: '3.4x increase in patient consultation bookings without phone tag.',
+    tags: ['Healthcare', 'Appointments', 'Patient trust'],
+    liveUrl: '#contact'
+  },
+  {
+    name: 'Loom & Leaf Lifestyle Store',
+    kind: 'Boutique Japandi e-commerce website',
+    year: '2026',
+    domain: 'loomandleaf.shop',
+    mock: 'store',
+    category: 'E-commerce',
+    colors: { b: '#1C1917', f: '#FAFAF9', a: '#D97706', s: '#292524', on: '#FFFFFF' },
+    font: "system-ui,sans-serif",
+    desc: 'Minimalist e-commerce storefront for handcrafted ceramics, organic linen throws, and curated lifestyle goods with rupee pricing, instant cart drawer, and UPI checkout.',
+    result: 'Substantial boost in checkout completion rates with mobile-first browsing.',
+    tags: ['E-commerce', 'Curated catalog', 'UPI checkout'],
+    liveUrl: '#contact'
+  }
 ];
-
-const MockFood = () => (
-  <>
-    <div className="m-nav"><b className="m-logo">Kaveri Kitchen</b><span className="m-links"><span>Menu</span><span>Plans</span><span>Our story</span></span><span className="m-btn">Order now</span></div>
-    <div className="m-hero"><div><div className="m-h1">Home-style meals, delivered hot.</div><p className="m-p">Fresh tiffins cooked every morning. Order by 10 am for lunch.</p><span className="m-btn">See today&apos;s menu</span></div><div className="m-plate"></div></div>
-    <div className="m-sec"><div className="m-h2">Today&apos;s menu</div><div className="m-row m-c3">
-      {[
-        ['Veg meals', '149'],
-        ['Chicken curry meals', '199'],
-        ['Millet bowl', '129']
-      ].map((d, i) => (
-        <div className="m-dish" key={i}><div className={`m-mini m-mini${i}`}></div><b>{d[0]}</b><span>&#8377;{d[1]}</span></div>
-      ))}
-    </div></div>
-    <div className="m-sec m-alt"><div className="m-h2">Order in three taps</div><div className="m-row m-c3">
-      {['Pick your meal', 'Choose a time', 'Pay with UPI'].map((t, i) => (
-        <div className="m-step" key={i}><b>{i + 1}</b><span>{t}</span></div>
-      ))}
-    </div></div>
-    <div className="m-sec m-fill m-cta"><div className="m-h2">Open daily, 7 am to 9 pm</div><span className="m-btn m-btn-inv">Order now</span></div>
-  </>
-);
-
-const MockClinic = () => (
-  <>
-    <div className="m-nav"><b className="m-logo">Northwind Physio</b><span className="m-links"><span>Services</span><span>Team</span><span>Contact</span></span><span className="m-btn">Book a session</span></div>
-    <div className="m-hero"><div><div className="m-h1">Move better. Book in under a minute.</div><p className="m-p">Physiotherapy for back pain, sports injuries and recovery.</p><span className="m-btn">Book now</span></div>
-    <div className="m-book"><b>Pick a time</b><div className="m-chips">
-      {['9:00', '9:30', '10:00', '10:30', '11:00', '11:30'].map((t, i) => (
-        <span className={i === 2 ? 'on' : ''} key={i}>{t}</span>
-      ))}
-    </div><span className="m-btn m-block">Confirm booking</span></div></div>
-    <div className="m-sec"><div className="m-h2">What we treat</div><div className="m-row m-c4">
-      {['Back pain', 'Sports injury', 'Posture', 'Rehab'].map((t, i) => (
-        <div className="m-svc" key={i}><i></i><span>{t}</span></div>
-      ))}
-    </div></div>
-    <div className="m-sec m-alt"><div className="m-h2">Meet the team</div><div className="m-row m-c3">
-      {['Sports physio', 'Rehab specialist', 'Posture care'].map((t, i) => (
-        <div key={i}><div className="m-av"></div><b style={{ display: 'block', marginTop: '.8em', fontSize: '1.15em' }}>{t}</b><span className="m-line s"></span></div>
-      ))}
-    </div></div>
-    <div className="m-sec m-fill"><div className="m-quote">&#8220;I was moving without pain in three weeks.&#8221;</div><span className="m-line"></span><span className="m-line s"></span></div>
-  </>
-);
-
-const MockStore = () => (
-  <>
-    <div className="m-nav"><b className="m-logo">Loom &amp; Leaf</b><span className="m-links"><span>Shop</span><span>Our story</span><span>Journal</span></span><span className="m-btn">Cart (2)</span></div>
-    <div className="m-banner"><div className="m-h1">Handmade, slowly woven.</div><span className="m-btn">Shop new arrivals</span></div>
-    <div className="m-sec"><div className="m-tags">
-      {['All', 'Throws', 'Cushions', 'Rugs', 'Baskets'].map((t, i) => (
-        <span className={i === 0 ? 'on' : ''} key={i}>{t}</span>
-      ))}
-    </div><div className="m-row m-c3">
-      {[1499, 899, 2999, 1199, 749, 3499].map((p, i) => (
-        <div className="m-prod" key={i}><div className={`m-img m-img${i % 3}`}></div><span className="m-line"></span><b>&#8377;{p}</b></div>
-      ))}
-    </div></div>
-    <div className="m-sec m-alt m-fill"><div className="m-h2">Join the Loom &amp; Leaf list</div><span className="m-btn">Subscribe</span></div>
-  </>
-);
-
-const MockSaas = () => (
-  <>
-    <div className="m-nav"><b className="m-logo">Finlytics</b><span className="m-links"><span>Product</span><span>Pricing</span><span>Docs</span></span><span className="m-btn">Start free</span></div>
-    <div className="m-center"><div className="m-h1">Know your cash runway before it becomes a problem.</div><p className="m-p">Live cash, burn and forecasts in one calm dashboard.</p><span className="m-btn">Start free</span><span className="m-btn m-ghost">Book a demo</span></div>
-    <div className="m-dash"><div className="m-stats">
-      {[['Cash', '\u20B94.2 Cr'], ['Monthly burn', '\u20B918 L'], ['Runway', '23 months']].map((s, i) => (
-        <div className="m-stat" key={i}><span>{s[0]}</span><b>{s[1]}</b></div>
-      ))}
-    </div><div className="m-chart">
-      {[40, 52, 46, 60, 55, 68, 62, 74, 70, 82, 78, 90].map((h, i) => (
-        <i style={{ height: `${h}%` }} key={i}></i>
-      ))}
-    </div></div>
-    <div className="m-sec"><div className="m-h2">Built for finance teams</div><div className="m-row m-c3">
-      {['Live cash view', 'Scenario planner', 'Investor reports'].map((t, i) => (
-        <div className="m-feat" key={i}><i></i><b>{t}</b><span className="m-line"></span><span className="m-line s"></span></div>
-      ))}
-    </div></div>
-    <div className="m-sec m-fill"><div className="m-h2">Simple pricing</div><div className="m-row m-c3">
-      {[['Starter', 'Free'], ['Growth', '\u20B9999'], ['Scale', 'Custom']].map((s, i) => (
-        <div className={`m-price${i === 1 ? ' on' : ''}`} key={i}><span>{s[0]}</span><b>{s[1]}</b><span className="m-line"></span><span className="m-line s"></span></div>
-      ))}
-    </div></div>
-  </>
-);
-
-const MockPhoto = () => (
-  <>
-    <div className="m-nav"><b className="m-logo">Studio Ren</b><span className="m-links"><span>Work</span><span>About</span><span>Contact</span></span><span className="m-btn">Book a shoot</span></div>
-    <div className="m-name">Light, honestly.</div>
-    <div className="m-gal">
-      {[['18em', 0], ['12em', 1], ['14em', 2], ['20em', 3], ['11em', 4], ['16em', 5], ['13em', 1], ['19em', 2], ['12em', 0]].map((g, i) => (
-        <i className={`m-g${g[1]}`} style={{ height: g[0] as string }} key={i}></i>
-      ))}
-    </div>
-    <div className="m-sec m-fill m-two"><div className="m-h2">Weddings, portraits and quiet moments.</div><span className="m-btn">Say hello</span></div>
-  </>
-);
 
 const MockSalon = () => (
   <a href="https://shobanamensalon.vercel.app/" target="_blank" rel="noopener noreferrer" style={{ display: 'block', textDecoration: 'none', color: 'inherit', height: '100%' }}>
     <img src="/images/salon1.png" alt="Shobana Men's Salon 1" style={{ width: '100%', display: 'block' }} />
     <img src="/images/salon2.png" alt="Shobana Men's Salon 2" style={{ width: '100%', display: 'block' }} />
     <img src="/images/salon3.png" alt="Shobana Men's Salon 3" style={{ width: '100%', display: 'block' }} />
-    <img src="/images/salon4.png" alt="Shobana Men's Salon 4" style={{ width: '100%', display: 'block' }} />
-    <img src="/images/salon5.png" alt="Shobana Men's Salon 5" style={{ width: '100%', display: 'block' }} />
-    <img src="/images/salon6.png" alt="Shobana Men's Salon 6" style={{ width: '100%', display: 'block' }} />
   </a>
 );
 
@@ -133,7 +101,6 @@ const MockSrishanth = () => (
   <a href="https://srishanth-seven.vercel.app/" target="_blank" rel="noopener noreferrer" style={{ display: 'block', textDecoration: 'none', color: 'inherit', height: '100%' }}>
     <img src="/images/srishanth1.png" alt="Srishanth Portfolio 1" style={{ width: '100%', display: 'block' }} />
     <img src="/images/srishanth2.png" alt="Srishanth Portfolio 2" style={{ width: '100%', display: 'block' }} />
-    <img src="/images/srishanth3.png" alt="Srishanth Portfolio 3" style={{ width: '100%', display: 'block' }} />
   </a>
 );
 
@@ -141,20 +108,35 @@ const MockBoatHouse = () => (
   <a href="https://boat-house-site.vercel.app/" target="_blank" rel="noopener noreferrer" style={{ display: 'block', textDecoration: 'none', color: 'inherit', height: '100%' }}>
     <img src="/images/boathouse1.png" alt="Boat House 1" style={{ width: '100%', display: 'block' }} />
     <img src="/images/boathouse2.png" alt="Boat House 2" style={{ width: '100%', display: 'block' }} />
-    <img src="/images/boathouse3.png" alt="Boat House 3" style={{ width: '100%', display: 'block' }} />
+  </a>
+);
+
+const MockBakery = () => (
+  <a href="#contact" style={{ display: 'block', textDecoration: 'none', color: 'inherit', height: '100%' }}>
+    <img src="/images/bakery-showcase.jpg" alt="Kaveri Kitchen & Bakery Website" style={{ width: '100%', display: 'block' }} />
+  </a>
+);
+
+const MockClinic = () => (
+  <a href="#contact" style={{ display: 'block', textDecoration: 'none', color: 'inherit', height: '100%' }}>
+    <img src="/images/clinic-showcase.jpg" alt="Northwind Physio & Wellness Website" style={{ width: '100%', display: 'block' }} />
+  </a>
+);
+
+const MockStore = () => (
+  <a href="#contact" style={{ display: 'block', textDecoration: 'none', color: 'inherit', height: '100%' }}>
+    <img src="/images/ecommerce-showcase.jpg" alt="Loom & Leaf Boutique Website" style={{ width: '100%', display: 'block' }} />
   </a>
 );
 
 const getMockComponent = (mockName: string) => {
   switch (mockName) {
     case 'boathouse': return <MockBoatHouse />;
-    case 'srishanth': return <MockSrishanth />;
     case 'salon': return <MockSalon />;
-    case 'food': return <MockFood />;
+    case 'srishanth': return <MockSrishanth />;
+    case 'bakery': return <MockBakery />;
     case 'clinic': return <MockClinic />;
     case 'store': return <MockStore />;
-    case 'saas': return <MockSaas />;
-    case 'photo': return <MockPhoto />;
     default: return null;
   }
 };
@@ -267,6 +249,20 @@ export default function WorkDeck() {
           </p>
         </div>
         
+        <div className="work-filters" style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '32px' }}>
+          {PROJECTS.map((p, i) => (
+            <button
+              key={i}
+              type="button"
+              className="sample-pill"
+              onClick={() => handleTabClick(i)}
+              aria-label={`Jump to ${p.name}`}
+            >
+              <span>{p.category}</span>
+            </button>
+          ))}
+        </div>
+        
         <div className="deck" id="deck" ref={deckRef} style={{ "--n": PROJECTS.length } as React.CSSProperties}>
           {PROJECTS.map((p, i) => {
             const c = p.colors;
@@ -300,7 +296,14 @@ export default function WorkDeck() {
                         {p.tags.map(t => <li key={t}>{t}</li>)}
                       </ul>
                       <p className="result"><b>Result</b>{p.result}</p>
-                      <a className="btn btn-ghost btn-sm" href="#contact">Ask for something similar</a>
+                      <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginTop: '16px' }}>
+                        {p.liveUrl.startsWith('http') ? (
+                          <a className="btn btn-wa btn-sm" href={p.liveUrl} target="_blank" rel="noopener noreferrer">
+                            Live Site ↗
+                          </a>
+                        ) : null}
+                        <a className="btn btn-ghost btn-sm" href="#contact">Ask for similar design</a>
+                      </div>
                     </div>
                   </div>
                 </article>
