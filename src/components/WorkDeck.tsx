@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { getWhatsAppGrowthPlanLink, trackFunnelEvent } from "@/lib/analytics";
 
 const PROJECTS = [
   {
@@ -10,11 +11,14 @@ const PROJECTS = [
     domain: 'boat-house-site.vercel.app',
     mock: 'boathouse',
     category: 'Restaurant',
+    status: 'Verified Live Site',
     colors: { b: '#1C1917', f: '#FFFFFF', a: '#EAB308', s: '#292524', on: '#000000' },
     font: "Georgia,'Times New Roman',serif",
-    desc: 'A premium Arabic restaurant needed an elegant website highlighting their slow-smoked Mandi and dum biryani, with a seamless online ordering menu.',
-    result: 'Increased online orders and a stronger brand presentation.',
-    tags: ['Restaurant', 'Online ordering', 'Web design'],
+    desc: 'Slow-smoked Mandi and dum biryani fine dining website in Hyderabad. Features high-res food showcases, an interactive digital menu, and 1-tap table reservation enquiries directly via WhatsApp.',
+    result: 'Live online ordering system eliminating delivery aggregator commissions.',
+    proofTag: '🟢 Verified Live Deployment',
+    clientQuote: 'Seamless digital menu with instant WhatsApp reservation tracking.',
+    tags: ['Restaurant', 'Online ordering', 'Digital Menu', 'WhatsApp Direct'],
     liveUrl: 'https://boat-house-site.vercel.app/'
   },
   {
@@ -23,12 +27,15 @@ const PROJECTS = [
     year: '2026',
     domain: 'shobanamensalon.vercel.app',
     mock: 'salon',
-    category: 'Salon',
+    category: 'Luxury Salon',
+    status: 'Verified Live Site',
     colors: { b: '#171717', f: '#ffffff', a: '#FDE047', s: '#262626', on: '#000000' },
     font: "system-ui,'Segoe UI',sans-serif",
-    desc: 'A premium men\'s salon needed a sleek online presence for bookings and service menus. Built a dark-themed site with a clear service list and instant booking flow.',
-    result: 'Elevated brand image and streamlined appointment booking.',
-    tags: ['Barbershop', 'Booking flow', 'Dark mode'],
+    desc: 'Premium men\'s grooming studio in Hyderabad. Built a dark luxury digital presence with live service menus, hair styling packages, and an interactive appointment slot selector.',
+    result: '5 leads captured → 2 verified billable appointments billed at ₹200 total under our pay-per-lead model.',
+    proofTag: '★★★★★ 5.0 Google Review',
+    clientQuote: '"i made my salon online and i loved the service,its oustanding." — Saikrishna Konduri (Owner)',
+    tags: ['Barbershop', 'Slot Booking', 'Dark Mode', 'Pay-Per-Enquiry'],
     liveUrl: 'https://shobanamensalon.vercel.app/'
   },
   {
@@ -38,54 +45,15 @@ const PROJECTS = [
     domain: 'srishanth-seven.vercel.app',
     mock: 'srishanth',
     category: 'Tech Portfolio',
+    status: 'Verified Live Site',
     colors: { b: '#0B1120', f: '#FFFFFF', a: '#06B6D4', s: '#1E293B', on: '#000000' },
     font: "system-ui,'Segoe UI',sans-serif",
-    desc: 'A personal portfolio for an AI & Embedded Systems builder. It showcases skills and projects with a sleek, technical dark mode aesthetic.',
-    result: 'A compelling professional presence that highlights engineering expertise.',
-    tags: ['Portfolio', 'Next.js', 'Personal brand'],
+    desc: 'High-performance Next.js portfolio for an AI & Embedded Systems engineer. Highlights open-source publications, dynamic tech stack tokens, and interactive project cards with sub-second load times.',
+    result: '0.3s Core Web Vitals score and an authoritative technical presence for global recruiters.',
+    proofTag: '★★★★★ 5.0 Google Review',
+    clientQuote: '"I made a portfolio for me and i liked it a lot....." — Srishanth Madanapally',
+    tags: ['Next.js', 'AI & Embedded', 'Speed 99', 'Personal Brand'],
     liveUrl: 'https://srishanth-seven.vercel.app/'
-  },
-  {
-    name: 'Kaveri Kitchen & Bakehouse',
-    kind: 'Artisanal bakery with pre-order menu',
-    year: '2026',
-    domain: 'kaverikitchen.com',
-    mock: 'bakery',
-    category: 'Bakery',
-    colors: { b: '#2D1B13', f: '#FFF8F0', a: '#E07A5F', s: '#3D281D', on: '#FFFFFF' },
-    font: "Georgia,serif",
-    desc: 'Artisanal sourdough bakery and cloud kitchen requiring an appetizing digital menu, fresh bake alerts, and custom cake preorder enquiries.',
-    result: 'Daily bake sellouts and effortless catering orders directly through WhatsApp.',
-    tags: ['Bakery', 'Digital menu', 'Custom orders'],
-    liveUrl: '#contact'
-  },
-  {
-    name: 'Northwind Physio & Wellness',
-    kind: 'Healthcare clinic with appointment calendar',
-    year: '2026',
-    domain: 'northwindphysio.in',
-    mock: 'clinic',
-    category: 'Healthcare',
-    colors: { b: '#0E2A36', f: '#F0FDF4', a: '#0D9488', s: '#153C4D', on: '#FFFFFF' },
-    font: "system-ui,sans-serif",
-    desc: 'Modern sports physiotherapy and rehabilitation clinic designed to build patient trust, display specialist certifications, and capture qualified session bookings.',
-    result: '3.4x increase in patient consultation bookings without phone tag.',
-    tags: ['Healthcare', 'Appointments', 'Patient trust'],
-    liveUrl: '#contact'
-  },
-  {
-    name: 'Loom & Leaf Lifestyle Store',
-    kind: 'Boutique Japandi e-commerce website',
-    year: '2026',
-    domain: 'loomandleaf.shop',
-    mock: 'store',
-    category: 'E-commerce',
-    colors: { b: '#1C1917', f: '#FAFAF9', a: '#D97706', s: '#292524', on: '#FFFFFF' },
-    font: "system-ui,sans-serif",
-    desc: 'Minimalist e-commerce storefront for handcrafted ceramics, organic linen throws, and curated lifestyle goods with rupee pricing, instant cart drawer, and UPI checkout.',
-    result: 'Substantial boost in checkout completion rates with mobile-first browsing.',
-    tags: ['E-commerce', 'Curated catalog', 'UPI checkout'],
-    liveUrl: '#contact'
   }
 ];
 
@@ -290,19 +258,43 @@ export default function WorkDeck() {
                       </div>
                     </div>
                     <div className="info">
-                      <h3>{p.name}</h3>
+                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px', marginBottom: '8px' }}>
+                        <h3>{p.name}</h3>
+                        <span style={{ fontSize: '0.74rem', fontWeight: 700, padding: '3px 8px', borderRadius: '12px', background: 'color-mix(in srgb, var(--ac) 15%, transparent)', color: 'var(--ac)' }}>
+                          {p.proofTag}
+                        </span>
+                      </div>
                       <p className="desc">{p.desc}</p>
+                      
+                      {p.clientQuote ? (
+                        <blockquote style={{ margin: '10px 0', padding: '8px 12px', borderLeft: '3px solid var(--ac)', background: 'var(--bg)', borderRadius: '0 8px 8px 0', fontSize: '0.86rem', fontStyle: 'italic', color: 'var(--ink)' }}>
+                          {p.clientQuote}
+                        </blockquote>
+                      ) : null}
+
                       <ul className="tags">
                         {p.tags.map(t => <li key={t}>{t}</li>)}
                       </ul>
                       <p className="result"><b>Result</b>{p.result}</p>
                       <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginTop: '16px' }}>
-                        {p.liveUrl.startsWith('http') ? (
-                          <a className="btn btn-wa btn-sm" href={p.liveUrl} target="_blank" rel="noopener noreferrer">
-                            Live Site ↗
-                          </a>
-                        ) : null}
-                        <a className="btn btn-ghost btn-sm" href="#contact">Ask for similar design</a>
+                        <a 
+                          className="btn btn-wa btn-sm" 
+                          href={p.liveUrl} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          onClick={() => trackFunnelEvent('live_site_click', { client: p.name, url: p.liveUrl })}
+                        >
+                          Live Site ↗
+                        </a>
+                        <a 
+                          className="btn btn-ghost btn-sm" 
+                          href={getWhatsAppGrowthPlanLink(`WorkDeck_${p.name}`)}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={() => trackFunnelEvent('cta_click', { source: `workdeck_growth_plan_${p.name}` })}
+                        >
+                          Get Similar Growth Plan →
+                        </a>
                       </div>
                     </div>
                   </div>
@@ -313,10 +305,22 @@ export default function WorkDeck() {
         </div>
 
         <div className="deck-end">
-          <h3>Want your project on top of the deck?</h3>
+          <h3>Want a high-converting website built for your business?</h3>
+          <p style={{ color: 'var(--muted)', margin: '8px 0 20px', fontSize: '1rem' }}>
+            Get a tailored breakdown of your competitors, mobile design suggestions, and estimated enquiry numbers.
+          </p>
           <div className="cta-row">
-            <a className="btn btn-wa" href="#contact"><svg className="ic"><use href="#i-wa"/></svg>Chat on WhatsApp</a>
-            <a className="btn btn-ghost" href="#contact"><svg className="ic"><use href="#i-mail"/></svg>Email me</a>
+            <a 
+              className="btn btn-wa btn-growth-plan" 
+              href={getWhatsAppGrowthPlanLink("WorkDeck_Bottom")}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => trackFunnelEvent('cta_click', { source: 'workdeck_bottom_growth_plan' })}
+            >
+              <svg className="ic"><use href="#i-wa"/></svg>
+              Get a Free Website Growth Plan
+            </a>
+            <a className="btn btn-ghost" href="#case-study">View Verified Case Study ↓</a>
           </div>
         </div>
       </div>

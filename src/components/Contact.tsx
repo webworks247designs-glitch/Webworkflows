@@ -40,16 +40,30 @@ export default function Contact() {
       <div className="wrap">
         <div className="contact-panel">
           <div>
-            <h2>Let's Work Out the Right Model for Your Business</h2>
-            <p className="lede">Tell us about your business and we'll work out the right enquiry structure.</p>
+            <h2>Get Your Free Website Growth Plan</h2>
+            <p className="lede">
+              Tell us about your business. We will analyse your competitors, outline 3 immediate website improvements, and propose a transparent per-enquiry rate tailored to your model.
+            </p>
             <div className="cta-row">
-              <a className="btn btn-wa" href={waLink} target="_blank" rel="noopener noreferrer"><svg className="ic"><use href="#i-wa"/></svg>Get My Pricing</a>
-              <a className="btn btn-ghost" href={mailLink}><svg className="ic"><use href="#i-mail"/></svg>See How It Works</a>
+              <a 
+                className="btn btn-wa btn-growth-plan" 
+                href={waLink} 
+                target="_blank" 
+                rel="noopener noreferrer"
+              >
+                <svg className="ic"><use href="#i-wa"/></svg>
+                Get a Free Website Growth Plan
+              </a>
+              <a className="btn btn-ghost" href="#verification-billing">How Billing Works ↓</a>
             </div>
+            <p style={{ fontSize: '0.82rem', color: 'var(--muted)', marginTop: '8px' }}>
+              ⚡ 24-hour turnaround on WhatsApp • 100% Free • Zero commitment
+            </p>
             <div className="direct">
+              <span><b>Founder</b> <span>Srishanth M.</span></span>
+              <span><b>WhatsApp</b> <span>+91 99598 96378</span></span>
               <span><b>Email</b> <span>webworks247designs@gmail.com</span></span>
-              <span><b>WhatsApp</b> <span>+91 9959896378</span></span>
-              <span><b>Reply time</b> Within a few hours on working days</span>
+              <span><b>Reply time</b> Within 1–2 hours</span>
             </div>
           </div>
 
@@ -109,7 +123,7 @@ export default function Contact() {
               ></textarea>
             </div>
             <div className="send">
-              <a className="btn btn-wa" href={waLink} target="_blank" rel="noopener noreferrer"><svg className="ic"><use href="#i-wa"/></svg>Send on WhatsApp</a>
+              <a className="btn btn-wa btn-growth-plan" href={waLink} target="_blank" rel="noopener noreferrer"><svg className="ic"><use href="#i-wa"/></svg>Request Free Growth Plan on WhatsApp</a>
               <a className="btn btn-ghost" href={mailLink}><svg className="ic"><use href="#i-mail"/></svg>Send by email</a>
             </div>
           </div>

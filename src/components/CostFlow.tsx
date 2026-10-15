@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { getWhatsAppGrowthPlanLink, trackFunnelEvent } from "@/lib/analytics";
 
 const EXAMPLES = [
   {
@@ -9,7 +10,7 @@ const EXAMPLES = [
     name: "Restaurant",
     icon: "🍽️",
     launch: "₹3,000",
-    hosting: "Actual cost (~₹0)",
+    hosting: "Provider cost + ₹200 fee",
     enquiryType: "Table reservation / online order",
     rate: "₹100",
     leads: "15",
@@ -23,7 +24,7 @@ const EXAMPLES = [
     name: "Men's Salon",
     icon: "✂️",
     launch: "₹3,000",
-    hosting: "Actual cost (~₹0)",
+    hosting: "Provider cost + ₹200 fee",
     enquiryType: "Haircut & grooming appointment",
     rate: "₹80",
     leads: "25",
@@ -37,7 +38,7 @@ const EXAMPLES = [
     name: "Bakery / Cafe",
     icon: "🥐",
     launch: "₹3,000",
-    hosting: "Actual cost (~₹0)",
+    hosting: "Provider cost + ₹200 fee",
     enquiryType: "Custom cake / catering preorder",
     rate: "₹120",
     leads: "10",
@@ -51,7 +52,7 @@ const EXAMPLES = [
     name: "Physio / Clinic",
     icon: "🩺",
     launch: "₹3,000",
-    hosting: "Actual cost (~₹0)",
+    hosting: "Provider cost + ₹200 fee",
     enquiryType: "Consultation appointment",
     rate: "₹150",
     leads: "20",
@@ -65,7 +66,7 @@ const EXAMPLES = [
     name: "Boutique Store",
     icon: "🛍️",
     launch: "₹3,000",
-    hosting: "Actual cost (~₹0)",
+    hosting: "Provider cost + ₹200 fee",
     enquiryType: "Curated order / bulk enquiry",
     rate: "₹100",
     leads: "30",
@@ -177,18 +178,25 @@ export default function CostFlow() {
                   style={{ objectFit: 'cover', objectPosition: 'top' }}
                 />
               </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <span style={{ fontSize: '0.78rem', color: 'var(--muted)' }}>Design Sample</span>
-                <a href="#contact" className="btn btn-ghost btn-sm" style={{ padding: '6px 14px', fontSize: '0.8rem' }}>
-                  Get estimate for your business &rarr;
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px' }}>
+                <span style={{ fontSize: '0.78rem', color: 'var(--muted)' }}>Verified Design Model</span>
+                <a 
+                  href={getWhatsAppGrowthPlanLink(`Calculator_${cur.name}`)} 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-wa btn-sm" 
+                  style={{ padding: '6px 14px', fontSize: '0.8rem' }}
+                  onClick={() => trackFunnelEvent('cta_click', { source: `calculator_${cur.id}` })}
+                >
+                  Get Growth Plan for {cur.name} →
                 </a>
               </div>
             </div>
 
           </div>
 
-          <p style={{ color: 'var(--muted)', fontSize: '0.82rem', marginTop: '24px', fontStyle: 'italic', textAlign: 'center', marginInline: 'auto', maxWidth: '600px' }}>
-            * The enquiry rate is mutually agreed upon before launch, specifically aligned with your average order or customer transaction value.
+          <p style={{ color: 'var(--muted)', fontSize: '0.82rem', marginTop: '24px', fontStyle: 'italic', textAlign: 'center', marginInline: 'auto', maxWidth: '650px' }}>
+            * The enquiry rate is mutually agreed upon before launch. Hosting is kept transparent at respective provider costs (Hostinger, MilesWeb, or any host of your choice) plus a ₹200 hosting setup and maintenance processing fee.
           </p>
         </div>
 

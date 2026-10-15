@@ -55,8 +55,8 @@ export default function Pricing() {
               </div>
               
               <div style={{ marginTop: '16px' }}>
-                <p style={{ fontWeight: 600, margin: 0 }}>+ Hosting</p>
-                <p style={{ fontSize: '0.85rem', margin: 0, opacity: 0.8 }}>Charged separately at actual provider cost</p>
+                <p style={{ fontWeight: 600, margin: 0 }}>+ Hosting (Provider cost + ₹200 fee)</p>
+                <p style={{ fontSize: '0.85rem', margin: 0, opacity: 0.8 }}>Respective provider cost (Hostinger, MilesWeb, etc.) + ₹200 setup fee</p>
               </div>
               
               <div style={{ marginTop: '16px', marginBottom: '24px' }}>
@@ -114,9 +114,11 @@ export default function Pricing() {
           
           <article className="pkg">
             <b style={{ color: 'var(--muted)', display: 'block', fontSize: '1.25rem', marginBottom: '8px' }}>02</b>
-            <h3>Hosting</h3>
-            <p className="price">Actual provider cost</p>
-            <p style={{ marginTop: '12px', fontSize: '.95rem', color: 'var(--muted)' }}>Hosting is kept separate and transparent. Our typical setup is around ₹200, depending on the provider plan.</p>
+            <h3>Hosting & Setup</h3>
+            <p className="price">Provider Cost + ₹200</p>
+            <p style={{ marginTop: '12px', fontSize: '.95rem', color: 'var(--muted)' }}>
+              Hosting is billed directly at the provider rate (companies like Hostinger, MilesWeb, or any host of your choice). The ₹200 is our hosting setup, DNS, and SSL processing fee.
+            </p>
           </article>
 
           <article className="pkg">
@@ -160,8 +162,8 @@ export default function Pricing() {
             justifyContent: 'center'
           }}>
             <h3 style={{ fontSize: '0.9rem', marginBottom: '8px' }}>Hosting</h3>
-            <p className="price" style={{ fontSize: '1.2rem', fontWeight: 700, margin: '0 0 8px 0', color: 'var(--ink)' }}>At Cost</p>
-            <p style={{ fontSize: '0.75rem', color: 'var(--muted)', margin: 0, lineHeight: 1.3 }}>Zero markup</p>
+            <p className="price" style={{ fontSize: '1.2rem', fontWeight: 700, margin: '0 0 8px 0', color: 'var(--ink)' }}>Host + ₹200</p>
+            <p style={{ fontSize: '0.75rem', color: 'var(--muted)', margin: 0, lineHeight: 1.3 }}>Provider cost + processing</p>
           </article>
 
           <article className="pkg" style={{ 

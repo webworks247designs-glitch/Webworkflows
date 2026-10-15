@@ -2,6 +2,9 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { getWhatsAppGrowthPlanLink, trackFunnelEvent } from "@/lib/analytics";
+
+const GOOGLE_REVIEWS_URL = "https://www.google.co.in/search?utm_medium=noren&utm_source=gbp&utm_campaign=2026&q=Webworkflo%27s&ludocid=13756383820960255399&lsig=AB86z5V9nz1E1uhJ3Hct0m5oRCII#ebo=0";
 
 const HERO_SAMPLES = [
   {
@@ -81,13 +84,45 @@ export default function Hero() {
     >
       <div className="wrap hero-grid">
         <div className="hero-copy">
-          <p className="chip-live"><span className="live" aria-hidden="true"></span><span>Open for new projects</span></p>
+          <div className="hero-top-badges">
+            <p className="chip-live"><span className="live" aria-hidden="true"></span><span>Open for new projects</span></p>
+            <a
+              href={GOOGLE_REVIEWS_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hero-google-review-pill"
+              onClick={() => trackFunnelEvent('review_click', { source: 'hero_pill' })}
+              title="View 11 Verified Google Reviews for Webworkflo's"
+            >
+              <span className="stars">★★★★★</span>
+              <span className="rating-score">5.0</span>
+              <span className="review-meta">(11 Google Reviews)</span>
+              <span className="arrow">↗</span>
+            </a>
+          </div>
+
           <h1>Websites that turn visitors into Leads.</h1>
           <p className="lede"><span>Webworkflo&apos;s</span> is an expert freelance web designer in Hyderabad. I design, build and launch fast, good-looking websites for small businesses, start-ups and creators, and I handle every step myself.</p>
-          <div className="cta-row">
-            <a className="btn btn-wa" href="#contact"><svg className="ic"><use href="#i-wa" /></svg>Chat on WhatsApp</a>
-            <a className="btn btn-ghost" href="#contact"><svg className="ic"><use href="#i-mail" /></svg>Send an email</a>
+          
+          <div className="cta-row hero-cta-row">
+            <a 
+              className="btn btn-wa btn-growth-plan" 
+              href={getWhatsAppGrowthPlanLink("Hero")}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => trackFunnelEvent('cta_click', { source: 'hero_primary_growth_plan' })}
+            >
+              <svg className="ic"><use href="#i-wa" /></svg>
+              Get a Free Website Growth Plan
+            </a>
+            <a className="btn btn-ghost" href="#case-study">See Client Proof ↓</a>
           </div>
+
+          <p className="hero-cta-guarantee">
+            <span className="guarantee-icon">⚡</span>
+            <span>Delivered within 24 hours on WhatsApp • 100% Free • Zero commitment</span>
+          </p>
+
           <ul className="facts">
             <li>Design and code by one person</li>
             <li>Mobile-first and fast</li>

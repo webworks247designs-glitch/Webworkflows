@@ -2,6 +2,7 @@
 
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
+import { getWhatsAppGrowthPlanLink, trackFunnelEvent } from "@/lib/analytics";
 
 export default function Navbar() {
   const { theme, setTheme } = useTheme();
@@ -34,10 +35,11 @@ export default function Navbar() {
           </a>
           <nav className="links" id="links" aria-label="Main">
             <a href="#work" onClick={() => setMenuOpen(false)}>Work</a>
-            <a href="#how-it-works" onClick={() => setMenuOpen(false)}>Process</a>
+            <a href="#case-study" onClick={() => setMenuOpen(false)}>Proof</a>
+            <a href="#testimonials" onClick={() => setMenuOpen(false)}>Reviews</a>
             <a href="#pricing" onClick={() => setMenuOpen(false)}>Pricing</a>
-            <a href="#cost-flow" onClick={() => setMenuOpen(false)}>Example</a>
-            <a href="#protection" onClick={() => setMenuOpen(false)}>Why Us</a>
+            <a href="#verification-billing" onClick={() => setMenuOpen(false)}>Billing</a>
+            <a href="#about" onClick={() => setMenuOpen(false)}>About</a>
           </nav>
           <button 
             className="icon-btn" 
@@ -48,10 +50,16 @@ export default function Navbar() {
           >
             <svg className="ic"><use href="#i-theme"/></svg>
           </button>
-          <a className="btn btn-wa btn-sm" href="#contact">
+          <a 
+            className="btn btn-wa btn-sm" 
+            href={getWhatsAppGrowthPlanLink("Navbar")}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => trackFunnelEvent('whatsapp_click', { source: 'navbar' })}
+          >
             <svg className="ic"><use href="#i-wa"/></svg>
-            <span className="txt">WhatsApp me</span>
-            <span className="sr">Chat on WhatsApp</span>
+            <span className="txt">Free Growth Plan</span>
+            <span className="sr">Get a Free Website Growth Plan</span>
           </a>
           <button 
             className="icon-btn menu-btn" 

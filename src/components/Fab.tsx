@@ -2,6 +2,8 @@
 
 import { useEffect, useState, useRef } from "react";
 
+import { getWhatsAppGrowthPlanLink, trackFunnelEvent } from "@/lib/analytics";
+
 export default function Fab() {
   const [away, setAway] = useState(false);
   const targetRef = useRef<HTMLElement | null>(null);
@@ -22,11 +24,14 @@ export default function Fab() {
   return (
     <a 
       className={`fab ${away ? "away" : ""}`} 
-      href="#contact" 
-      aria-label="Chat on WhatsApp"
+      href={getWhatsAppGrowthPlanLink("FloatingFab")}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Chat on WhatsApp: Get a Free Website Growth Plan"
+      onClick={() => trackFunnelEvent('whatsapp_click', { source: 'floating_fab' })}
     >
       <svg className="ic"><use href="#i-wa"/></svg>
-      <span className="txt">Chat on WhatsApp</span>
+      <span className="txt">Get Free Growth Plan</span>
     </a>
   );
 }

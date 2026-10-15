@@ -1,12 +1,13 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import WorkDeck from "@/components/WorkDeck";
-import HowItWorks from "@/components/HowItWorks";
+import CaseStudy from "@/components/CaseStudy";
+import Testimonials from "@/components/Testimonials";
 import ModelDifference from "@/components/ModelDifference";
+import HowItWorks from "@/components/HowItWorks";
 import Pricing from "@/components/Pricing";
 import CostFlow from "@/components/CostFlow";
-import CustomRate from "@/components/CustomRate";
-import EnquiryRules from "@/components/EnquiryRules";
+import PricingVerification from "@/components/PricingVerification";
 import Protection from "@/components/Protection";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
@@ -19,12 +20,13 @@ export default function Home() {
       <main id="top">
         <Hero />
         <WorkDeck />
-        <HowItWorks />
+        <CaseStudy />
+        <Testimonials />
         <ModelDifference />
+        <HowItWorks />
         <Pricing />
         <CostFlow />
-        <CustomRate />
-        <EnquiryRules />
+        <PricingVerification />
         <Protection />
         <Contact />
       </main>
