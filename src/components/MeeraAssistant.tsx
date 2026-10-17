@@ -86,7 +86,9 @@ export default function MeeraAssistant() {
   const [feedbackMsg, setFeedbackMsg] = useState("");
 
   const chatEndRef = useRef<HTMLDivElement | null>(null);
+  const messagesAreaRef = useRef<HTMLDivElement | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const isFirstRender = useRef(true);
 
   // Initialize or reset chat on language switch
   useEffect(() => {
@@ -100,9 +102,18 @@ export default function MeeraAssistant() {
     ]);
   }, [selectedLanguage]);
 
-  // Auto-scroll chat to bottom
+  // Auto-scroll ONLY inside the chat container when user actively chats (never hijacks the main window scroll)
   useEffect(() => {
-    chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+    if (messagesAreaRef.current) {
+      messagesAreaRef.current.scrollTo({
+        top: messagesAreaRef.current.scrollHeight,
+        behavior: "smooth",
+      });
+    }
   }, [messages, isTyping]);
 
   const handleSendMessage = (textToSend?: string) => {
@@ -426,7 +437,7 @@ export default function MeeraAssistant() {
             </div>
 
             {/* MESSAGES SCROLL AREA */}
-            <div className="chat-messages-area" role="log" aria-live="polite">
+            <div className="chat-messages-area" ref={messagesAreaRef} role="log" aria-live="polite">
               <AnimatePresence initial={false}>
                 {messages.map((msg) => (
                   <motion.div
@@ -1254,7 +1265,11 @@ export default function MeeraAssistant() {
           display: inline-block;
         }
 
-        :root[data-theme="dark"] .chat-chip-btn,
+        :root[data-theme="dark"] .chat-chip-btn {
+          border-color: rgba(255, 255, 255, 0.18);
+          background: rgba(255, 255, 255, 0.04);
+          color: #F1F5F9;
+        }
         @media (prefers-color-scheme: dark) {
           :root:not([data-theme="light"]) .chat-chip-btn {
             border-color: rgba(255, 255, 255, 0.18);
@@ -1270,7 +1285,11 @@ export default function MeeraAssistant() {
           transform: translateY(-1px);
         }
 
-        :root[data-theme="dark"] .chat-chip-btn:hover:not(:disabled),
+        :root[data-theme="dark"] .chat-chip-btn:hover:not(:disabled) {
+          background: #FFFFFF;
+          color: #0F172A;
+          border-color: #FFFFFF;
+        }
         @media (prefers-color-scheme: dark) {
           :root:not([data-theme="light"]) .chat-chip-btn:hover:not(:disabled) {
             background: #FFFFFF;
@@ -1286,7 +1305,11 @@ export default function MeeraAssistant() {
           background: rgba(16, 185, 129, 0.08);
         }
 
-        :root[data-theme="dark"] .chat-chip-btn.founder-chip,
+        :root[data-theme="dark"] .chat-chip-btn.founder-chip {
+          border-color: rgba(16, 185, 129, 0.5);
+          background: rgba(16, 185, 129, 0.12);
+          color: #34D399;
+        }
         @media (prefers-color-scheme: dark) {
           :root:not([data-theme="light"]) .chat-chip-btn.founder-chip {
             border-color: rgba(16, 185, 129, 0.5);
