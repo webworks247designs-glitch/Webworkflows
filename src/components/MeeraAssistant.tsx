@@ -1,1446 +1,1576 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "motion/react";
 import {
-  Phone,
-  PhoneOff,
-  PhoneCall,
   Sparkles,
-  ShieldCheck,
-  CheckCircle2,
-  Volume2,
-  VolumeX,
-  Mic,
-  MicOff,
-  ArrowRight,
+  Send,
+  User,
+  Bot,
   RotateCcw,
-  Clock,
+  CheckCircle2,
+  Calendar,
+  Phone,
+  MessageSquare,
+  ArrowRight,
+  ExternalLink,
+  ShieldCheck,
+  Zap,
+  HelpCircle,
+  X,
+  Loader2,
 } from "lucide-react";
+import { queryKnowledgeBase } from "@/data/knowledge/knowledgeStore";
+import { trackFunnelEvent } from "@/lib/analytics";
+
+interface ChatMessage {
+  id: string;
+  sender: "user" | "meera";
+  text: string;
+  timestamp: string;
+  actionType?: "whatsapp" | "booking" | "growth-plan";
+}
+
+const initialGreetings: Record<"English" | "Telugu" | "Hindi", string> = {
+  English:
+    "Hello! I am Meera, the AI assistant at Webworkflo's. I can answer questions about our ₹3,000 launch pricing, verified per-enquiry billing, portfolio case studies, or help you request a 100% Free Website Growth Plan. How can I help you today?",
+  Telugu:
+    "నమస్కారం! నేను వెబ్‌వర్క్‌ఫ్లోస్ AI అసిస్టెంట్ మీరాని. మా ₹3,000 లాంచ్ మోడల్, వెరిఫైడ్ ఎంక్వైరీ బిల్లింగ్ లేదా ఫ్రీ వెబ్‌సైట్ గ్రోత్ ప్లాన్ గురించి ఏ వివరాలైనా నన్ను అడగవచ్చు. మీకు ఎలా సహాయపడగలను?",
+  Hindi:
+    "नमस्ते! मैं वेबवर्कफ्लोस की AI असिस्टेंट मीरा हूँ। आप हमारी ₹3,000 वेबसाइट लॉन्च प्राइसिंग, वेरिफाइड लीड्स बिलिंग या फ्री वेबसाइट ग्रोथ प्लान के बारे में कुछ भी पूछ सकते हैं। बताइए मैं आपकी क्या मदद करूँ?",
+};
+
+const quickChips: Record<"English" | "Telugu" | "Hindi", { label: string; query: string; isFounder?: boolean }[]> = {
+  English: [
+    { label: "💰 ₹3,000 Pricing", query: "What is the cost and pricing model?" },
+    { label: "🎁 Free Growth Plan", query: "Tell me about the Free Website Growth Plan" },
+    { label: "✂️ Salon Case Study", query: "Tell me about the Shobana Men's Salon case study" },
+    { label: "🛡️ Verified Leads", query: "What is a qualified enquiry and 48-hour dispute window?" },
+    { label: "⚡ 99/100 Speed", query: "What technology and speed do you deliver?" },
+    { label: "🍽️ Boat House Sample", query: "Tell me about The Boat House restaurant live sample" },
+    { label: "📞 Call Founder", query: "How can I contact Founder Srishanth directly?", isFounder: true },
+  ],
+  Telugu: [
+    { label: "💰 ₹3,000 ధరల వివరాలు", query: "వెబ్‌సైట్ ధర మరియు ఖర్చుల వివరాలు ఏమిటి?" },
+    { label: "🎁 ఉచిత గ్రోత్ ప్లాన్", query: "ఫ్రీ వెబ్‌సైట్ గ్రోత్ ప్లాన్ గురించి చెప్పండి" },
+    { label: "✂️ శోభన సెలూన్ ప్రూఫ్", query: "శోభన మెన్స్ సెలూన్ కేస్ స్టడీ వివరాలు చెప్పండి" },
+    { label: "🛡️ వెరిఫైడ్ లీడ్స్", query: "క్వాలిఫైడ్ లీడ్ అంటే ఏమిటి మరియు డిస్ప్యూట్ విధానం?" },
+    { label: "⚡ స్పీడ్ & కోడ్", query: "వెబ్‌సైట్ స్పీడ్ మరియు టెక్నాలజీ ఏమిటి?" },
+    { label: "🍽️ బోట్ హౌస్ సైట్", query: "ది బోట్ హౌస్ రెస్టారెంట్ వెబ్‌సైట్ వివరాలు చెప్పండి" },
+    { label: "📞 ఫౌండర్ కాంటాక్ట్", query: "ఫౌండర్ శ్రీశాంత్ గారి నంబర్ మరియు కాంటాక్ట్ వివరాలు?", isFounder: true },
+  ],
+  Hindi: [
+    { label: "💰 ₹3,000 प्राइसिंग", query: "वेबसाइट का खर्च और प्राइसिंग मॉडल क्या है?" },
+    { label: "🎁 फ्री ग्रोथ प्लान", query: "फ्री वेबसाइट ग्रोथ प्लान के बारे में बताएं" },
+    { label: "✂️ शोभना सैलून प्रूफ", query: "शोभना सैलून केस स्टडी के बारे में बताएं" },
+    { label: "🛡️ वेरिफाइड लीड्स", query: "क्वालिफाइड लीड और 48 घंटे की डिस्प्यूट विंडो क्या है?" },
+    { label: "⚡ 99/100 स्पीड", query: "वेबसाइट की स्पीड और तकनीक क्या है?" },
+    { label: "🍽️ बोट हाउस साइट", query: "द बोट हाउस रेस्टोरेंट वेबसाइट के बारे में बताएं" },
+    { label: "📞 फाउंडर से बात", query: "फाउंडर श्रीशांत जी से सीधे कैसे बात करें?", isFounder: true },
+  ],
+};
 
 export default function MeeraAssistant() {
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [selectedLanguage, setSelectedLanguage] = useState<"Telugu" | "English" | "Hindi">("Telugu");
-  const [callState, setCallState] = useState<"idle" | "calling" | "ringing" | "connected" | "ended">("idle");
-  const [callDuration, setCallDuration] = useState(0);
-  const [isMuted, setIsMuted] = useState(false);
-  const [isSpeaker, setIsSpeaker] = useState(true);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [selectedLanguage, setSelectedLanguage] = useState<"English" | "Telugu" | "Hindi">("English");
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const [inputValue, setInputValue] = useState("");
+  const [isTyping, setIsTyping] = useState(false);
+
+  // Founder Direct Call Booking Modal State
+  const [showBookingModal, setShowBookingModal] = useState(false);
+  const [bookingName, setBookingName] = useState("");
+  const [bookingPhone, setBookingPhone] = useState("");
+  const [bookingBusiness, setBookingBusiness] = useState("");
+  const [bookingTime, setBookingTime] = useState("Immediately (Next 15 mins)");
+  const [bookingStatus, setBookingStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [feedbackMsg, setFeedbackMsg] = useState("");
-  const [errorMsg, setErrorMsg] = useState("");
-  const [waLink, setWaLink] = useState<string>("");
 
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
-  const speechRef = useRef<SpeechSynthesisUtterance | null>(null);
+  const chatEndRef = useRef<HTMLDivElement | null>(null);
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
-  // In-call duration timer
+  // Initialize or reset chat on language switch
   useEffect(() => {
-    if (callState === "connected") {
-      setCallDuration(0);
-      timerRef.current = setInterval(() => {
-        setCallDuration((prev) => prev + 1);
-      }, 1000);
-    } else {
-      if (timerRef.current) {
-        clearInterval(timerRef.current);
-        timerRef.current = null;
-      }
-    }
-    return () => {
-      if (timerRef.current) clearInterval(timerRef.current);
-    };
-  }, [callState]);
+    setMessages([
+      {
+        id: "msg-init",
+        sender: "meera",
+        text: initialGreetings[selectedLanguage],
+        timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+      },
+    ]);
+  }, [selectedLanguage]);
 
-  // Clean up speech synthesis when component unmounts or call ends
+  // Auto-scroll chat to bottom
   useEffect(() => {
-    return () => {
-      if (typeof window !== "undefined" && "speechSynthesis" in window) {
-        window.speechSynthesis.cancel();
-      }
-    };
-  }, []);
+    chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages, isTyping]);
 
-  const formatSeconds = (sec: number) => {
-    const m = Math.floor(sec / 60);
-    const s = sec % 60;
-    return `${m.toString().padStart(2, "0")}:${s.toString().padStart(2, "0")}`;
+  const handleSendMessage = (textToSend?: string) => {
+    const text = (textToSend || inputValue).trim();
+    if (!text) return;
+
+    const userMsg: ChatMessage = {
+      id: `user-${Date.now()}`,
+      sender: "user",
+      text,
+      timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+    };
+
+    setMessages((prev) => [...prev, userMsg]);
+    setInputValue("");
+    setIsTyping(true);
+
+    trackFunnelEvent("cta_click", { source: "meera_chat_query", query: text, language: selectedLanguage });
+
+    // Conversational small-talk & intent detection
+    const cleanLower = text.toLowerCase().trim();
+
+    setTimeout(() => {
+      let replyText = "";
+      let actionType: "whatsapp" | "booking" | "growth-plan" | undefined = undefined;
+
+      // 1. Explicit Booking / Call request
+      if (
+        cleanLower.includes("book call") ||
+        cleanLower.includes("call me") ||
+        cleanLower.includes("arrange call") ||
+        cleanLower.includes("speak to founder") ||
+        cleanLower.includes("talk to srishanth") ||
+        cleanLower.includes("షెడ్యూల్ కాల్") ||
+        cleanLower.includes("కాల్ చేయండి") ||
+        cleanLower.includes("बात करनी है")
+      ) {
+        if (selectedLanguage === "Telugu") {
+          replyText = "ఖచ్చితంగా అండి! కింద ఉన్న బటన్‌ను క్లిక్ చేసి మీ వివరాలు నమోదు చేయండి, శ్రీశాంత్ గారు నేరుగా మీకు కాల్ చేస్తారు.";
+        } else if (selectedLanguage === "Hindi") {
+          replyText = "ज़रूर जी! नीचे दिए बटन पर क्लिक करके अपनी डिटेल्स सबमिट करें, श्रीशांत जी खुद आपको कॉल करेंगे।";
+        } else {
+          replyText = "Certainly! You can request a direct call with Founder Srishanth below, and he'll connect with you at your preferred time.";
+        }
+        actionType = "booking";
+      }
+      // 2. Explicit WhatsApp / Growth Plan request
+      else if (
+        cleanLower.includes("free plan") ||
+        cleanLower.includes("growth plan") ||
+        cleanLower.includes("గ్రోత్ ప్లాన్") ||
+        cleanLower.includes("ఫ్రీ ప్లాన్") ||
+        cleanLower.includes("फ्री प्लान")
+      ) {
+        const kb = queryKnowledgeBase(text, selectedLanguage);
+        replyText =
+          kb ||
+          (selectedLanguage === "Telugu"
+            ? "మా వెబ్‌సైట్ గ్రోత్ ప్లాన్ 100% ఉచితం మరియు జీరో-కమిట్‌మెంట్ అండి! మీ లోకల్ కాంపిటీటర్ల అనాలిసిస్ మరియు 3 ముఖ్యమైన వెబ్‌సైట్ ఐడియాలు 24 గంటల్లో వాట్సాప్‌లో పంపబడతాయి."
+            : selectedLanguage === "Hindi"
+            ? "हमारा वेबसाइट ग्रोथ प्लान 100% फ्री और बिना किसी कमिटमेंट के है जी! 24 घंटे में आपके व्हाट्सएप पर भेजा जाता है।"
+            : "Our Website Growth Plan is 100% free with zero commitment, delivered within 24 hours on WhatsApp with competitor analysis and mobile improvements!");
+        actionType = "growth-plan";
+      }
+      // 3. Greetings & Casual Hello
+      else if (
+        cleanLower === "hi" ||
+        cleanLower === "hello" ||
+        cleanLower === "hey" ||
+        cleanLower === "namaste" ||
+        cleanLower.startsWith("hi ") ||
+        cleanLower.startsWith("hello ") ||
+        cleanLower === "హలో" ||
+        cleanLower === "నమస్తే" ||
+        cleanLower === "నమస్కారం" ||
+        cleanLower === "नमस्ते" ||
+        cleanLower === "हेलो"
+      ) {
+        if (selectedLanguage === "Telugu") {
+          replyText = "నమస్కారం అండి! ఎలా ఉన్నారు? వెబ్‌వర్క్‌ఫ్లోస్ గురించి మీరు ఏమి తెలుసుకోవాలనుకుంటున్నారు? మా ₹3,000 మోడల్, వెరిఫైడ్ లీడ్స్ లేదా పోర్ట్‌ఫోలియో గురించి నన్ను అడగవచ్చు!";
+        } else if (selectedLanguage === "Hindi") {
+          replyText = "नमस्ते जी! कैसे हैं आप? वेबवर्कफ्लोस की ₹3,000 वेबसाइट लॉन्च प्राइसिंग, स्पीड या केस स्टडीज के बारे में आप क्या जानना चाहते हैं?";
+        } else {
+          replyText = "Hello! Great to connect with you. How can I help you today? Feel free to ask about our ₹3,000 launch model, PageSpeed benchmarks, or how we turn visitors into paying leads.";
+        }
+      }
+      // 4. Gratitude / Acknowledgment
+      else if (
+        cleanLower.includes("thank") ||
+        cleanLower === "ok" ||
+        cleanLower === "okay" ||
+        cleanLower === "cool" ||
+        cleanLower === "nice" ||
+        cleanLower === "great" ||
+        cleanLower === "super" ||
+        cleanLower === "థాంక్స్" ||
+        cleanLower === "సరే" ||
+        cleanLower === "ధన్యవాదాలు" ||
+        cleanLower === "शुक्रिया" ||
+        cleanLower === "धन्यवाद" ||
+        cleanLower === "ठीक है" ||
+        cleanLower === "बढ़िया"
+      ) {
+        if (selectedLanguage === "Telugu") {
+          replyText = "చాలా సంతోషం అండి! మీకు ఇంకా ఏవైనా సందేహాలు ఉంటే అడగండి, సమాధానం ఇవ్వడానికి నేను ఎల్లప్పుడూ సిద్ధంగా ఉన్నాను.";
+        } else if (selectedLanguage === "Hindi") {
+          replyText = "आपका बहुत स्वागत है जी! अगर कोई और सवाल हो तो ज़रूर पूछिए, मुझे आपकी मदद करके खुशी होगी।";
+        } else {
+          replyText = "You're very welcome! If there is anything else you'd like to explore about our website work or process, just let me know.";
+        }
+      }
+      // 5. How are you / Who are you
+      else if (
+        cleanLower.includes("how are you") ||
+        cleanLower.includes("who are you") ||
+        cleanLower.includes("ఎలా ఉన్నారు") ||
+        cleanLower.includes("మీరు ఎవరు") ||
+        cleanLower.includes("आप कौन हैं") ||
+        cleanLower.includes("कैसे हैं")
+      ) {
+        if (selectedLanguage === "Telugu") {
+          replyText = "నేను చాలా బాగున్నాను అండి! నేను మీరా — వెబ్‌వర్క్‌ఫ్లోస్ అధికారిక AI అసిస్టెంట్ ని. మా వెబ్‌సైట్ సర్వీసులు, ధరలు మరియు పనితీరు గురించి సరైన సమాచారం అందించడమే నా పని.";
+        } else if (selectedLanguage === "Hindi") {
+          replyText = "मैं बहुत अच्छी हूँ जी, शुक्रिया! मैं मीरा हूँ — वेबवर्कफ्लोस की AI असिस्टेंट। मैं आपको हमारी सर्विसेज, प्राइसिंग और वर्कफ्लो के बारे में हर जानकारी दे सकती हूँ।";
+        } else {
+          replyText = "I'm doing great, thank you for asking! I'm Meera, the AI assistant for Webworkflo's. I'm here to answer any questions about how we design, build, and deploy fast lead-generating websites.";
+        }
+      }
+      // 6. General Knowledge Base query (Pricing, Technology, Salons, etc.)
+      else {
+        const kbAnswer = queryKnowledgeBase(text, selectedLanguage);
+        if (kbAnswer) {
+          replyText = kbAnswer;
+          // Keep it conversational! Do not force any button popups unless specifically relevant.
+        } else {
+          // Graceful conversational fallback
+          if (selectedLanguage === "Telugu") {
+            replyText = "నేను వెబ్‌వర్క్‌ఫ్లోస్ వెబ్‌సైట్ మోడల్, ధరలు మరియు ఫ్రీ గ్రోత్ ప్లాన్ సమాచారంలో సహాయపడగలను అండి. మీకు ఏ రకమైన బిజినెస్ వెబ్‌సైట్ కావాలి?";
+          } else if (selectedLanguage === "Hindi") {
+            replyText = "मैं वेबवर्कफ्లోస్ की प्राइसिंग, परफॉर्मेंस और फ्री ग्रोथ प्लान से जुड़े सवालों के जवाब दे सकती हूँ जी। क्या आप अपने बिज़नेस के लिए वेबसाइट बनवाना चाहते हैं?";
+          } else {
+            replyText = "I can help with details about our ₹3,000 launch model, mobile-first design, PageSpeed, and verified per-enquiry billing. What type of business or website are you planning?";
+          }
+        }
+      }
+
+      const meeraMsg: ChatMessage = {
+        id: `meera-${Date.now()}`,
+        sender: "meera",
+        text: replyText,
+        timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+        actionType,
+      };
+
+      setMessages((prev) => [...prev, meeraMsg]);
+      setIsTyping(false);
+    }, 380);
   };
 
-  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // Only allow numbers and limit to 10 digits
-    const val = e.target.value.replace(/\D/g, "").slice(0, 10);
-    setPhoneNumber(val);
-    if (errorMsg) setErrorMsg("");
+  const handleResetChat = () => {
+    setMessages([
+      {
+        id: `msg-reset-${Date.now()}`,
+        sender: "meera",
+        text: initialGreetings[selectedLanguage],
+        timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+        actionType: "growth-plan",
+      },
+    ]);
   };
 
-  const handleInitiateCall = async (e?: React.FormEvent) => {
-    if (e) e.preventDefault();
-    if (!phoneNumber || phoneNumber.length < 10) {
-      setErrorMsg("Please enter a valid 10-digit mobile number");
+  // Submit direct founder call request
+  const handleBookingSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const cleanPhone = bookingPhone.replace(/\D/g, "");
+    if (!cleanPhone || cleanPhone.length < 10) {
+      setFeedbackMsg("Please enter a valid 10-digit mobile number.");
       return;
     }
 
-    setErrorMsg("");
-    setIsSubmitting(true);
+    setBookingStatus("submitting");
     setFeedbackMsg("");
 
     try {
-      const res = await fetch("/api/call-request", {
+      const res = await fetch("/api/arrange-call", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ phone: phoneNumber, language: selectedLanguage }),
+        body: JSON.stringify({
+          name: bookingName.trim() || "Website Visitor",
+          phone: cleanPhone,
+          business: bookingBusiness.trim() || "Local Business",
+          preferredTime: bookingTime,
+          language: selectedLanguage,
+          notes: "Requested direct call with Founder Srishanth via Meera AI Chat Agent",
+        }),
       });
+
       const data = await res.json();
-      if (!data.success) {
-        setErrorMsg(data.error || "Unable to dispatch call. Try again.");
-        setIsSubmitting(false);
-        return;
-      }
-
-      if (data.clientWaLink) {
-        setWaLink(data.clientWaLink);
-      }
-
-      setIsSubmitting(false);
-      setCallState("ringing");
-      setFeedbackMsg(data.message || `Calling +91 ${phoneNumber}... Please pick up!`);
-      playRingtoneBeep();
-    } catch {
-      setIsSubmitting(false);
-      setErrorMsg("Network error connecting to call service. Please try again.");
-    }
-  };
-
-  const playRingtoneBeep = () => {
-    try {
-      if (typeof window !== "undefined" && "AudioContext" in window) {
-        const AudioCtx = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
-        const ctx = new AudioCtx();
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-        osc.type = "sine";
-        osc.frequency.setValueAtTime(440, ctx.currentTime);
-        gain.gain.setValueAtTime(0.05, ctx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.6);
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-        osc.start();
-        osc.stop(ctx.currentTime + 0.6);
+      if (res.ok && data.success) {
+        setBookingStatus("success");
+        trackFunnelEvent("cta_click", { source: "meera_founder_call_booked" });
+        setTimeout(() => {
+          setShowBookingModal(false);
+          setBookingStatus("idle");
+          setBookingName("");
+          setBookingPhone("");
+          setBookingBusiness("");
+          // Add confirmation to chat
+          setMessages((prev) => [
+            ...prev,
+            {
+              id: `booking-conf-${Date.now()}`,
+              sender: "meera",
+              text:
+                selectedLanguage === "Telugu"
+                  ? `మీ కాల్ రిక్వెస్ట్ ఫౌండర్ శ్రీశాంత్ గారికి అందింది! త్వరలోనే ${cleanPhone} నంబర్‌కు వారు సంప్రదిస్తారు.`
+                  : selectedLanguage === "Hindi"
+                  ? `आपकी कॉल रिक्वेस्ट फाउंडर श्रीशांत जी को मिल गई है! वे जल्द ही आपके नंबर पर संपर्क करेंगे।`
+                  : `Call request sent to Founder Srishanth M.! He will connect with you at ${cleanPhone} around ${bookingTime}.`,
+              timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+            },
+          ]);
+        }, 1800);
+      } else {
+        setBookingStatus("error");
+        setFeedbackMsg(data.error || "Unable to submit request. Please reach out via WhatsApp directly.");
       }
     } catch {
-      // Ignore audio context permission restrictions
+      setBookingStatus("error");
+      setFeedbackMsg("Network error. Please connect directly via WhatsApp.");
     }
   };
 
-  const handleAcceptCall = () => {
-    setCallState("connected");
-    setFeedbackMsg("");
+  const founderWaLink = `https://wa.me/919959896378?text=${encodeURIComponent(
+    `Hi Srishanth! I'm inquiring via your AI Assistant Meera on Webworkflo's website. I'd like to get more details about your ₹3,000 website launch model and the Free Growth Plan.`
+  )}`;
 
-    // Meera voice synthesis greeting (Cold Call Discovery)
-    const greetings = {
-      Telugu: "నమస్కారం! నేను వెబ్‌వర్క్‌ఫ్లోస్ నుండి మీరాను. గూగుల్ లో మీ బిజినెస్ చూశాను, చాలా మంచి రివ్యూలు ఉన్నాయి. మీ బిజినెస్‌కి ఎక్కువ కస్టమర్ ఎంక్వైరీలు తెచ్చే వెబ్‌సైట్ గురించి మాట్లాడటానికి కాల్ చేశాను.",
-      English: "Hi there! This is Meera calling from Webworkflo's in Hyderabad. I was looking at your business on Google and noticed you have great reviews, but no direct booking website. Are you looking to get more direct customer inquiries this month?",
-      Hindi: "नमस्ते! मैं वेबवर्कफ्लोस हैदराबाद से मीरा बोल रही हूँ। मैंने गूगल पर आपका बिज़नेस देखा, बहुत बढ़िया रिव्यूज हैं। क्या आप इस महीने अपने बिज़नेस के लिए और डायरेक्ट कस्टमर्स और ऑर्डर्स चाहते हैं?",
-    };
-
-    if (typeof window !== "undefined" && "speechSynthesis" in window) {
-      window.speechSynthesis.cancel();
-      const textToSpeak = greetings[selectedLanguage] || greetings.English;
-      const utterance = new SpeechSynthesisUtterance(textToSpeak);
-      utterance.rate = 0.95;
-      utterance.pitch = 1.05;
-      speechRef.current = utterance;
-      window.speechSynthesis.speak(utterance);
-    }
-  };
-
-  const handleDeclineCall = () => {
-    if (typeof window !== "undefined" && "speechSynthesis" in window) {
-      window.speechSynthesis.cancel();
-    }
-    setCallState("ended");
-    setFeedbackMsg("Call declined. Tap 'Reset Demo' to try again.");
-  };
-
-  const handleEndCall = () => {
-    if (typeof window !== "undefined" && "speechSynthesis" in window) {
-      window.speechSynthesis.cancel();
-    }
-    setCallState("ended");
-    setFeedbackMsg("Call completed! Meera is ready for your website.");
-  };
-
-  const handleReset = () => {
-    if (typeof window !== "undefined" && "speechSynthesis" in window) {
-      window.speechSynthesis.cancel();
-    }
-    setCallState("idle");
-    setCallDuration(0);
-    setFeedbackMsg("");
-    setErrorMsg("");
-  };
-
-  const displayPhone = phoneNumber
-    ? `+91 ${phoneNumber.slice(0, 5)} ${phoneNumber.slice(5) || "•••••"}`
-    : "+91 •••• •••••";
+  const freeGrowthPlanWaLink = `https://wa.me/919959896378?text=${encodeURIComponent(
+    `Hi Srishanth! I would like to request the 100% Free 1-Page Website Growth Plan for my business within 24 hours.`
+  )}`;
 
   return (
-    <section className="sec meera-section" id="ai-assistant" style={{ paddingTop: 0 }}>
-      {/* Hidden anchor compatibility */}
+    <section className="sec meera-chat-section" id="ai-assistant">
+      {/* Compatibility anchor */}
       <span id="protection" style={{ position: "absolute", marginTop: "-80px", visibility: "hidden" }} />
 
       <div className="wrap">
-        <div className="meera-container">
-
-          {/* LEFT COLUMN: Headings, Value Proposition & Number Connect Form */}
-          <div className="meera-left">
-
-            {/* Eyebrow Pill */}
-            <div className="meera-pill-badge">
-              <Sparkles className="meera-pill-icon" />
-              <span>LIVE COLD CALL DEMO</span>
+        <div className="meera-chat-container">
+          {/* TOP HEADER & INTRO */}
+          <div className="meera-chat-header-area">
+            <div className="meera-badge-row">
+              <span className="meera-live-pill">
+                <span className="pulse-dot" />
+                <span>MEERA AI ASSISTANT • ONLINE 24/7</span>
+              </span>
+              <span className="meera-kb-pill">
+                <ShieldCheck size={13} className="pill-check" />
+                <span>Grounded Knowledge Base</span>
+              </span>
             </div>
 
-            {/* Main Headline */}
-            <h2 className="meera-title">
-              Let our AI assistant Meera{" "}
-              <span className="meera-title-gradient">call you live.</span>
+            <h2 className="meera-main-heading">
+              Have questions? Ask <span className="highlight-gradient">Meera AI</span> instantly.
             </h2>
 
-            {/* Subtitle */}
-            <p className="meera-desc">
-              Drop your number — Webworkflo&apos;s AI consultant <strong>Meera</strong> will place an automated cold discovery call to your phone in seconds. Hear how she introduces our website model, handles objections, and qualifies clients.
+            <p className="meera-subheading">
+              Get immediate, accurate answers about our <strong>₹3,000 launch model</strong>, verified enquiry pricing,
+              PageSpeed benchmarks, and the <strong>100% Free Growth Plan</strong>.
             </p>
 
-            {/* Phone Input Bar */}
-            <form onSubmit={handleInitiateCall} className="meera-input-wrapper">
-              <div className="meera-input-group">
-                <div className="meera-input-fields">
-                  <div className="meera-country-code">
-                    <span className="meera-flag">🇮🇳</span>
-                    <span>+91</span>
-                  </div>
-                  <div className="meera-divider" />
-                  <input
-                    type="tel"
-                    inputMode="numeric"
-                    value={phoneNumber}
-                    onChange={handlePhoneChange}
-                    placeholder="your mobile number"
-                    className="meera-input"
-                    aria-label="Your 10-digit mobile number"
-                  />
-                </div>
-                <button
-                  type="submit"
-                  disabled={isSubmitting || callState === "connected"}
-                  className="meera-submit-btn"
-                  id="connect-now-btn"
-                >
-                  {isSubmitting ? (
-                    <span className="meera-btn-loader">Connecting...</span>
-                  ) : callState === "ringing" ? (
-                    <span>Ringing... 🔔</span>
-                  ) : (
-                    <>
-                      <span>Connect now</span>
-                      <ArrowRight className="meera-btn-arrow" />
-                    </>
-                  )}
-                </button>
-              </div>
-
-              {errorMsg && <p className="meera-error-msg">{errorMsg}</p>}
-              {feedbackMsg && <p className="meera-success-msg">{feedbackMsg}</p>}
-            </form>
-
-            {/* Calling Hours Notice (9 AM to 9 PM) */}
-            <div className="meera-hours-badge">
-              <Clock className="meera-hours-icon" size={15} />
-              <span>Calls available <strong>9:00 AM – 9:00 PM IST</strong> only (TRAI regulations). Requests after 9 PM are placed at 9 AM.</span>
-            </div>
-
             {/* Language Selector */}
-            <div className="meera-lang-selector">
-              <span className="meera-lang-label">Meera speaks:</span>
-              {(["Telugu", "English", "Hindi"] as const).map((lang) => (
-                <button
-                  key={lang}
-                  type="button"
-                  onClick={() => setSelectedLanguage(lang)}
-                  className={`meera-lang-btn ${selectedLanguage === lang ? "active" : ""}`}
-                >
-                  {lang}
-                </button>
-              ))}
+            <div className="meera-language-bar">
+              <span className="lang-prompt">Language:</span>
+              <div className="lang-pills">
+                {(["English", "Telugu", "Hindi"] as const).map((lang) => (
+                  <button
+                    key={lang}
+                    type="button"
+                    onClick={() => setSelectedLanguage(lang)}
+                    className={`lang-pill-btn ${selectedLanguage === lang ? "active" : ""}`}
+                  >
+                    {lang === "Telugu" ? "తెలుగు (Telugu)" : lang === "Hindi" ? "हिंदी (Hindi)" : "English"}
+                  </button>
+                ))}
+              </div>
             </div>
-
           </div>
 
-          {/* RIGHT COLUMN: Realistic Smartphone Mockup */}
-          <div className="meera-right">
-            <div className={`meera-phone-chassis ${callState === "ringing" ? "phone-vibrating" : ""}`}>
-
-              {/* Speaker & Dynamic Notch */}
-              <div className="meera-phone-notch">
-                <div className="meera-phone-speaker" />
-                <div className="meera-phone-camera" />
+          {/* MAIN CHAT WINDOW */}
+          <div className="meera-chat-card">
+            {/* CARD TOP BAR */}
+            <div className="chat-card-top">
+              <div className="assistant-identity">
+                <div className="assistant-avatar">
+                  <Bot size={22} className="avatar-bot-icon" />
+                  <span className="avatar-online-dot" />
+                </div>
+                <div className="assistant-meta">
+                  <div className="assistant-name-row">
+                    <span className="assistant-name">Meera AI</span>
+                    <span className="verified-badge">Webworkflo&apos;s Assistant</span>
+                  </div>
+                  <span className="assistant-status">
+                    Replies instantly in {selectedLanguage} • Direct connection to Founder Srishanth
+                  </span>
+                </div>
               </div>
 
-              {/* Phone Screen Canvas */}
-              <div className="meera-screen">
+              <div className="chat-card-actions">
+                <button
+                  type="button"
+                  onClick={handleResetChat}
+                  className="chat-icon-btn"
+                  title="Reset Conversation"
+                  aria-label="Reset Conversation"
+                >
+                  <RotateCcw size={15} />
+                  <span className="btn-tip-text">Reset</span>
+                </button>
+              </div>
+            </div>
 
-                {/* STATE 1 & 2: INCOMING CALL OR RINGING */}
-                {callState !== "connected" && callState !== "ended" && (
-                  <div className="meera-call-view">
-
-                    {/* Top Call State Pill */}
-                    <div className="meera-incoming-pill">
-                      <span className="pulsing-call-dot" />
-                      <span>{callState === "ringing" ? "CALLING YOU NOW" : "INCOMING CALL"}</span>
-                    </div>
-
-                    {/* Meera Avatar with Glowing Rings */}
-                    <div className="meera-avatar-container">
-                      <div className="meera-ring ring-1" />
-                      <div className="meera-ring ring-2" />
-                      <div className="meera-avatar-circle">
-                        <span className="meera-avatar-letter">M</span>
+            {/* MESSAGES SCROLL AREA */}
+            <div className="chat-messages-area" role="log" aria-live="polite">
+              <AnimatePresence initial={false}>
+                {messages.map((msg) => (
+                  <motion.div
+                    key={msg.id}
+                    className={`chat-message-row ${msg.sender === "user" ? "user-row" : "meera-row"}`}
+                    initial={{ opacity: 0, y: 12, scale: 0.98 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    transition={{ duration: 0.25, ease: "easeOut" }}
+                  >
+                    {msg.sender === "meera" && (
+                      <div className="msg-avatar meera-msg-avatar">
+                        <Bot size={16} />
                       </div>
-                    </div>
+                    )}
 
-                    {/* Meera Name & Language */}
-                    <div className="meera-caller-info">
-                      <h3 className="meera-caller-name">Meera</h3>
-                      <p className="meera-caller-role">
-                        AI Cold Outreach Consultant · {selectedLanguage}
-                      </p>
-                      <p className="meera-caller-num">{displayPhone}</p>
-                    </div>
-
-                    {/* Decline & Accept Buttons */}
-                    <div className="meera-call-actions">
-                      <div className="meera-action-col">
-                        <button
-                          type="button"
-                          onClick={handleDeclineCall}
-                          className="meera-action-btn btn-decline"
-                          aria-label="Decline Call"
-                        >
-                          <PhoneOff className="meera-action-icon" />
-                        </button>
-                        <span className="meera-action-label">Decline</span>
+                    <div className={`chat-bubble ${msg.sender === "user" ? "user-bubble" : "meera-bubble"}`}>
+                      <div className="bubble-text">
+                        {msg.text.split("\n").map((line, idx) => (
+                          <p key={idx} className={line.startsWith("•") || line.match(/^\d+\./) ? "list-line" : ""}>
+                            {line}
+                          </p>
+                        ))}
                       </div>
 
-                      <div className="meera-action-col">
-                        <button
-                          type="button"
-                          onClick={handleAcceptCall}
-                          className="meera-action-btn btn-accept"
-                          aria-label="Accept Call"
-                        >
-                          <Phone className="meera-action-icon" />
-                        </button>
-                        <span className="meera-action-label accept-label">Accept</span>
+                      <div className="bubble-footer">
+                        <span className="bubble-timestamp">{msg.timestamp}</span>
                       </div>
-                    </div>
 
-                    <p className="meera-screen-hint">tap to hear live cold call demo</p>
-                  </div>
-                )}
+                      {/* Contextual Action Buttons in Meera's response */}
+                      {msg.sender === "meera" && msg.actionType && (
+                        <div className="bubble-action-row">
+                          {msg.actionType === "growth-plan" && (
+                            <a
+                              href={freeGrowthPlanWaLink}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="bubble-action-btn growth-plan-action"
+                              onClick={() => trackFunnelEvent("whatsapp_click", { source: "meera_chat_growth_btn" })}
+                            >
+                              <Zap size={14} />
+                              <span>Claim 100% Free Growth Plan on WhatsApp</span>
+                              <ExternalLink size={12} />
+                            </a>
+                          )}
 
-                {/* STATE 3: CONNECTED ACTIVE CALL */}
-                {callState === "connected" && (
-                  <div className="meera-call-view connected-view">
+                          {msg.actionType === "whatsapp" && (
+                            <a
+                              href={founderWaLink}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="bubble-action-btn wa-action"
+                              onClick={() => trackFunnelEvent("whatsapp_click", { source: "meera_chat_wa_btn" })}
+                            >
+                              <MessageSquare size={14} />
+                              <span>Chat with Srishanth on WhatsApp</span>
+                              <ExternalLink size={12} />
+                            </a>
+                          )}
 
-                    <div className="meera-incoming-pill connected-pill">
-                      <span className="connected-dot" />
-                      <span>CONNECTED · {formatSeconds(callDuration)}</span>
-                    </div>
-
-                    {/* Avatar Compact */}
-                    <div className="meera-avatar-compact">
-                      <div className="meera-avatar-circle compact">
-                        <span className="meera-avatar-letter">M</span>
-                      </div>
-                      <h4 className="meera-caller-name-compact">Meera AI</h4>
-                      <p className="meera-caller-role-compact">Cold Discovery Call in {selectedLanguage}...</p>
-                    </div>
-
-                    {/* Animated Equalizer Waveform */}
-                    <div className="meera-equalizer">
-                      <span className="eq-bar bar-1" />
-                      <span className="eq-bar bar-2" />
-                      <span className="eq-bar bar-3" />
-                      <span className="eq-bar bar-4" />
-                      <span className="eq-bar bar-5" />
-                      <span className="eq-bar bar-6" />
-                      <span className="eq-bar bar-7" />
-                    </div>
-
-                    {/* Speech Transcript Bubble */}
-                    <div className="meera-speech-bubble">
-                      <p className="meera-transcript-quote">
-                        {selectedLanguage === "Telugu" && (
-                          <>&ldquo;నమస్కారం! నేను వెబ్‌వర్క్‌ఫ్లోస్ నుండి మీరాను. గూగుల్ లో మీ బిజినెస్ చూశాను, చాలా మంచి రివ్యూలు ఉన్నాయి. మీ బిజినెస్‌కి ఎక్కువ కస్టమర్ ఎంక్వైరీలు తెచ్చే వెబ్‌సైట్ గురించి మాట్లాడటానికి కాల్ చేశాను.&rdquo;</>
-                        )}
-                        {selectedLanguage === "English" && (
-                          <>&ldquo;Hi there! This is Meera from Webworkflo&apos;s in Hyderabad. I was looking at your business on Google and noticed you have great reviews, but no direct booking website. Are you looking to get more direct customer inquiries this month?&rdquo;</>
-                        )}
-                        {selectedLanguage === "Hindi" && (
-                          <>&ldquo;नमस्ते! मैं वेबवर्कफ्लोस हैदराबाद से मीरा बोल रही हूँ। मैंने गूगल पर आपका बिज़नेस देखा, बहुत बढ़िया रिव्यूज हैं। क्या आप इस महीने अपने बिज़नेस के लिए और डायरेक्ट कस्टमर्स और ऑर्डर्स चाहते हैं?&rdquo;</>
-                        )}
-                      </p>
-                    </div>
-
-                    {/* Call In-Progress Controls */}
-                    <div className="meera-in-call-controls">
-                      <button
-                        type="button"
-                        onClick={() => setIsMuted(!isMuted)}
-                        className={`meera-ctrl-btn ${isMuted ? "active" : ""}`}
-                        title={isMuted ? "Unmute" : "Mute"}
-                      >
-                        {isMuted ? <MicOff size={18} /> : <Mic size={18} />}
-                      </button>
-
-                      <button
-                        type="button"
-                        onClick={handleEndCall}
-                        className="meera-ctrl-btn end-call-btn"
-                        title="End Call"
-                      >
-                        <PhoneOff size={22} />
-                      </button>
-
-                      <button
-                        type="button"
-                        onClick={() => setIsSpeaker(!isSpeaker)}
-                        className={`meera-ctrl-btn ${isSpeaker ? "active" : ""}`}
-                        title={isSpeaker ? "Speaker On" : "Speaker Off"}
-                      >
-                        {isSpeaker ? <Volume2 size={18} /> : <VolumeX size={18} />}
-                      </button>
-                    </div>
-
-                    <p className="meera-screen-hint">Live AI speech demo active</p>
-                  </div>
-                )}
-
-                {/* STATE 4: CALL ENDED */}
-                {callState === "ended" && (
-                  <div className="meera-call-view ended-view">
-                    <div className="meera-avatar-compact">
-                      <div className="meera-avatar-circle ended">
-                        <CheckCircle2 size={36} color="#10B981" />
-                      </div>
-                      <h4 className="meera-caller-name-compact" style={{ marginTop: "12px" }}>
-                        Outreach Call Completed
-                      </h4>
-                      <p className="meera-caller-role-compact">
-                        Meera pitched &amp; qualified the prospect.
-                      </p>
-                    </div>
-
-                    <div className="meera-ended-box">
-                      <p>✨ <strong>Lead Dossier</strong> recorded. Founder Srishanth has been alerted.</p>
-                      {waLink && (
-                        <div style={{ marginTop: "12px" }}>
-                          <a
-                            href={waLink}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="meera-wa-send-btn"
-                            style={{
-                              display: "inline-flex",
-                              alignItems: "center",
-                              justifyContent: "center",
-                              gap: "8px",
-                              background: "#25D366",
-                              color: "#FFFFFF",
-                              padding: "10px 16px",
-                              borderRadius: "12px",
-                              fontWeight: 700,
-                              fontSize: "0.85rem",
-                              textDecoration: "none",
-                              boxShadow: "0 8px 18px -4px rgba(37, 211, 102, 0.5)",
-                              transition: "transform 0.2s ease"
-                            }}
-                          >
-                            <span>📲 1-Tap: Send Growth Plan on WhatsApp</span>
-                          </a>
+                          {msg.actionType === "booking" && (
+                            <button
+                              type="button"
+                              onClick={() => setShowBookingModal(true)}
+                              className="bubble-action-btn call-action"
+                            >
+                              <Phone size={14} />
+                              <span>Request Direct Call with Founder</span>
+                              <ArrowRight size={12} />
+                            </button>
+                          )}
                         </div>
                       )}
                     </div>
 
-                    <button
-                      type="button"
-                      onClick={handleReset}
-                      className="meera-reset-btn"
-                      style={{ marginTop: "8px" }}
-                    >
-                      <RotateCcw size={16} />
-                      <span>Test Call Again</span>
-                    </button>
-                  </div>
-                )}
+                    {msg.sender === "user" && (
+                      <div className="msg-avatar user-msg-avatar">
+                        <User size={16} />
+                      </div>
+                    )}
+                  </motion.div>
+                ))}
+              </AnimatePresence>
 
+              {/* Animated Typing Indicator */}
+              {isTyping && (
+                <motion.div 
+                  className="chat-message-row meera-row typing-row"
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                >
+                  <div className="msg-avatar meera-msg-avatar">
+                    <Bot size={16} />
+                  </div>
+                  <div className="chat-bubble meera-bubble typing-bubble">
+                    <span className="typing-dot" />
+                    <span className="typing-dot" />
+                    <span className="typing-dot" />
+                    <span className="typing-label">Meera is checking Knowledge Base...</span>
+                  </div>
+                </motion.div>
+              )}
+
+              <div ref={chatEndRef} />
+            </div>
+
+            {/* QUICK SUGGESTION CHIPS ROW */}
+            <div className="chat-chips-container">
+              <div className="chips-scroll-hint">
+                <HelpCircle size={12} />
+                <span>Suggested questions:</span>
+              </div>
+              <div className="chat-chips-scroll">
+                {quickChips[selectedLanguage].map((chip, index) => (
+                  <motion.button
+                    key={index}
+                    type="button"
+                    onClick={() => handleSendMessage(chip.query)}
+                    className={`chat-chip-btn ${chip.isFounder ? "founder-chip" : ""}`}
+                    disabled={isTyping}
+                    style={{ whiteSpace: "nowrap", flexShrink: 0 }}
+                    whileHover={{ y: -1, scale: 1.02 }}
+                    whileTap={{ scale: 0.96 }}
+                    transition={{ type: "spring", stiffness: 450, damping: 25 }}
+                  >
+                    <span style={{ whiteSpace: "nowrap", display: "inline" }}>{chip.label}</span>
+                  </motion.button>
+                ))}
               </div>
             </div>
-          </div>
 
+            {/* INPUT COMPOSER */}
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                handleSendMessage();
+              }}
+              className="chat-input-form"
+            >
+              <input
+                ref={inputRef}
+                type="text"
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+                placeholder={
+                  selectedLanguage === "Telugu"
+                    ? "మీరాని ఏదైనా అడగండి (ఉదా: ₹3,000 ప్లాన్ వివరాలు)..."
+                    : selectedLanguage === "Hindi"
+                    ? "मीरा से कुछ भी पूछें (उदा: ₹3,000 मॉडल और फ्री प्लान)..."
+                    : "Ask Meera anything (e.g., How does the ₹3,000 launch work?)..."
+                }
+                className="chat-input-field"
+                disabled={isTyping}
+                maxLength={250}
+              />
+              <button
+                type="submit"
+                disabled={!inputValue.trim() || isTyping}
+                className="chat-send-btn"
+                aria-label="Send message"
+              >
+                <Send size={18} />
+              </button>
+            </form>
+          </div>
         </div>
       </div>
 
-      {/* Scoped CSS for Pixel-Perfect Premium Design */}
-      <style dangerouslySetInnerHTML={{
-        __html: `
-        .meera-section {
+      {/* FOUNDER CALL BOOKING MODAL */}
+      {showBookingModal && (
+        <div className="booking-modal-backdrop" onClick={() => setShowBookingModal(false)}>
+          <div className="booking-modal-card" onClick={(e) => e.stopPropagation()}>
+            <div className="booking-modal-header">
+              <div className="modal-title-row">
+                <Calendar className="modal-icon" size={20} />
+                <h3>Request a Direct Call with Srishanth</h3>
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowBookingModal(false)}
+                className="modal-close-btn"
+                aria-label="Close modal"
+              >
+                <X size={18} />
+              </button>
+            </div>
+
+            <p className="modal-desc">
+              Share your contact details. Founder Srishanth M. will call you directly to discuss your business requirements and growth strategy.
+            </p>
+
+            <form onSubmit={handleBookingSubmit} className="booking-form">
+              <div className="form-group">
+                <label htmlFor="client-name">Your Name</label>
+                <input
+                  id="client-name"
+                  type="text"
+                  required
+                  placeholder="e.g., Rajesh Sharma"
+                  value={bookingName}
+                  onChange={(e) => setBookingName(e.target.value)}
+                  className="form-input"
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="client-phone">Mobile / WhatsApp Number</label>
+                <div className="phone-input-wrap">
+                  <span className="phone-prefix">+91</span>
+                  <input
+                    id="client-phone"
+                    type="tel"
+                    required
+                    placeholder="99598 96378"
+                    value={bookingPhone}
+                    onChange={(e) => setBookingPhone(e.target.value)}
+                    className="form-input phone-input"
+                    maxLength={10}
+                  />
+                </div>
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="client-business">Business or Shop Name (Optional)</label>
+                <input
+                  id="client-business"
+                  type="text"
+                  placeholder="e.g., Kondapur Bakery / Men's Salon"
+                  value={bookingBusiness}
+                  onChange={(e) => setBookingBusiness(e.target.value)}
+                  className="form-input"
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="preferred-time">Preferred Call Time</label>
+                <select
+                  id="preferred-time"
+                  value={bookingTime}
+                  onChange={(e) => setBookingTime(e.target.value)}
+                  className="form-input form-select"
+                >
+                  <option value="Immediately (Next 15 mins)">Immediately (Next 15 mins)</option>
+                  <option value="Today Evening (5 PM - 8 PM)">Today Evening (5 PM - 8 PM)</option>
+                  <option value="Tomorrow Morning (10 AM - 1 PM)">Tomorrow Morning (10 AM - 1 PM)</option>
+                  <option value="Tomorrow Afternoon (2 PM - 5 PM)">Tomorrow Afternoon (2 PM - 5 PM)</option>
+                </select>
+              </div>
+
+              {feedbackMsg && (
+                <div className={`form-feedback ${bookingStatus === "error" ? "error" : "info"}`}>
+                  {feedbackMsg}
+                </div>
+              )}
+
+              {bookingStatus === "success" ? (
+                <div className="booking-success-box">
+                  <CheckCircle2 size={24} className="success-icon" />
+                  <div>
+                    <strong>Call Request Received!</strong>
+                    <p>Srishanth will call you around {bookingTime}.</p>
+                  </div>
+                </div>
+              ) : (
+                <button
+                  type="submit"
+                  disabled={bookingStatus === "submitting"}
+                  className="modal-submit-btn"
+                >
+                  {bookingStatus === "submitting" ? (
+                    <>
+                      <Loader2 size={16} className="spin-icon" />
+                      <span>Submitting Request...</span>
+                    </>
+                  ) : (
+                    <>
+                      <span>Confirm Call Request</span>
+                      <ArrowRight size={16} />
+                    </>
+                  )}
+                </button>
+              )}
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* COMPONENT STYLES */}
+      <style jsx>{`
+        .meera-chat-section {
+          padding: 80px 0 60px 0;
+          background: linear-gradient(180deg, var(--bg) 0%, rgba(124, 58, 237, 0.03) 50%, var(--bg) 100%);
           position: relative;
-          overflow: hidden;
-          padding-top: clamp(40px, 6vw, 70px);
-          padding-bottom: clamp(60px, 8vw, 100px);
         }
 
-        .meera-container {
-          display: grid;
-          grid-template-columns: 1fr;
-          gap: 40px;
-          align-items: center;
-          max-width: 1140px;
+        .meera-chat-container {
+          max-width: 900px;
           margin: 0 auto;
-          width: 100%;
-        }
-
-        @media (min-width: 960px) {
-          .meera-container {
-            grid-template-columns: 1.15fr 0.85fr;
-            gap: 60px;
-          }
-        }
-
-        /* TABLET PORTRAIT / COMPACT (768px – 959px) */
-        @media (min-width: 768px) and (max-width: 959px) {
-          .meera-container {
-            max-width: 680px;
-            gap: 44px;
-          }
-          .meera-left {
-            align-items: center !important;
-            text-align: center !important;
-          }
-          .meera-title {
-            text-align: center;
-          }
-          .meera-desc {
-            text-align: center;
-            margin-inline: auto;
-          }
-          .meera-input-wrapper {
-            margin-inline: auto;
-          }
-          .meera-hours-badge {
-            margin-inline: auto;
-            text-align: left;
-          }
-          .meera-lang-selector {
-            justify-content: center;
-          }
-        }
-
-        /* LEFT SIDE */
-        .meera-left {
           display: flex;
           flex-direction: column;
-          align-items: flex-start;
-          text-align: left;
-          width: 100%;
+          gap: 28px;
         }
 
-        .meera-pill-badge {
+        /* HEADER AREA */
+        .meera-chat-header-area {
+          text-align: center;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 12px;
+        }
+
+        .meera-badge-row {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 10px;
+          flex-wrap: wrap;
+        }
+
+        .meera-live-pill {
           display: inline-flex;
           align-items: center;
-          gap: 8px;
-          padding: 6px 14px;
-          background: rgba(124, 58, 237, 0.08);
-          border: 1px solid rgba(124, 58, 237, 0.22);
-          border-radius: 999px;
-          color: #7C3AED;
-          font-size: 0.76rem;
-          font-weight: 700;
+          gap: 7px;
+          background: rgba(16, 185, 129, 0.12);
+          border: 1px solid rgba(16, 185, 129, 0.35);
+          color: #059669;
+          font-size: 0.72rem;
+          font-weight: 800;
           letter-spacing: 0.08em;
-          text-transform: uppercase;
-          margin-bottom: 20px;
+          padding: 5px 12px;
+          border-radius: 999px;
         }
 
-        :root[data-theme="dark"] .meera-pill-badge,
-        @media (prefers-color-scheme: dark) {
-          :root:not([data-theme="light"]) .meera-pill-badge {
-            background: rgba(139, 92, 246, 0.15);
-            border-color: rgba(139, 92, 246, 0.35);
-            color: #C4B5FD;
+        :root[data-theme="dark"] .meera-live-pill {
+          background: rgba(16, 185, 129, 0.18);
+          color: #34D399;
+        }
+
+        .pulse-dot {
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+          background: #10B981;
+          box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+          animation: pulse 1.8s infinite;
+        }
+
+        @keyframes pulse {
+          0% {
+            box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+          }
+          70% {
+            box-shadow: 0 0 0 6px rgba(16, 185, 129, 0);
+          }
+          100% {
+            box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
           }
         }
 
-        .meera-pill-icon {
-          width: 14px;
-          height: 14px;
-          color: currentColor;
+        .meera-kb-pill {
+          display: inline-flex;
+          align-items: center;
+          gap: 5px;
+          background: rgba(124, 58, 237, 0.08);
+          border: 1px solid rgba(124, 58, 237, 0.25);
+          color: #7C3AED;
+          font-size: 0.72rem;
+          font-weight: 700;
+          padding: 5px 12px;
+          border-radius: 999px;
         }
 
-        .meera-title {
-          font-size: clamp(2.1rem, 4.4vw, 3.6rem);
+        :root[data-theme="dark"] .meera-kb-pill {
+          color: #A78BFA;
+        }
+
+        .meera-main-heading {
+          font-size: clamp(1.8rem, 3.5vw, 2.5rem);
           font-weight: 800;
-          line-height: 1.12;
-          letter-spacing: -0.025em;
-          margin: 0 0 18px 0;
+          line-height: 1.2;
           color: var(--ink);
+          margin: 0;
         }
 
-        .meera-title-gradient {
-          display: inline;
-          background: linear-gradient(135deg, #7C3AED 0%, #9333EA 45%, #D97706 100%);
+        .highlight-gradient {
+          background: linear-gradient(135deg, #7C3AED 0%, #3B82F6 100%);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
         }
 
-        .meera-desc {
-          font-size: clamp(1rem, 1.8vw, 1.2rem);
-          line-height: 1.6;
+        .meera-subheading {
+          font-size: clamp(0.95rem, 1.8vw, 1.05rem);
           color: var(--muted);
-          margin: 0 0 30px 0;
-          max-width: 520px;
+          max-width: 680px;
+          margin: 0 auto;
+          line-height: 1.5;
         }
 
-        /* INPUT BAR */
-        .meera-input-wrapper {
-          width: 100%;
-          max-width: 540px;
-          margin-bottom: 20px;
-        }
-
-        .meera-input-group {
-          display: flex;
+        /* LANGUAGE SELECTOR */
+        .meera-language-bar {
+          display: inline-flex;
           align-items: center;
+          gap: 10px;
           background: var(--surface);
-          border: 1.5px solid var(--line);
-          border-radius: 20px;
-          padding: 6px;
-          box-shadow: 0 12px 36px -10px rgba(0, 0, 0, 0.06);
-          transition: border-color 0.25s ease, box-shadow 0.25s ease;
-          gap: 6px;
+          border: 1px solid var(--line);
+          padding: 4px 10px;
+          border-radius: 999px;
+          margin-top: 4px;
         }
 
-        .meera-input-fields {
+        .lang-prompt {
+          font-size: 0.75rem;
+          font-weight: 700;
+          color: var(--muted);
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+        }
+
+        .lang-pills {
           display: flex;
-          align-items: center;
-          flex: 1;
-          min-width: 0;
           gap: 4px;
         }
 
-        .meera-input-group:focus-within {
-          border-color: #7C3AED;
-          box-shadow: 0 12px 36px -10px rgba(124, 58, 237, 0.25);
+        .lang-pill-btn {
+          border: none;
+          background: transparent;
+          color: var(--ink);
+          font-size: 0.78rem;
+          font-weight: 600;
+          padding: 5px 12px;
+          border-radius: 999px;
+          cursor: pointer;
+          transition: all 0.18s ease;
         }
 
-        .meera-country-code {
+        .lang-pill-btn:hover {
+          background: rgba(124, 58, 237, 0.1);
+          color: #7C3AED;
+        }
+
+        .lang-pill-btn.active {
+          background: #7C3AED;
+          color: #FFFFFF;
+          font-weight: 700;
+          box-shadow: 0 2px 8px rgba(124, 58, 237, 0.35);
+        }
+
+        /* CHAT CARD */
+        .meera-chat-card {
+          background: var(--surface);
+          border: 1.5px solid var(--line);
+          border-radius: 20px;
+          box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.08), 0 0 25px rgba(124, 58, 237, 0.05);
+          overflow: hidden;
+          display: flex;
+          flex-direction: column;
+          height: 640px;
+        }
+
+        :root[data-theme="dark"] .meera-chat-card {
+          box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.4), 0 0 30px rgba(124, 58, 237, 0.1);
+        }
+
+        /* CARD TOP */
+        .chat-card-top {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 14px 20px;
+          border-bottom: 1px solid var(--line);
+          background: rgba(124, 58, 237, 0.03);
+        }
+
+        .assistant-identity {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+        }
+
+        .assistant-avatar {
+          position: relative;
+          width: 42px;
+          height: 42px;
+          border-radius: 50%;
+          background: linear-gradient(135deg, #7C3AED 0%, #4F46E5 100%);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #FFFFFF;
+          box-shadow: 0 4px 10px rgba(124, 58, 237, 0.3);
+        }
+
+        .avatar-online-dot {
+          position: absolute;
+          bottom: 1px;
+          right: 1px;
+          width: 10px;
+          height: 10px;
+          border-radius: 50%;
+          background: #10B981;
+          border: 2px solid var(--surface);
+        }
+
+        .assistant-meta {
+          display: flex;
+          flex-direction: column;
+          gap: 2px;
+        }
+
+        .assistant-name-row {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+        }
+
+        .assistant-name {
+          font-weight: 800;
+          font-size: 1.02rem;
+          color: var(--ink);
+        }
+
+        .verified-badge {
+          font-size: 0.68rem;
+          font-weight: 700;
+          background: rgba(124, 58, 237, 0.12);
+          color: #7C3AED;
+          padding: 2px 7px;
+          border-radius: 6px;
+        }
+
+        :root[data-theme="dark"] .verified-badge {
+          color: #C4B5FD;
+        }
+
+        .assistant-status {
+          font-size: 0.74rem;
+          color: var(--muted);
+        }
+
+        .chat-icon-btn {
+          border: 1px solid var(--line);
+          background: transparent;
+          color: var(--muted);
+          padding: 6px 10px;
+          border-radius: 8px;
+          cursor: pointer;
           display: flex;
           align-items: center;
           gap: 6px;
-          padding: 0 12px;
-          font-weight: 700;
-          font-size: 1rem;
-          color: var(--ink);
-          user-select: none;
-          flex-shrink: 0;
+          font-size: 0.75rem;
+          font-weight: 600;
+          transition: all 0.15s ease;
         }
 
-        .meera-flag {
-          font-size: 1.15rem;
+        .chat-icon-btn:hover {
+          border-color: #7C3AED;
+          color: #7C3AED;
+          background: rgba(124, 58, 237, 0.05);
         }
 
-        .meera-divider {
-          width: 1px;
-          height: 28px;
-          background: var(--line);
-          flex-shrink: 0;
-        }
-
-        .meera-input {
+        /* MESSAGES SCROLL AREA */
+        .chat-messages-area {
           flex: 1;
-          min-width: 0;
-          border: none;
-          background: transparent;
-          padding: 12px 10px;
-          font-size: 1.05rem;
-          font-family: inherit;
-          color: var(--ink);
-          outline: none;
+          overflow-y: auto;
+          padding: 20px;
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
+          scroll-behavior: smooth;
         }
 
-        .meera-input::placeholder {
-          color: var(--muted);
-          opacity: 0.7;
-        }
-
-        .meera-submit-btn {
-          display: inline-flex;
-          align-items: center;
-          gap: 8px;
-          background: linear-gradient(135deg, #7C3AED 0%, #6D28D9 100%);
-          color: #ffffff;
-          border: none;
-          border-radius: 14px;
-          padding: 13px 22px;
-          font-size: 0.98rem;
-          font-weight: 600;
-          cursor: pointer;
-          transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
-          box-shadow: 0 8px 20px -6px rgba(124, 58, 237, 0.6);
-          white-space: nowrap;
-          flex-shrink: 0;
-        }
-
-        .meera-submit-btn:hover:not(:disabled) {
-          transform: translateY(-2px);
-          box-shadow: 0 12px 24px -6px rgba(124, 58, 237, 0.8);
-        }
-
-        .meera-submit-btn:disabled {
-          opacity: 0.75;
-          cursor: not-allowed;
-        }
-
-        .meera-btn-arrow {
-          width: 16px;
-          height: 16px;
-          transition: transform 0.2s ease;
-        }
-
-        .meera-submit-btn:hover .meera-btn-arrow {
-          transform: translateX(3px);
-        }
-
-        @media (max-width: 640px) {
-          .meera-input-group {
-            flex-direction: column;
-            padding: 8px;
-            border-radius: 18px;
-            gap: 8px;
-          }
-          .meera-input-fields {
-            width: 100%;
-          }
-          .meera-country-code {
-            padding: 0 8px;
-            font-size: 0.95rem;
-          }
-          .meera-input {
-            padding: 8px 6px;
-            font-size: 0.98rem;
-          }
-          .meera-submit-btn {
-            width: 100%;
-            justify-content: center;
-            padding: 12px 16px;
-            font-size: 0.95rem;
-            border-radius: 12px;
-          }
-        }
-
-        .meera-error-msg {
-          color: #EF4444;
-          font-size: 0.85rem;
-          margin: 8px 0 0 8px;
-          font-weight: 500;
-        }
-
-        .meera-success-msg {
-          color: #10B981;
-          font-size: 0.88rem;
-          margin: 8px 0 0 8px;
-          font-weight: 600;
-        }
-
-        .meera-hours-badge {
-          display: inline-flex;
+        .chat-message-row {
+          display: flex;
           align-items: flex-start;
           gap: 10px;
-          background: rgba(79, 70, 229, 0.05);
-          border: 1px solid rgba(79, 70, 229, 0.15);
-          border-radius: 12px;
-          padding: 9px 14px;
-          font-size: 0.81rem;
-          color: var(--muted);
-          line-height: 1.45;
-          margin-bottom: 20px;
-          max-width: 520px;
-          width: 100%;
-          box-sizing: border-box;
+          max-width: 88%;
+          animation: fadeIn 0.25s ease-out;
         }
 
-        :root[data-theme="dark"] .meera-hours-badge,
-        @media (prefers-color-scheme: dark) {
-          :root:not([data-theme="light"]) .meera-hours-badge {
-            background: rgba(110, 66, 255, 0.08);
-            border-color: rgba(110, 66, 255, 0.2);
-            color: #A3A8D6;
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(6px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
           }
         }
 
-        .meera-hours-icon {
-          color: #4F46E5;
+        .meera-row {
+          align-self: flex-start;
+        }
+
+        .user-row {
+          align-self: flex-end;
+          flex-direction: row-reverse;
+        }
+
+        .msg-avatar {
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
           flex-shrink: 0;
           margin-top: 2px;
         }
 
-        :root[data-theme="dark"] .meera-hours-icon,
-        @media (prefers-color-scheme: dark) {
-          :root:not([data-theme="light"]) .meera-hours-icon {
-            color: #A78BFA;
-          }
-        }
-
-        /* TRUST BADGES */
-        .meera-trust-badges {
-          display: flex;
-          flex-wrap: wrap;
-          align-items: center;
-          gap: 14px;
-          margin-bottom: 24px;
-        }
-
-        .meera-badge-item {
-          display: inline-flex;
-          align-items: center;
-          gap: 8px;
-          font-size: 0.84rem;
-          font-weight: 500;
-          color: var(--muted);
-        }
-
-        .green-badge {
-          background: rgba(16, 185, 129, 0.1);
-          border: 1px solid rgba(16, 185, 129, 0.25);
-          color: #059669;
-          padding: 4px 12px;
-          border-radius: 999px;
-          font-weight: 600;
-        }
-
-        :root[data-theme="dark"] .green-badge,
-        @media (prefers-color-scheme: dark) {
-          :root:not([data-theme="light"]) .green-badge {
-            background: rgba(16, 185, 129, 0.15);
-            border-color: rgba(16, 185, 129, 0.35);
-            color: #34D399;
-          }
-        }
-
-        .meera-green-dot {
-          width: 7px;
-          height: 7px;
-          border-radius: 50%;
-          background: #10B981;
-          box-shadow: 0 0 6px #10B981;
-        }
-
-        .meera-shield-icon {
-          width: 16px;
-          height: 16px;
-          color: var(--muted);
-        }
-
-        /* LANGUAGE SELECTOR */
-        .meera-lang-selector {
-          display: flex;
-          align-items: center;
-          flex-wrap: wrap;
-          gap: 8px;
-          margin-top: 4px;
-        }
-
-        .meera-lang-label {
-          font-size: 0.82rem;
-          color: var(--muted);
-          font-weight: 500;
-        }
-
-        .meera-lang-btn {
-          border: 1px solid var(--line);
-          background: var(--surface);
-          color: var(--ink);
-          border-radius: 8px;
-          padding: 5px 12px;
-          font-size: 0.82rem;
-          font-weight: 600;
-          cursor: pointer;
-          transition: all 0.2s ease;
-        }
-
-        .meera-lang-btn.active {
+        .meera-msg-avatar {
           background: #7C3AED;
-          color: #ffffff;
-          border-color: #7C3AED;
+          color: #FFFFFF;
         }
 
-        /* RIGHT SIDE: PHONE CHASSIS */
-        .meera-right {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          width: 100%;
+        .user-msg-avatar {
+          background: var(--line-strong);
+          color: var(--ink);
         }
 
-        .meera-phone-chassis {
-          width: 100%;
-          max-width: min(324px, 100%);
-          height: 560px;
-          max-height: calc(100svh - var(--nav-total) - 30px);
-          min-height: 500px;
-          background: #FFFFFF;
-          border: 8px solid #FFFFFF;
-          border-radius: 42px;
-          box-shadow:
-            0 24px 60px -15px rgba(124, 58, 237, 0.18),
-            0 0 0 1px rgba(0, 0, 0, 0.08),
-            0 12px 24px -10px rgba(0, 0, 0, 0.06);
-          display: flex;
-          flex-direction: column;
+        .chat-bubble {
+          padding: 12px 16px;
+          border-radius: 16px;
+          font-size: 0.88rem;
+          line-height: 1.55;
           position: relative;
-          overflow: hidden;
-          box-sizing: border-box;
-          transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
-        @media (max-width: 480px) {
-          .meera-phone-chassis {
-            max-width: min(310px, 100%);
-            min-height: 490px;
-            border-width: 7px;
-            border-radius: 36px;
-          }
+        .meera-bubble {
+          background: rgba(124, 58, 237, 0.05);
+          border: 1px solid rgba(124, 58, 237, 0.15);
+          color: var(--ink);
+          border-top-left-radius: 4px;
         }
 
-        @media (max-width: 360px) {
-          .meera-phone-chassis {
-            max-width: 284px;
-            min-height: 460px;
-            border-width: 5px;
-            border-radius: 30px;
-          }
+        :root[data-theme="dark"] .meera-bubble {
+          background: rgba(124, 58, 237, 0.1);
+          border-color: rgba(124, 58, 237, 0.25);
         }
 
-        :root[data-theme="dark"] .meera-phone-chassis,
-        @media (prefers-color-scheme: dark) {
-          :root:not([data-theme="light"]) .meera-phone-chassis {
-            background: #111322;
-            border-color: #1A1D33;
-            box-shadow:
-              0 30px 80px -15px rgba(110, 66, 255, 0.3),
-              0 0 0 1px rgba(255, 255, 255, 0.12),
-              0 0 40px -10px rgba(110, 66, 255, 0.2);
-          }
+        .user-bubble {
+          background: linear-gradient(135deg, #7C3AED 0%, #6D28D9 100%);
+          color: #FFFFFF;
+          border-top-right-radius: 4px;
+          box-shadow: 0 4px 12px rgba(124, 58, 237, 0.25);
         }
 
-        @keyframes phoneVibrate {
-          0% { transform: translate(0, 0) rotate(0deg); }
-          20% { transform: translate(-3px, 2px) rotate(-1deg); }
-          40% { transform: translate(3px, -2px) rotate(1deg); }
-          60% { transform: translate(-2px, -1px) rotate(-0.5deg); }
-          80% { transform: translate(2px, 1px) rotate(0.5deg); }
-          100% { transform: translate(0, 0) rotate(0deg); }
+        .bubble-text p {
+          margin: 0 0 6px 0;
         }
 
-        .phone-vibrating {
-          animation: phoneVibrate 0.4s infinite ease-in-out;
+        .bubble-text p:last-child {
+          margin-bottom: 0;
         }
 
-        .meera-phone-notch {
-          position: absolute;
-          top: 10px;
-          left: 50%;
-          transform: translateX(-50%);
-          width: 90px;
-          height: 20px;
-          background: rgba(0, 0, 0, 0.08);
-          border-radius: 12px;
+        .bubble-text .list-line {
+          padding-left: 4px;
+          margin-bottom: 4px;
+          font-size: 0.86rem;
+        }
+
+        .bubble-footer {
+          margin-top: 6px;
           display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 8px;
-          z-index: 10;
+          justify-content: flex-end;
         }
 
-        :root[data-theme="dark"] .meera-phone-notch,
-        @media (prefers-color-scheme: dark) {
-          :root:not([data-theme="light"]) .meera-phone-notch {
-            background: rgba(255, 255, 255, 0.08);
-          }
+        .bubble-timestamp {
+          font-size: 0.65rem;
+          opacity: 0.7;
         }
 
-        .meera-phone-speaker {
-          width: 38px;
-          height: 4px;
-          background: rgba(0, 0, 0, 0.2);
-          border-radius: 4px;
-        }
-
-        .meera-phone-camera {
-          width: 6px;
-          height: 6px;
-          background: rgba(0, 0, 0, 0.2);
-          border-radius: 50%;
-        }
-
-        :root[data-theme="dark"] .meera-phone-speaker,
-        :root[data-theme="dark"] .meera-phone-camera,
-        @media (prefers-color-scheme: dark) {
-          :root:not([data-theme="light"]) .meera-phone-speaker,
-          :root:not([data-theme="light"]) .meera-phone-camera {
-            background: rgba(255, 255, 255, 0.25);
-          }
-        }
-
-        /* SCREEN */
-        .meera-screen {
-          flex: 1;
-          background: linear-gradient(180deg, #FAFAFE 0%, #F3F1FA 100%);
-          border-radius: 36px;
-          padding: 44px 20px 24px 20px;
+        /* CONTEXTUAL ACTION BUTTONS */
+        .bubble-action-row {
+          margin-top: 12px;
+          padding-top: 10px;
+          border-top: 1px dashed rgba(124, 58, 237, 0.25);
           display: flex;
           flex-direction: column;
-          color: #111827;
+          gap: 6px;
         }
 
-        :root[data-theme="dark"] .meera-screen,
-        @media (prefers-color-scheme: dark) {
-          :root:not([data-theme="light"]) .meera-screen {
-            background: linear-gradient(180deg, #131528 0%, #0E1020 100%);
-            color: #F3F4F6;
-          }
-        }
-
-        .meera-call-view {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: space-between;
-          height: 100%;
-          text-align: center;
-        }
-
-        .meera-incoming-pill {
+        .bubble-action-btn {
           display: inline-flex;
+          align-items: center;
+          gap: 7px;
+          font-size: 0.76rem;
+          font-weight: 700;
+          padding: 8px 14px;
+          border-radius: 8px;
+          text-decoration: none;
+          cursor: pointer;
+          transition: all 0.18s ease;
+          border: none;
+        }
+
+        .growth-plan-action {
+          background: #ECFDF5;
+          border: 1.5px solid #10B981;
+          color: #047857;
+        }
+
+        .growth-plan-action:hover {
+          background: #10B981;
+          color: #FFFFFF;
+        }
+
+        .wa-action {
+          background: #F0FDF4;
+          border: 1.5px solid #22C55E;
+          color: #15803D;
+        }
+
+        .wa-action:hover {
+          background: #22C55E;
+          color: #FFFFFF;
+        }
+
+        .call-action {
+          background: #EDE9FE;
+          border: 1.5px solid #8B5CF6;
+          color: #5B21B6;
+        }
+
+        .call-action:hover {
+          background: #7C3AED;
+          color: #FFFFFF;
+        }
+
+        /* TYPING INDICATOR */
+        .typing-bubble {
+          display: flex;
           align-items: center;
           gap: 6px;
-          padding: 4px 12px;
-          background: rgba(124, 58, 237, 0.1);
-          border-radius: 999px;
-          color: #7C3AED;
-          font-size: 0.68rem;
-          font-weight: 700;
-          letter-spacing: 0.08em;
-          text-transform: uppercase;
+          padding: 10px 14px;
         }
 
-        :root[data-theme="dark"] .meera-incoming-pill,
-        @media (prefers-color-scheme: dark) {
-          :root:not([data-theme="light"]) .meera-incoming-pill {
-            background: rgba(139, 92, 246, 0.2);
-            color: #C4B5FD;
-          }
-        }
-
-        .pulsing-call-dot {
+        .typing-dot {
           width: 6px;
           height: 6px;
           border-radius: 50%;
           background: #7C3AED;
-          animation: dotPulse 1.2s infinite ease-in-out;
+          animation: bounce 1.2s infinite;
         }
 
-        @keyframes dotPulse {
-          0% { transform: scale(0.9); opacity: 0.6; }
-          50% { transform: scale(1.4); opacity: 1; }
-          100% { transform: scale(0.9); opacity: 0.6; }
+        .typing-dot:nth-child(2) {
+          animation-delay: 0.2s;
         }
 
-        /* AVATAR */
-        .meera-avatar-container {
-          position: relative;
-          width: 104px;
-          height: 104px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          margin: 10px 0;
+        .typing-dot:nth-child(3) {
+          animation-delay: 0.4s;
         }
 
-        .meera-avatar-circle {
-          width: 86px;
-          height: 86px;
-          border-radius: 50%;
-          background: linear-gradient(135deg, #7C3AED 0%, #A855F7 100%);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          box-shadow: 0 12px 28px -6px rgba(124, 58, 237, 0.5);
-          position: relative;
-          z-index: 2;
-        }
-
-        .meera-avatar-letter {
-          font-size: 2.2rem;
-          font-weight: 800;
-          color: #FFFFFF;
-          font-family: inherit;
-        }
-
-        .meera-ring {
-          position: absolute;
-          border-radius: 50%;
-          border: 1.5px solid rgba(124, 58, 237, 0.35);
-          pointer-events: none;
-        }
-
-        .ring-1 {
-          width: 110px;
-          height: 110px;
-          animation: ringPulse 2.4s infinite ease-out;
-        }
-
-        .ring-2 {
-          width: 130px;
-          height: 130px;
-          animation: ringPulse 2.4s infinite ease-out 0.8s;
-        }
-
-        @keyframes ringPulse {
-          0% { transform: scale(0.85); opacity: 0.8; }
-          100% { transform: scale(1.25); opacity: 0; }
-        }
-
-        .meera-caller-info {
-          margin: 6px 0;
-        }
-
-        .meera-caller-name {
-          font-size: 1.65rem;
-          font-weight: 800;
-          letter-spacing: -0.02em;
-          margin: 0;
-        }
-
-        .meera-caller-role {
-          font-size: 0.82rem;
-          color: #6B7280;
-          margin: 4px 0 6px 0;
-          font-weight: 500;
-        }
-
-        :root[data-theme="dark"] .meera-caller-role,
-        @media (prefers-color-scheme: dark) {
-          :root:not([data-theme="light"]) .meera-caller-role {
-            color: #9CA3AF;
+        @keyframes bounce {
+          0%, 60%, 100% {
+            transform: translateY(0);
+          }
+          30% {
+            transform: translateY(-5px);
           }
         }
 
-        .meera-caller-num {
-          font-family: monospace;
-          font-size: 0.95rem;
-          color: #4B5563;
-          margin: 0;
-          letter-spacing: 0.04em;
+        .typing-label {
+          font-size: 0.74rem;
+          color: var(--muted);
+          margin-left: 6px;
         }
 
-        :root[data-theme="dark"] .meera-caller-num,
-        @media (prefers-color-scheme: dark) {
-          :root:not([data-theme="light"]) .meera-caller-num {
-            color: #D1D5DB;
-          }
+        /* CHIPS CONTAINER */
+        .chat-chips-container {
+          padding: 8px 16px 10px 16px;
+          background: var(--surface);
+          border-top: 1px solid var(--line);
+          border-bottom: 1px solid var(--line);
         }
 
-        /* ACTIONS */
-        .meera-call-actions {
+        .chips-scroll-hint {
           display: flex;
           align-items: center;
-          justify-content: center;
-          gap: 46px;
-          width: 100%;
-          margin-top: 10px;
-        }
-
-        .meera-action-col {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          gap: 8px;
-        }
-
-        .meera-action-btn {
-          width: 60px;
-          height: 60px;
-          border-radius: 50%;
-          border: none;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: #FFFFFF;
-          cursor: pointer;
-          transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.2s ease;
-        }
-
-        .meera-action-btn:hover {
-          transform: scale(1.08);
-        }
-
-        .btn-decline {
-          background: #EF4444;
-          box-shadow: 0 10px 24px -6px rgba(239, 68, 68, 0.6);
-        }
-
-        .btn-accept {
-          background: #10B981;
-          box-shadow: 0 10px 24px -6px rgba(16, 185, 129, 0.7);
-          animation: acceptGlow 2s infinite ease-in-out;
-        }
-
-        @keyframes acceptGlow {
-          0%, 100% { box-shadow: 0 10px 24px -6px rgba(16, 185, 129, 0.7); }
-          50% { box-shadow: 0 0 28px 6px rgba(16, 185, 129, 0.55); }
-        }
-
-        .meera-action-icon {
-          width: 24px;
-          height: 24px;
-        }
-
-        .meera-action-label {
-          font-size: 0.78rem;
+          gap: 6px;
+          font-size: 0.7rem;
           font-weight: 600;
-          color: #6B7280;
-        }
-
-        .accept-label {
-          color: #10B981;
-        }
-
-        .meera-screen-hint {
-          font-size: 0.72rem;
-          color: #9CA3AF;
-          margin: 0;
+          color: var(--muted);
+          margin-bottom: 6px;
           letter-spacing: 0.02em;
         }
 
-        /* CONNECTED VIEW */
-        .connected-pill {
-          background: rgba(16, 185, 129, 0.12);
-          color: #059669;
+        .chat-chips-scroll {
+          display: flex;
+          align-items: center;
+          gap: 7px;
+          overflow-x: auto;
+          padding: 2px 2px 4px 2px;
+          scrollbar-width: none;
+          -ms-overflow-style: none;
+          -webkit-overflow-scrolling: touch;
+          width: 100%;
         }
 
-        :root[data-theme="dark"] .connected-pill,
+        .chat-chips-scroll::-webkit-scrollbar {
+          display: none;
+        }
+
+        .chat-chip-btn {
+          border: 1.5px solid var(--line-strong);
+          background: transparent;
+          color: var(--ink);
+          padding: 5px 13px;
+          border-radius: 999px;
+          font-size: 0.78rem;
+          font-weight: 500;
+          cursor: pointer;
+          white-space: nowrap !important;
+          flex-shrink: 0;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 5px;
+          line-height: 1.2;
+          transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+        }
+
+        .chat-chip-btn span {
+          white-space: nowrap !important;
+          display: inline-block;
+        }
+
+        :root[data-theme="dark"] .chat-chip-btn,
         @media (prefers-color-scheme: dark) {
-          :root:not([data-theme="light"]) .connected-pill {
-            background: rgba(16, 185, 129, 0.2);
+          :root:not([data-theme="light"]) .chat-chip-btn {
+            border-color: rgba(255, 255, 255, 0.18);
+            background: rgba(255, 255, 255, 0.04);
+            color: #F1F5F9;
+          }
+        }
+
+        .chat-chip-btn:hover:not(:disabled) {
+          background: var(--ink);
+          color: var(--bg);
+          border-color: var(--ink);
+          transform: translateY(-1px);
+        }
+
+        :root[data-theme="dark"] .chat-chip-btn:hover:not(:disabled),
+        @media (prefers-color-scheme: dark) {
+          :root:not([data-theme="light"]) .chat-chip-btn:hover:not(:disabled) {
+            background: #FFFFFF;
+            color: #0F172A;
+            border-color: #FFFFFF;
+          }
+        }
+
+        /* Founder Direct Call Highlight Chip */
+        .chat-chip-btn.founder-chip {
+          border-color: #10B981;
+          color: #065F46;
+          background: rgba(16, 185, 129, 0.08);
+        }
+
+        :root[data-theme="dark"] .chat-chip-btn.founder-chip,
+        @media (prefers-color-scheme: dark) {
+          :root:not([data-theme="light"]) .chat-chip-btn.founder-chip {
+            border-color: rgba(16, 185, 129, 0.5);
+            background: rgba(16, 185, 129, 0.12);
             color: #34D399;
           }
         }
 
-        .connected-dot {
-          width: 6px;
-          height: 6px;
-          border-radius: 50%;
+        .chat-chip-btn.founder-chip:hover:not(:disabled) {
           background: #10B981;
+          color: #FFFFFF;
+          border-color: #10B981;
         }
 
-        .meera-avatar-compact {
+        .chat-chip-btn:disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
+        }
+
+        /* INPUT COMPOSER */
+        .chat-input-form {
           display: flex;
-          flex-direction: column;
           align-items: center;
-          margin-top: 10px;
+          gap: 8px;
+          padding: 12px 16px;
+          background: var(--surface);
         }
 
-        .meera-avatar-circle.compact {
-          width: 58px;
-          height: 58px;
+        .chat-input-field {
+          flex: 1;
+          border: 1.5px solid var(--line-strong);
+          background: var(--bg);
+          color: var(--ink);
+          font-size: 0.9rem;
+          padding: 10px 16px;
+          border-radius: 999px;
+          outline: none;
+          transition: border-color 0.18s ease;
         }
 
-        .meera-avatar-circle.compact .meera-avatar-letter {
-          font-size: 1.5rem;
+        .chat-input-field:focus {
+          border-color: #7C3AED;
+          box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.15);
         }
 
-        .meera-avatar-circle.ended {
-          width: 64px;
-          height: 64px;
-          background: rgba(16, 185, 129, 0.12);
+        .chat-send-btn {
+          width: 42px;
+          height: 42px;
+          border-radius: 50%;
+          border: none;
+          background: linear-gradient(135deg, #7C3AED 0%, #6D28D9 100%);
+          color: #FFFFFF;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          transition: all 0.18s ease;
+          flex-shrink: 0;
+          box-shadow: 0 4px 10px rgba(124, 58, 237, 0.3);
+        }
+
+        .chat-send-btn:hover:not(:disabled) {
+          transform: translateY(-1px);
+          box-shadow: 0 6px 14px rgba(124, 58, 237, 0.4);
+        }
+
+        .chat-send-btn:disabled {
+          background: var(--line-strong);
+          color: var(--muted);
+          cursor: not-allowed;
           box-shadow: none;
         }
 
-        .meera-caller-name-compact {
+        /* MODAL STYLES */
+        .booking-modal-backdrop {
+          position: fixed;
+          inset: 0;
+          z-index: 9999;
+          background: rgba(15, 23, 42, 0.75);
+          backdrop-filter: blur(8px);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 16px;
+          animation: fadeIn 0.2s ease-out;
+        }
+
+        .booking-modal-card {
+          background: var(--surface);
+          border: 1px solid var(--line);
+          border-radius: 20px;
+          max-width: 460px;
+          width: 100%;
+          padding: 24px;
+          box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+          position: relative;
+        }
+
+        .booking-modal-header {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-bottom: 8px;
+        }
+
+        .modal-title-row {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+        }
+
+        .modal-icon {
+          color: #7C3AED;
+        }
+
+        .booking-modal-header h3 {
           font-size: 1.15rem;
-          font-weight: 700;
-          margin: 6px 0 2px 0;
-        }
-
-        .meera-caller-role-compact {
-          font-size: 0.75rem;
-          color: #6B7280;
+          font-weight: 800;
+          color: var(--ink);
           margin: 0;
         }
 
-        :root[data-theme="dark"] .meera-caller-role-compact,
-        @media (prefers-color-scheme: dark) {
-          :root:not([data-theme="light"]) .meera-caller-role-compact {
-            color: #9CA3AF;
-          }
-        }
-
-        /* EQUALIZER */
-        .meera-equalizer {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 4px;
-          height: 36px;
-          margin: 8px 0;
-        }
-
-        .eq-bar {
-          width: 4px;
-          background: #7C3AED;
-          border-radius: 999px;
-          animation: waveJump 1s infinite ease-in-out;
-        }
-
-        .bar-1 { height: 14px; animation-delay: 0.1s; }
-        .bar-2 { height: 26px; animation-delay: 0.3s; }
-        .bar-3 { height: 34px; animation-delay: 0.15s; }
-        .bar-4 { height: 20px; animation-delay: 0.4s; }
-        .bar-5 { height: 30px; animation-delay: 0.25s; }
-        .bar-6 { height: 18px; animation-delay: 0.35s; }
-        .bar-7 { height: 10px; animation-delay: 0.05s; }
-
-        @keyframes waveJump {
-          0%, 100% { transform: scaleY(0.4); }
-          50% { transform: scaleY(1); }
-        }
-
-        /* SPEECH BUBBLE */
-        .meera-speech-bubble {
-          background: rgba(124, 58, 237, 0.08);
-          border: 1px solid rgba(124, 58, 237, 0.18);
-          border-radius: 16px;
-          padding: 12px 14px;
-          text-align: left;
-          max-width: 250px;
-          margin: 0 auto;
-        }
-
-        :root[data-theme="dark"] .meera-speech-bubble,
-        @media (prefers-color-scheme: dark) {
-          :root:not([data-theme="light"]) .meera-speech-bubble {
-            background: rgba(139, 92, 246, 0.15);
-            border-color: rgba(139, 92, 246, 0.3);
-          }
-        }
-
-        .meera-transcript-quote {
-          font-size: 0.78rem;
-          line-height: 1.45;
-          color: inherit;
-          margin: 0;
-        }
-
-        /* IN CALL CONTROLS */
-        .meera-in-call-controls {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 16px;
-          margin-top: 10px;
-        }
-
-        .meera-ctrl-btn {
-          width: 44px;
-          height: 44px;
-          border-radius: 50%;
-          border: 1px solid rgba(0, 0, 0, 0.1);
-          background: rgba(0, 0, 0, 0.05);
-          color: inherit;
-          display: flex;
-          align-items: center;
-          justify-content: center;
+        .modal-close-btn {
+          border: none;
+          background: transparent;
+          color: var(--muted);
           cursor: pointer;
-          transition: all 0.2s ease;
+          padding: 4px;
+          border-radius: 6px;
         }
 
-        :root[data-theme="dark"] .meera-ctrl-btn,
-        @media (prefers-color-scheme: dark) {
-          :root:not([data-theme="light"]) .meera-ctrl-btn {
-            border-color: rgba(255, 255, 255, 0.15);
-            background: rgba(255, 255, 255, 0.08);
-          }
+        .modal-close-btn:hover {
+          color: var(--ink);
+          background: var(--line);
         }
 
-        .meera-ctrl-btn.active {
-          background: #7C3AED;
-          color: #FFFFFF;
+        .modal-desc {
+          font-size: 0.84rem;
+          color: var(--muted);
+          margin: 0 0 18px 0;
+          line-height: 1.5;
+        }
+
+        .booking-form {
+          display: flex;
+          flex-direction: column;
+          gap: 14px;
+        }
+
+        .form-group {
+          display: flex;
+          flex-direction: column;
+          gap: 5px;
+        }
+
+        .form-group label {
+          font-size: 0.75rem;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+          color: var(--muted);
+        }
+
+        .form-input {
+          border: 1.5px solid var(--line-strong);
+          background: var(--bg);
+          color: var(--ink);
+          font-size: 0.88rem;
+          padding: 9px 12px;
+          border-radius: 10px;
+          outline: none;
+          transition: border-color 0.16s ease;
+        }
+
+        .form-input:focus {
           border-color: #7C3AED;
         }
 
-        .meera-ctrl-btn.end-call-btn {
-          width: 52px;
-          height: 52px;
-          background: #EF4444;
+        .phone-input-wrap {
+          display: flex;
+          align-items: center;
+          border: 1.5px solid var(--line-strong);
+          border-radius: 10px;
+          background: var(--bg);
+          overflow: hidden;
+        }
+
+        .phone-input-wrap:focus-within {
+          border-color: #7C3AED;
+        }
+
+        .phone-prefix {
+          padding: 9px 12px;
+          background: rgba(124, 58, 237, 0.08);
+          color: #7C3AED;
+          font-weight: 700;
+          font-size: 0.86rem;
+          border-right: 1px solid var(--line-strong);
+        }
+
+        .phone-input {
+          border: none !important;
+          flex: 1;
+        }
+
+        .form-select {
+          cursor: pointer;
+        }
+
+        .modal-submit-btn {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+          background: linear-gradient(135deg, #7C3AED 0%, #6D28D9 100%);
           color: #FFFFFF;
           border: none;
-          box-shadow: 0 8px 18px -4px rgba(239, 68, 68, 0.6);
+          padding: 12px 20px;
+          border-radius: 10px;
+          font-size: 0.9rem;
+          font-weight: 700;
+          cursor: pointer;
+          transition: all 0.16s ease;
+          box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+          margin-top: 6px;
         }
 
-        .meera-ctrl-btn.end-call-btn:hover {
-          transform: scale(1.06);
+        .modal-submit-btn:hover:not(:disabled) {
+          transform: translateY(-1px);
+          box-shadow: 0 6px 16px rgba(124, 58, 237, 0.4);
         }
 
-        /* ENDED VIEW */
-        .meera-ended-box {
-          background: rgba(16, 185, 129, 0.08);
-          border: 1px solid rgba(16, 185, 129, 0.2);
-          border-radius: 14px;
-          padding: 14px 16px;
-          margin: 16px 0;
+        .modal-submit-btn:disabled {
+          opacity: 0.7;
+          cursor: not-allowed;
+        }
+
+        .form-feedback {
+          font-size: 0.78rem;
+          padding: 8px 12px;
+          border-radius: 8px;
+        }
+
+        .form-feedback.error {
+          background: rgba(239, 68, 68, 0.1);
+          color: #EF4444;
+          border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+
+        .booking-success-box {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          background: #ECFDF5;
+          border: 1px solid #10B981;
+          color: #065F46;
+          padding: 12px 16px;
+          border-radius: 10px;
+        }
+
+        .success-icon {
+          color: #10B981;
+          flex-shrink: 0;
+        }
+
+        .booking-success-box strong {
+          display: block;
+          font-size: 0.92rem;
+        }
+
+        .booking-success-box p {
+          margin: 2px 0 0 0;
           font-size: 0.8rem;
-          color: #059669;
         }
 
-        :root[data-theme="dark"] .meera-ended-box,
-        @media (prefers-color-scheme: dark) {
-          :root:not([data-theme="light"]) .meera-ended-box {
-            background: rgba(16, 185, 129, 0.15);
-            border-color: rgba(16, 185, 129, 0.3);
-            color: #34D399;
+        @media (max-width: 640px) {
+          .meera-chat-card {
+            height: 580px;
+          }
+          .chat-message-row {
+            max-width: 95%;
           }
         }
-
-        .meera-reset-btn {
-          display: inline-flex;
-          align-items: center;
-          gap: 6px;
-          background: #7C3AED;
-          color: #FFFFFF;
-          border: none;
-          border-radius: 10px;
-          padding: 9px 16px;
-          font-size: 0.82rem;
-          font-weight: 600;
-          cursor: pointer;
-          transition: opacity 0.2s ease;
-        }
-
-        .meera-reset-btn:hover {
-          opacity: 0.9;
-        }
-      `}} />
+      `}</style>
     </section>
   );
 }

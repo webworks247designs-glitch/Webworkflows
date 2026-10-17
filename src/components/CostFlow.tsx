@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { motion, AnimatePresence } from "motion/react";
 import Image from "next/image";
 import { getWhatsAppGrowthPlanLink, trackFunnelEvent } from "@/lib/analytics";
 
@@ -85,36 +86,52 @@ export default function CostFlow() {
     <section className="sec" id="cost-flow" style={{ paddingTop: 0 }}>
       <div className="wrap">
         
-        <div className="sec-head" style={{ textAlign: 'center', marginInline: 'auto' }}>
+        <motion.div 
+          className="sec-head" 
+          style={{ textAlign: 'center', marginInline: 'auto' }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+        >
           <h2>Interactive Model Simulator</h2>
           <p>Select your business type to see how the one-time launch and pay-per-enquiry model works in practice:</p>
-        </div>
+        </motion.div>
 
         {/* Industry Selector Pills */}
         <div style={{ display: 'flex', gap: '8px', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '32px' }}>
           {EXAMPLES.map((ex, idx) => (
-            <button
+            <motion.button
               key={ex.id}
               type="button"
               onClick={() => setActiveIdx(idx)}
               className={`sample-pill ${activeIdx === idx ? 'active' : ''}`}
+              whileHover={{ y: -2, scale: 1.03 }}
+              whileTap={{ scale: 0.96 }}
+              transition={{ type: "spring", stiffness: 400, damping: 25 }}
             >
               <span>{ex.icon}</span>
               <span>{ex.name}</span>
-            </button>
+            </motion.button>
           ))}
         </div>
 
         {/* Simulator Card */}
-        <div style={{ 
-          maxWidth: '880px', 
-          margin: '0 auto', 
-          background: 'var(--surface)', 
-          border: '1px solid var(--line)', 
-          borderRadius: '24px', 
-          padding: 'clamp(20px, 4vw, 36px)',
-          boxShadow: '0 20px 50px -20px rgba(var(--shadow), 0.3)'
-        }}>
+        <motion.div 
+          style={{ 
+            maxWidth: '880px', 
+            margin: '0 auto', 
+            background: 'var(--surface)', 
+            border: '1px solid var(--line)', 
+            borderRadius: '24px', 
+            padding: 'clamp(20px, 4vw, 36px)',
+            boxShadow: '0 20px 50px -20px rgba(var(--shadow), 0.3)'
+          }}
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+        >
           
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '32px', alignItems: 'center' }}>
             
@@ -198,7 +215,7 @@ export default function CostFlow() {
           <p style={{ color: 'var(--muted)', fontSize: '0.82rem', marginTop: '24px', fontStyle: 'italic', textAlign: 'center', marginInline: 'auto', maxWidth: '650px' }}>
             * The enquiry rate is mutually agreed upon before launch. Hosting is kept transparent at respective provider costs (Hostinger, MilesWeb, or any host of your choice) plus a ₹200 hosting setup and maintenance processing fee.
           </p>
-        </div>
+        </motion.div>
 
       </div>
     </section>

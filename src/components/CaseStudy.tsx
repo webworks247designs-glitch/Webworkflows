@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { motion } from "motion/react";
 import Image from "next/image";
 import { getWhatsAppGrowthPlanLink, trackFunnelEvent } from "@/lib/analytics";
 
@@ -10,7 +11,13 @@ export default function CaseStudy() {
   return (
     <section className="sec case-study-sec" id="case-study">
       <div className="wrap">
-        <div className="sec-head">
+        <motion.div 
+          className="sec-head"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+        >
           <div className="badge-tag">
             <span className="dot-pulse"></span>
             <span>Real Measured Results • Verified Case Study</span>
@@ -19,7 +26,7 @@ export default function CaseStudy() {
           <p>
             Real data from an active Hyderabad client dashboard. See how our pay-per-enquiry model generated genuine customers while eliminating risk.
           </p>
-        </div>
+        </motion.div>
 
         <div className="case-grid">
           {/* Left Column: Analytics Screenshot Card */}
@@ -119,25 +126,30 @@ export default function CaseStudy() {
             </blockquote>
 
             <div className="case-cta-row">
-              <a
+              <motion.a
                 className="btn btn-wa btn-growth-plan"
                 href={getWhatsAppGrowthPlanLink("CaseStudy_Shobana")}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => trackFunnelEvent('cta_click', { source: 'case_study_growth_plan' })}
+                whileHover={{ y: -2, scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                transition={{ type: "spring", stiffness: 400, damping: 25 }}
               >
                 <svg className="ic"><use href="#i-wa" /></svg>
                 Get a Similar Growth Plan for My Business
-              </a>
-              <a
+              </motion.a>
+              <motion.a
                 className="btn btn-ghost"
                 href="https://shobanamensalon.vercel.app/"
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => trackFunnelEvent('live_site_click', { client: 'Shobana_Salon_CaseStudy' })}
+                whileHover={{ y: -2 }}
+                whileTap={{ scale: 0.98 }}
               >
                 Visit Live Salon Site ↗
-              </a>
+              </motion.a>
             </div>
           </div>
         </div>

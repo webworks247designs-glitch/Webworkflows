@@ -39,7 +39,7 @@ export default function Navbar() {
             <a href="#case-study" onClick={() => setMenuOpen(false)}>Proof</a>
             <a href="#testimonials" onClick={() => setMenuOpen(false)}>Reviews</a>
             <a href="#pricing" onClick={() => setMenuOpen(false)}>Pricing</a>
-            <a href="#ai-assistant" onClick={() => setMenuOpen(false)}>AI Voice</a>
+            <a href="#ai-assistant" onClick={() => setMenuOpen(false)}>AI Assistant</a>
             <a href="#verification-billing" onClick={() => setMenuOpen(false)}>Billing</a>
             <a href="#about" onClick={() => setMenuOpen(false)}>About</a>
             <div className="mobile-menu-cta">

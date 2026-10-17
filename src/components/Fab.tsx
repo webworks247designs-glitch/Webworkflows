@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
-
+import { motion } from "motion/react";
 import { getWhatsAppGrowthPlanLink, trackFunnelEvent } from "@/lib/analytics";
 
 export default function Fab() {
@@ -22,16 +22,19 @@ export default function Fab() {
   }, []);
 
   return (
-    <a 
+    <motion.a 
       className={`fab ${away ? "away" : ""}`} 
       href={getWhatsAppGrowthPlanLink("FloatingFab")}
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat on WhatsApp: Get a Free Website Growth Plan"
       onClick={() => trackFunnelEvent('whatsapp_click', { source: 'floating_fab' })}
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+      transition={{ type: "spring", stiffness: 400, damping: 25 }}
     >
       <svg className="ic"><use href="#i-wa"/></svg>
       <span className="txt">Get Free Growth Plan</span>
-    </a>
+    </motion.a>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { motion } from "motion/react";
 import Image from "next/image";
 import { getWhatsAppGrowthPlanLink, trackFunnelEvent } from "@/lib/analytics";
 
@@ -90,7 +91,13 @@ export default function Testimonials() {
   return (
     <section className="sec testimonials-sec" id="testimonials">
       <div className="wrap">
-        <div className="sec-head">
+        <motion.div 
+          className="sec-head"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+        >
           <div className="badge-tag">
             <span className="dot-pulse"></span>
             <span>Real Google Reviews • 100% Authentic Proof</span>
@@ -101,25 +108,33 @@ export default function Testimonials() {
           </p>
 
           <div style={{ marginTop: '16px' }}>
-            <a
+            <motion.a
               href={GOOGLE_REVIEWS_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="google-badge-link"
               onClick={() => trackFunnelEvent('review_click', { source: 'testimonials_head' })}
+              whileHover={{ y: -2, scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ type: "spring", stiffness: 400, damping: 25 }}
             >
               <span className="stars">★★★★★</span>
               <strong>5.0 Rating on Google</strong>
               <span>(11 Verified Reviews)</span>
               <span className="arrow">↗</span>
-            </a>
+            </motion.a>
           </div>
-        </div>
+        </motion.div>
 
         {/* Testimonials Quote Grid */}
         <div className="testimonials-grid">
           {TESTIMONIALS.map((t, idx) => (
-            <article key={idx} className="test-card">
+            <motion.article 
+              key={idx} 
+              className="test-card"
+              whileHover={{ y: -3 }}
+              transition={{ type: "spring", stiffness: 400, damping: 25 }}
+            >
               <div className="test-header">
                 <div className="test-avatar">{t.avatar}</div>
                 <div>
@@ -133,7 +148,7 @@ export default function Testimonials() {
                 <span className="test-badge">{t.badge}</span>
                 <span className="test-date">{t.date}</span>
               </div>
-            </article>
+            </motion.article>
           ))}
         </div>
 

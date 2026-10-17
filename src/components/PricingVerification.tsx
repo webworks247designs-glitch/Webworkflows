@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "motion/react";
 import { getWhatsAppGrowthPlanLink, trackFunnelEvent } from "@/lib/analytics";
 
 const CONCRETE_RATES = [
@@ -55,7 +56,13 @@ export default function PricingVerification() {
     <section className="sec pricing-verify-sec" id="verification-billing">
       <div className="wrap">
         {/* Section 1: How Enquiries are Verified & Billed */}
-        <div className="sec-head">
+        <motion.div 
+          className="sec-head"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+        >
           <div className="badge-tag">
             <span className="dot-pulse"></span>
             <span>Zero-Risk Guarantee • Complete Transparency</span>
@@ -64,7 +71,7 @@ export default function PricingVerification() {
           <p>
             You only pay for genuine, high-intent prospective customers who contact your business. Here is our exact verification standard:
           </p>
-        </div>
+        </motion.div>
 
         <div className="verify-steps-grid">
           <div className="verify-step-card">
@@ -231,23 +238,28 @@ export default function PricingVerification() {
             Request a Free Website Growth Plan. We will assess your local competitors, recommend high-converting layouts, and propose a concrete per-enquiry rate tailored to your business.
           </p>
           <div className="cta-row" style={{ justifyContent: 'center' }}>
-            <a
+            <motion.a
               className="btn btn-wa btn-growth-plan"
               href={getWhatsAppGrowthPlanLink("PricingVerification")}
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => trackFunnelEvent('cta_click', { source: 'pricing_verify_growth_plan' })}
+              whileHover={{ y: -2, scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ type: "spring", stiffness: 400, damping: 25 }}
             >
               <svg className="ic"><use href="#i-wa" /></svg>
               Get a Free Website Growth Plan
-            </a>
-            <a
+            </motion.a>
+            <motion.a
               className="btn btn-ghost"
               href="#testimonials"
               onClick={() => trackFunnelEvent('review_click', { source: 'pricing_verify_read_reviews' })}
+              whileHover={{ y: -2 }}
+              whileTap={{ scale: 0.98 }}
             >
               Read Client Google Reviews ↑
-            </a>
+            </motion.a>
           </div>
           <p className="guarantee-micro">
             ⚡ Delivered within 24 hours on WhatsApp • 100% Free • Zero commitment

@@ -1,3 +1,7 @@
+"use client";
+
+import { motion } from "motion/react";
+
 export default function Pricing() {
   return (
     <section className="sec" id="pricing" style={{ paddingTop: 0 }}>
@@ -5,10 +9,16 @@ export default function Pricing() {
         
         {/* TWO WAYS TO PAY (Desktop Only) */}
         <div className="show-desktop">
-          <div className="sec-head">
+          <motion.div 
+            className="sec-head"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+          >
             <h2>Two Ways to Pay for Your Website</h2>
             <p>Most website projects use a fixed upfront price. Our model starts with a small launch cost and connects the ongoing performance fee to qualified enquiries.</p>
-          </div>
+          </motion.div>
           
           <div className="svc-grid" style={{ marginBottom: '64px' }}>
             {/* Left Panel */}

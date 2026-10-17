@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { motion } from "motion/react";
 import Image from "next/image";
 import { getWhatsAppGrowthPlanLink, trackFunnelEvent } from "@/lib/analytics";
 
@@ -83,9 +84,17 @@ export default function Hero() {
       onPointerLeave={handlePointerLeave}
     >
       <div className="wrap hero-grid">
-        <div className="hero-copy">
+        <motion.div
+          className="hero-copy"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        >
           <div className="hero-top-badges">
-            <p className="chip-live"><span className="live" aria-hidden="true"></span><span>Open for new projects</span></p>
+            <p className="chip-live">
+              <span className="live" aria-hidden="true"></span>
+              <span>Available for Projects • Hyderabad</span>
+            </p>
             <a
               href={GOOGLE_REVIEWS_URL}
               target="_blank"
@@ -102,20 +111,32 @@ export default function Hero() {
           </div>
 
           <h1>Websites that turn visitors into Leads.</h1>
-          <p className="lede"><span>Webworkflo&apos;s</span> is an expert freelance web designer in Hyderabad. I design, build and launch fast, good-looking websites for small businesses, start-ups and creators, and I handle every step myself.</p>
+          <p className="lede">
+            <span>Webworkflo&apos;s</span> is a freelance web design & development service in Hyderabad. I personally design and hand-code fast, tailored websites for small businesses, start-ups and creators — no agencies, no middlemen.
+          </p>
           
           <div className="cta-row hero-cta-row">
-            <a 
+            <motion.a 
               className="btn btn-wa btn-growth-plan" 
               href={getWhatsAppGrowthPlanLink("Hero")}
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => trackFunnelEvent('cta_click', { source: 'hero_primary_growth_plan' })}
+              whileHover={{ y: -2, scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ type: "spring", stiffness: 400, damping: 25 }}
             >
               <svg className="ic"><use href="#i-wa" /></svg>
               Get a Free Website Growth Plan
-            </a>
-            <a className="btn btn-ghost" href="#case-study">See Client Proof ↓</a>
+            </motion.a>
+            <motion.a 
+              className="btn btn-ghost" 
+              href="#case-study"
+              whileHover={{ y: -2 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              See Client Proof ↓
+            </motion.a>
           </div>
 
           <p className="hero-cta-guarantee">
@@ -128,7 +149,7 @@ export default function Hero() {
             <li>Mobile-first and fast</li>
             <li>Replies within a few hours</li>
           </ul>
-        </div>
+        </motion.div>
 
         <figure className="scene-wrap">
           <div
@@ -175,6 +196,7 @@ export default function Hero() {
                     fill
                     sizes="(max-width: 768px) 100vw, 500px"
                     priority
+                    loading="eager"
                     className="macbook-img"
                   />
                 </div>
@@ -191,6 +213,7 @@ export default function Hero() {
                     fill
                     sizes="200px"
                     priority
+                    loading="eager"
                     className="phone-img"
                   />
                 </div>
