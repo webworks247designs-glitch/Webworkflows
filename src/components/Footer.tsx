@@ -24,7 +24,7 @@ export default function Footer() {
               <a href="#how-it-works">Process</a>
               <a href="#pricing">Pricing</a>
               <a href="#cost-flow">Example</a>
-              <a href="#protection">Why Us</a>
+              <a href="#ai-assistant">AI Assistant (Meera)</a>
               <a href="#contact">Contact</a>
             </nav>
           </div>

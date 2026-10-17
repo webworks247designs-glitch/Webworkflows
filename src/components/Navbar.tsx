@@ -25,11 +25,12 @@ export default function Navbar() {
         <symbol id="i-wa" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></symbol>
         <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2.5" fill="none" stroke="currentColor" strokeWidth="2"/><path d="m3.5 7.5 8.5 6 8.5-6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></symbol>
         <symbol id="i-theme" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" strokeWidth="2"/><path d="M12 3.5a8.5 8.5 0 0 1 0 17z" fill="currentColor"/></symbol>
+        <symbol id="i-close" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></symbol>
         <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/></symbol>
       </svg>
       <header className={`nav ${menuOpen ? "open" : ""}`} id="nav">
         <div className="wrap nav-in">
-          <a className="brand" href="#top">
+          <a className="brand" href="#top" onClick={() => setMenuOpen(false)}>
             <span className="mark" aria-hidden="true"></span>
             <span>Webworkflo's</span>
           </a>
@@ -38,8 +39,25 @@ export default function Navbar() {
             <a href="#case-study" onClick={() => setMenuOpen(false)}>Proof</a>
             <a href="#testimonials" onClick={() => setMenuOpen(false)}>Reviews</a>
             <a href="#pricing" onClick={() => setMenuOpen(false)}>Pricing</a>
+            <a href="#ai-assistant" onClick={() => setMenuOpen(false)}>AI Voice</a>
             <a href="#verification-billing" onClick={() => setMenuOpen(false)}>Billing</a>
             <a href="#about" onClick={() => setMenuOpen(false)}>About</a>
+            <div className="mobile-menu-cta">
+              <a 
+                className="btn btn-wa btn-sm" 
+                href={getWhatsAppGrowthPlanLink("MobileMenu")}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => {
+                  trackFunnelEvent('whatsapp_click', { source: 'mobile_menu' });
+                  setMenuOpen(false);
+                }}
+                style={{ width: '100%', justifyContent: 'center', marginTop: '12px' }}
+              >
+                <svg className="ic"><use href="#i-wa"/></svg>
+                <span>Free Growth Plan on WhatsApp</span>
+              </a>
+            </div>
           </nav>
           <button 
             className="icon-btn" 
@@ -69,10 +87,17 @@ export default function Navbar() {
             aria-expanded={menuOpen}
             onClick={() => setMenuOpen(!menuOpen)}
           >
-            <svg className="ic"><use href="#i-menu"/></svg>
+            <svg className="ic"><use href={menuOpen ? "#i-close" : "#i-menu"}/></svg>
           </button>
         </div>
       </header>
+      {menuOpen && (
+        <div 
+          className="mobile-menu-backdrop" 
+          onClick={() => setMenuOpen(false)}
+          aria-hidden="true"
+        />
+      )}
     </>
   );
 }

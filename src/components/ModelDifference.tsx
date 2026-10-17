@@ -9,8 +9,8 @@ export default function ModelDifference() {
 
         <div className="svc-grid" style={{ 
           display: 'grid', 
-          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', 
-          gap: '24px' 
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 290px), 1fr))', 
+          gap: 'clamp(16px, 3vw, 24px)' 
         }}>
           
           {/* 1. Custom Web Design */}

@@ -129,56 +129,33 @@ export default function Pricing() {
           </article>
         </div>
 
-        {/* MOBILE VIEW (Ultra Concise Side-by-Side) */}
-        <div className="show-mobile" style={{ 
-          display: 'grid', 
-          gridTemplateColumns: 'repeat(3, 1fr)', 
-          gap: '12px',
-          marginTop: '32px'
-        }}>
-          <article className="pkg" style={{ 
-            background: 'var(--surface)', 
-            border: '1px solid var(--line)', 
-            borderRadius: '16px', 
-            padding: '16px 12px',
-            textAlign: 'center',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center'
-          }}>
-            <h3 style={{ fontSize: '0.9rem', marginBottom: '8px' }}>Launch</h3>
-            <p className="price" style={{ fontSize: '1.2rem', fontWeight: 700, margin: '0 0 8px 0', color: 'var(--ink)' }}>₹3,000</p>
-            <p style={{ fontSize: '0.75rem', color: 'var(--muted)', margin: 0, lineHeight: 1.3 }}>One-time setup fee</p>
+        {/* MOBILE VIEW (Responsive Grid) */}
+        <div className="show-mobile pricing-mobile-grid">
+          <article className="pkg pricing-mobile-card">
+            <span className="pricing-mobile-badge">01</span>
+            <div className="pricing-mobile-info">
+              <h3>Launch &amp; Setup</h3>
+              <p className="pricing-mobile-sub">One-time infrastructure &amp; configuration</p>
+            </div>
+            <p className="price pricing-mobile-val">₹3,000</p>
           </article>
           
-          <article className="pkg" style={{ 
-            background: 'var(--surface)', 
-            border: '1px solid var(--line)', 
-            borderRadius: '16px', 
-            padding: '16px 12px',
-            textAlign: 'center',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center'
-          }}>
-            <h3 style={{ fontSize: '0.9rem', marginBottom: '8px' }}>Hosting</h3>
-            <p className="price" style={{ fontSize: '1.2rem', fontWeight: 700, margin: '0 0 8px 0', color: 'var(--ink)' }}>Host + ₹200</p>
-            <p style={{ fontSize: '0.75rem', color: 'var(--muted)', margin: 0, lineHeight: 1.3 }}>Provider cost + processing</p>
+          <article className="pkg pricing-mobile-card">
+            <span className="pricing-mobile-badge">02</span>
+            <div className="pricing-mobile-info">
+              <h3>Hosting &amp; DNS</h3>
+              <p className="pricing-mobile-sub">Provider cost + ₹200 fee</p>
+            </div>
+            <p className="price pricing-mobile-val">Host + ₹200</p>
           </article>
 
-          <article className="pkg" style={{ 
-            border: '1px solid var(--cobalt)', 
-            borderRadius: '16px', 
-            padding: '16px 12px',
-            textAlign: 'center',
-            background: 'color-mix(in srgb, var(--cobalt) 5%, transparent)',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center'
-          }}>
-            <h3 style={{ fontSize: '0.9rem', marginBottom: '8px' }}>Enquiries</h3>
-            <p className="price" style={{ fontSize: '1.2rem', fontWeight: 700, margin: '0 0 8px 0', color: 'var(--cobalt)' }}>Custom</p>
-            <p style={{ fontSize: '0.75rem', color: 'var(--muted)', margin: 0, lineHeight: 1.3 }}>Pay per result</p>
+          <article className="pkg pricing-mobile-card feat-highlight">
+            <span className="pricing-mobile-badge feat">03</span>
+            <div className="pricing-mobile-info">
+              <h3>Qualified Enquiries</h3>
+              <p className="pricing-mobile-sub">Pay strictly per verified customer</p>
+            </div>
+            <p className="price pricing-mobile-val cobalt">Custom</p>
           </article>
         </div>
 

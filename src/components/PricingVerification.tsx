@@ -188,6 +188,9 @@ export default function PricingVerification() {
           </div>
 
           <div className="rates-table-wrap">
+            <div className="rates-scroll-hint show-mobile">
+              <span>👈 Swipe to view all 5 columns 👉</span>
+            </div>
             <table className="rates-table">
               <thead>
                 <tr>

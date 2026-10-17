@@ -1,9 +1,12 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import { getWhatsAppGrowthPlanLink, trackFunnelEvent } from "@/lib/analytics";
 
 export default function CaseStudy() {
+  const [isZoomed, setIsZoomed] = useState(false);
+
   return (
     <section className="sec case-study-sec" id="case-study">
       <div className="wrap">
@@ -31,15 +34,24 @@ export default function CaseStudy() {
               <span className="case-status-badge">Live Dashboard</span>
             </div>
 
-            <div className="case-image-wrapper">
+            <div 
+              className="case-image-wrapper" 
+              onClick={() => setIsZoomed(true)} 
+              title="Click to view full-resolution client analytics dashboard"
+              style={{ cursor: 'pointer' }}
+            >
               <Image
                 src="/images/realcase.png"
                 alt="Shobana Men's Salon Analytics Dashboard showing 5 leads, 2 billable leads, and ₹200 billing"
-                width={1200}
-                height={675}
+                width={2670}
+                height={840}
                 className="case-image"
-                sizes="(max-width: 768px) 100vw, 600px"
+                sizes="(max-width: 768px) 100vw, 700px"
+                priority
               />
+              <div className="case-zoom-overlay">
+                <span className="zoom-hint">🔍 Tap to expand &amp; inspect</span>
+              </div>
             </div>
 
             <div className="case-caption">
@@ -130,6 +142,39 @@ export default function CaseStudy() {
           </div>
         </div>
       </div>
+
+      {/* Lightbox Modal for Real Client Dashboard */}
+      {isZoomed && (
+        <div className="lightbox-backdrop" onClick={() => setIsZoomed(false)}>
+          <div className="lightbox-content" onClick={e => e.stopPropagation()}>
+            <div className="lightbox-header">
+              <div>
+                <strong>Shobana Men&apos;s Salon — Analytics Dashboard Snapshot</strong>
+                <p style={{ margin: '2px 0 0 0', fontSize: '0.8rem', color: 'var(--muted)' }}>
+                  Live metrics: 5 total leads captured → 2 verified appointments → ₹200 billed
+                </p>
+              </div>
+              <button 
+                type="button" 
+                className="lightbox-close" 
+                onClick={() => setIsZoomed(false)}
+                aria-label="Close analytics snapshot"
+              >
+                ✕
+              </button>
+            </div>
+            <div className="lightbox-body" style={{ background: '#FFE500', padding: '12px', borderRadius: '12px', overflow: 'auto' }}>
+              <Image
+                src="/images/realcase.png"
+                alt="Shobana Men's Salon Analytics Dashboard full view"
+                width={2670}
+                height={840}
+                style={{ width: '100%', height: 'auto', display: 'block' }}
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }

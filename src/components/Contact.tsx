@@ -39,7 +39,7 @@ export default function Contact() {
     <section className="sec" id="contact" style={{ paddingTop: 0 }}>
       <div className="wrap">
         <div className="contact-panel">
-          <div>
+          <div className="contact-info">
             <h2>Get Your Free Website Growth Plan</h2>
             <p className="lede">
               Tell us about your business. We will analyse your competitors, outline 3 immediate website improvements, and propose a transparent per-enquiry rate tailored to your model.
@@ -56,7 +56,7 @@ export default function Contact() {
               </a>
               <a className="btn btn-ghost" href="#verification-billing">How Billing Works ↓</a>
             </div>
-            <p style={{ fontSize: '0.82rem', color: 'var(--muted)', marginTop: '8px' }}>
+            <p className="contact-guarantee-note">
               ⚡ 24-hour turnaround on WhatsApp • 100% Free • Zero commitment
             </p>
             <div className="direct">

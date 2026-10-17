@@ -8,7 +8,7 @@ import HowItWorks from "@/components/HowItWorks";
 import Pricing from "@/components/Pricing";
 import CostFlow from "@/components/CostFlow";
 import PricingVerification from "@/components/PricingVerification";
-import Protection from "@/components/Protection";
+import MeeraAssistant from "@/components/MeeraAssistant";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import Fab from "@/components/Fab";
@@ -27,7 +27,7 @@ export default function Home() {
         <Pricing />
         <CostFlow />
         <PricingVerification />
-        <Protection />
+        <MeeraAssistant />
         <Contact />
       </main>
       <Footer />

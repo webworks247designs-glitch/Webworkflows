@@ -135,6 +135,7 @@ export default function WorkDeck() {
 
     const update = () => {
       queued = false;
+      const isMobile = window.innerWidth < 768;
       const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       
       const cov = slots.map((sl, i) => {
@@ -149,8 +150,9 @@ export default function WorkDeck() {
         if (!reduce) {
           let depth = 0;
           for (let j = i + 1; j < slots.length; j++) depth += cov[j];
-          st[i].s = 1 - Math.min(depth * 0.025, 0.1);
-          st[i].rx = -(1 - cov[i]) * 8;
+          st[i].s = 1 - Math.min(depth * 0.02, 0.07);
+          // Subtle rotateX on mobile to ensure clean edges and avoid overflow jitter
+          st[i].rx = isMobile ? -(1 - cov[i]) * 2.5 : -(1 - cov[i]) * 8;
           cards[i].style.setProperty('--dim', Math.min(depth * 0.1, 0.42).toFixed(3));
           apply(i);
         }
@@ -174,6 +176,7 @@ export default function WorkDeck() {
     // Handle hover 3D effect
     cards.forEach((card, i) => {
       card.addEventListener('pointermove', (e: PointerEvent) => {
+        if (window.innerWidth < 768) return;
         const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         if (reduce || e.pointerType !== 'mouse' || !slots[i].classList.contains('is-front')) return;
         const r = card.getBoundingClientRect();
@@ -182,6 +185,7 @@ export default function WorkDeck() {
         apply(i);
       });
       card.addEventListener('pointerleave', () => {
+        if (window.innerWidth < 768) return;
         st[i].tx = 0;
         st[i].ty = 0;
         const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -198,6 +202,8 @@ export default function WorkDeck() {
     if (!deckRef.current) return;
     const slots = Array.from(deckRef.current.querySelectorAll('.slot')) as HTMLElement[];
     const slot = slots[i];
+    if (!slot) return;
+
     const tops = slots.map(s => parseFloat(getComputedStyle(s).top) || 0);
     const gap = parseFloat(getComputedStyle(slot).marginBottom) || 0;
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -213,7 +219,7 @@ export default function WorkDeck() {
           <h2>Recent work</h2>
           <p>
             <span className="only-hover">Scroll to flip through the deck. Hover a card to browse the full website inside it. Click a tab to jump back to any project.</span>
-            <span className="only-touch">Scroll to flip through the deck. The website inside the front card scrolls by itself. Tap a tab to jump back to any project.</span>
+            <span className="only-touch">Tap a category pill to inspect any project. Every site is custom-engineered and live in production.</span>
           </p>
         </div>
         
@@ -240,7 +246,7 @@ export default function WorkDeck() {
             } as React.CSSProperties;
 
             return (
-              <div className="slot" style={vars} key={i}>
+              <div className="slot" id={`deck-slot-${i}`} style={vars} key={i}>
                 <article className="card" style={vars} aria-label={p.name}>
                   <button className="tab" type="button" onClick={() => handleTabClick(i)} aria-label={`Bring ${p.name} to the front`}>
                     <span className="dot"></span>
@@ -276,7 +282,7 @@ export default function WorkDeck() {
                         {p.tags.map(t => <li key={t}>{t}</li>)}
                       </ul>
                       <p className="result"><b>Result</b>{p.result}</p>
-                      <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginTop: '16px' }}>
+                      <div className="work-card-cta" style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginTop: '16px' }}>
                         <a 
                           className="btn btn-wa btn-sm" 
                           href={p.liveUrl} 
