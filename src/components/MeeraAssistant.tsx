@@ -33,11 +33,11 @@ interface ChatMessage {
 
 const initialGreetings: Record<"English" | "Telugu" | "Hindi", string> = {
   English:
-    "Hello! I am Meera, the AI assistant at Webworkflo's. I can answer questions about our ₹3,000 launch pricing, verified per-enquiry billing, portfolio case studies, or help you request a 100% Free Website Growth Plan. How can I help you today?",
+    "Hello! I am Meera, the AI assistant at Webworkflo's.",
   Telugu:
-    "నమస్కారం! నేను వెబ్‌వర్క్‌ఫ్లోస్ AI అసిస్టెంట్ మీరాని. మా ₹3,000 లాంచ్ మోడల్, వెరిఫైడ్ ఎంక్వైరీ బిల్లింగ్ లేదా ఫ్రీ వెబ్‌సైట్ గ్రోత్ ప్లాన్ గురించి ఏ వివరాలైనా నన్ను అడగవచ్చు. మీకు ఎలా సహాయపడగలను?",
+    "నమస్కారం! నేను వెబ్‌వర్క్‌ఫ్లోస్ AI అసిస్టెంట్ మీరాని.",
   Hindi:
-    "नमस्ते! मैं वेबवर्कफ्लोस की AI असिस्टेंट मीरा हूँ। आप हमारी ₹3,000 वेबसाइट लॉन्च प्राइसिंग, वेरिफाइड लीड्स बिलिंग या फ्री वेबसाइट ग्रोथ प्लान के बारे में कुछ भी पूछ सकते हैं। बताइए मैं आपकी क्या मदद करूँ?",
+    "नमस्ते! मैं वेबवर्कफ्لوस की AI असिस्टेंट मीरा हूँ।",
 };
 
 const quickChips: Record<"English" | "Telugu" | "Hindi", { label: string; query: string; isFounder?: boolean }[]> = {

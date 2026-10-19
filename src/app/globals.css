@@ -552,14 +552,15 @@ img{ max-width:100%; height:auto; }
 @media (hover:none){ .only-hover{ display:none; } .only-touch{ display:inline; } }
 
 .deck{
-  --n:3; --tab:52px; --gap:clamp(36px, 5vh, 52px);
+  --n:3; --tab:52px; --gap:clamp(40px, 8vh, 80px);
   --card-h:clamp(460px, calc(var(--vh) - var(--nav-total) - 16px - (var(--n) - 1) * var(--tab) - 20px), 640px);
-  position:relative; padding-bottom:20px;
+  position:relative; padding-bottom:clamp(140px, 20vh, 240px);
 }
 .slot{
   --i:0;
   position:sticky; top:calc(var(--nav-total) + 12px + var(--i) * var(--tab));
   height:var(--card-h); margin-bottom:var(--gap);
+  z-index: calc(var(--i) + 1);
 }
 .slot:last-child{ margin-bottom:0; }
 .card{
@@ -1144,18 +1145,44 @@ textarea.field{ min-height:104px; resize:vertical; }
   }
   .step .n { position: relative; left: auto; top: auto; margin: 0 0 16px 0; }
   
-  /* WORK DECK ON TABLET: Full desktop completeness */
+  /* WORK DECK ON TABLET: Full desktop completeness with sticky stacked cards */
   .deck { 
     --n: 3;
     --tab: 48px; 
-    --card-h: clamp(500px, calc(var(--vh) - var(--nav-total) - 16px - (var(--n) - 1) * var(--tab) - 16px), 620px); 
-    --gap: clamp(32px, 5vh, 48px); 
-    padding-bottom: 24px !important;
+    --card-h: clamp(480px, calc(var(--vh) - var(--nav-total) - 16px - (var(--n) - 1) * var(--tab) - 16px), 620px); 
+    --gap: clamp(40px, 7vh, 70px); 
+    padding-bottom: clamp(120px, 18vh, 200px) !important;
+  }
+  .slot {
+    position: sticky !important;
+    top: calc(var(--nav-total) + 12px + var(--i) * var(--tab)) !important;
+    height: var(--card-h) !important;
+    margin-bottom: var(--gap) !important;
+    z-index: calc(var(--i) + 1) !important;
+  }
+  .slot:last-child {
+    margin-bottom: 0 !important;
+  }
+  .card {
+    position: relative !important;
+    height: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    border-radius: 18px !important;
+    overflow: hidden !important;
+    box-shadow: 0 16px 36px -12px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+    background: var(--deck-card-bg, #101324) !important;
+    transform-origin: 50% 0 !important;
+    will-change: transform;
+    transition: transform .25s ease-out;
   }
   .body { 
     grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr) !important; 
     gap: 20px !important; 
     padding: 20px !important; 
+    height: calc(100% - var(--tab)) !important;
+    min-height: 0 !important;
+    box-sizing: border-box !important;
   }
   .info {
     display: flex !important;
@@ -1345,7 +1372,7 @@ textarea.field{ min-height:104px; resize:vertical; }
     padding: 0 8px !important; 
   }
 
-  /* WORK DECK ON MOBILE: Clean standalone cards, zero overlap, full completeness */
+  /* WORK DECK ON MOBILE: Stacked cards displaying over one another */
   .work { 
     padding-bottom: 44px !important; 
   }
@@ -1356,17 +1383,19 @@ textarea.field{ min-height:104px; resize:vertical; }
   .deck { 
     --n: 3;
     --tab: 42px;
+    --card-h: clamp(470px, calc(100svh - var(--nav-total) - 10px - (var(--n) - 1) * var(--tab) - 16px), 570px);
+    --gap: clamp(36px, 8vh, 60px);
     position: relative !important; 
-    display: flex !important; 
-    flex-direction: column !important;
-    gap: 20px !important;
-    padding-bottom: 0px !important; 
+    display: block !important; 
+    padding-bottom: clamp(100px, 16vh, 180px) !important; 
   }
   .slot { 
-    position: relative !important; 
-    top: auto !important; 
-    height: auto !important; 
-    margin-bottom: 0 !important; 
+    --i: 0;
+    position: sticky !important; 
+    top: calc(var(--nav-total) + 8px + var(--i) * var(--tab)) !important; 
+    height: var(--card-h) !important; 
+    margin-bottom: var(--gap) !important; 
+    z-index: calc(var(--i) + 1) !important;
     scroll-margin-top: calc(var(--nav-h) + 16px) !important; 
   }
   .slot:last-child { 
@@ -1374,14 +1403,16 @@ textarea.field{ min-height:104px; resize:vertical; }
   }
   .card { 
     position: relative !important; 
-    height: auto !important; 
+    height: 100% !important; 
     display: flex !important; 
     flex-direction: column !important; 
     border-radius: 16px !important; 
     overflow: hidden !important; 
     box-shadow: 0 16px 36px -12px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1) !important; 
     background: var(--deck-card-bg, #101324) !important; 
-    transform: none !important;
+    transform-origin: 50% 0 !important;
+    will-change: transform;
+    transition: transform 0.25s ease-out;
   }
   .card::after { 
     content: "" !important; 
@@ -1416,19 +1447,27 @@ textarea.field{ min-height:104px; resize:vertical; }
   .body { 
     display: flex !important; 
     flex-direction: column !important; 
-    gap: 14px !important; 
-    padding: 14px 16px 16px !important; 
-    height: auto !important; 
+    gap: 8px !important; 
+    padding: 12px 14px 14px !important; 
+    height: calc(100% - var(--tab)) !important; 
     min-height: 0 !important; 
     flex: 1 !important; 
     box-sizing: border-box !important; 
-    overflow: visible !important; 
+    overflow-y: auto !important; 
+    scrollbar-width: thin !important; 
+  }
+  .body::-webkit-scrollbar { 
+    width: 3px !important; 
+  }
+  .body::-webkit-scrollbar-thumb { 
+    background: rgba(255, 255, 255, 0.15) !important; 
+    border-radius: 4px !important; 
   }
   .browser { 
     width: 100% !important; 
-    height: clamp(150px, 38vw, 220px) !important; 
-    min-height: 150px !important; 
-    max-height: 240px !important; 
+    height: clamp(120px, 20vh, 155px) !important; 
+    min-height: 110px !important; 
+    max-height: 165px !important; 
     border-radius: 10px !important; 
     flex: none !important; 
   }
@@ -1436,7 +1475,7 @@ textarea.field{ min-height:104px; resize:vertical; }
     display: flex !important; 
     flex-direction: column !important; 
     justify-content: space-between !important; 
-    gap: 8px !important; 
+    gap: 6px !important; 
     flex: 1 !important; 
     min-height: 0 !important; 
   }
@@ -1451,15 +1490,20 @@ textarea.field{ min-height:104px; resize:vertical; }
     -webkit-line-clamp: 2 !important; 
     line-clamp: 2 !important; 
     overflow: hidden !important; 
-    font-size: 0.86rem !important; 
-    line-height: 1.4 !important; 
+    font-size: 0.84rem !important; 
+    line-height: 1.38 !important; 
   }
   .info blockquote { 
     margin: 0 !important; 
     padding: 6px 10px !important; 
-    font-size: 0.8rem !important; 
+    font-size: 0.78rem !important; 
     line-height: 1.35 !important; 
-    border-radius: 8px !important; 
+    border-radius: 6px !important; 
+    display: -webkit-box !important; 
+    -webkit-line-clamp: 2 !important; 
+    line-clamp: 2 !important; 
+    -webkit-box-orient: vertical !important; 
+    overflow: hidden !important; 
   }
   .info .tags { 
     display: flex !important; 
@@ -1467,18 +1511,18 @@ textarea.field{ min-height:104px; resize:vertical; }
     gap: 4px !important; 
   }
   .info .tags li { 
-    font-size: 0.74rem !important; 
-    padding: 2px 8px !important; 
+    font-size: 0.72rem !important; 
+    padding: 2px 7px !important; 
   }
   .info .result { 
     display: block !important; 
-    font-size: 0.82rem !important; 
+    font-size: 0.8rem !important; 
     line-height: 1.3 !important; 
     padding-left: 8px !important; 
     margin: 2px 0 !important; 
   }
   .info .result b { 
-    font-size: 0.76rem !important; 
+    font-size: 0.74rem !important; 
   }
   .work-card-cta { 
     display: flex !important; 
@@ -1492,7 +1536,7 @@ textarea.field{ min-height:104px; resize:vertical; }
     justify-content: center !important; 
     text-align: center !important; 
     padding: 8px 10px !important; 
-    font-size: 0.8rem !important; 
+    font-size: 0.78rem !important; 
     white-space: nowrap !important; 
     box-sizing: border-box !important; 
   }

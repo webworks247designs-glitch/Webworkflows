@@ -14,11 +14,11 @@ interface ChatMessage {
 
 const GREETINGS: Record<"English" | "Telugu" | "Hindi", string> = {
   English:
-    "Hello! I am Meera, the AI assistant at Webworkflo's. I can answer questions about our Fixed Website Package starting from ₹8,999, our Enquiry-Based Model at ₹4,749 (hosting included), client case studies, or connect you directly with Founder Srishanth. How can I help you today?",
+    "Hello! I am Meera, the AI assistant at Webworkflo's.",
   Telugu:
-    "నమస్కారం! నేను వెబ్‌వర్క్‌ఫ్లోస్ AI అసిస్టెంట్ మీరాని. మా ఫిక్స్‌డ్ వెబ్‌సైట్ ప్యాకేజ్ (₹8,999 నుండి), ఎంక్వైరీ మోడల్ ₹4,749 (హోస్టింగ్ సహితం), లేదా శోభన సెలూన్ కేస్ స్టడీ వివరాలను నేను మీకు అందించగలను. మీకు ఎలా సహాయపడగలను?",
+    "నమస్కారం! నేను వెబ్‌వర్క్‌ఫ్లోస్ AI అసిస్టెంట్ మీరాని.",
   Hindi:
-    "नमस्ते! मैं वेबवर्कफ्लोस की AI असिस्टेंट मीरा हूँ। मैं आपको हमारे फिक्स्ड वेबसाइट पैकेज (₹8,999 से शुरू), इन्क्वायरी मॉडल ₹4,749 (होस्टिंग शामिल), या शोभना सैलून केस स्टडी के बारे में जानकारी दे सकती हूँ। बताइए मैं आपकी क्या मदद करूँ?",
+    "नमस्ते! मैं वेबवर्कफ्लोस की AI असिस्टेंट मीरा हूँ।",
 };
 
 const PROMPT_CHIPS: Record<"English" | "Telugu" | "Hindi", { label: string; query: string }[]> = {
