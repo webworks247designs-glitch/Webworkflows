@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { getWhatsAppGrowthPlanLink, trackFunnelEvent } from "@/lib/analytics";
 
@@ -92,6 +92,15 @@ export default function Pricing() {
   const [isSwitchingSim, setIsSwitchingSim] = useState(false);
   const curSim = SIMULATOR_EXAMPLES[activeSimIdx];
 
+  const simTrackRef = useRef<HTMLDivElement>(null);
+  const simBtnRefs = useRef<(HTMLButtonElement | null)[]>([]);
+
+  useEffect(() => {
+    if (modelType === "enquiry" && simTrackRef.current) {
+      simTrackRef.current.scrollTo({ left: 0, behavior: "instant" });
+    }
+  }, [modelType]);
+
   const handleToggle = (type: "fixed" | "enquiry") => {
     setModelType(type);
     trackFunnelEvent("pricing_toggle", { selected_model: type });
@@ -100,7 +109,31 @@ export default function Pricing() {
   const handleSimChange = (idx: number) => {
     setIsSwitchingSim(true);
     setActiveSimIdx(idx);
+
+    const track = simTrackRef.current;
+    const btn = simBtnRefs.current[idx];
+    if (track && btn) {
+      if (idx === 0) {
+        track.scrollTo({ left: 0, behavior: "smooth" });
+      } else {
+        const trackRect = track.getBoundingClientRect();
+        const btnRect = btn.getBoundingClientRect();
+        const offset = (btnRect.left - trackRect.left) + track.scrollLeft;
+        const targetScroll = offset - (track.clientWidth / 2) + (btn.clientWidth / 2);
+        track.scrollTo({ left: Math.max(0, targetScroll), behavior: "smooth" });
+      }
+    }
+
     setTimeout(() => setIsSwitchingSim(false), 140);
+  };
+
+  const scrollSimSlider = (direction: 'left' | 'right') => {
+    if (!simTrackRef.current) return;
+    const scrollAmount = 240;
+    simTrackRef.current.scrollBy({
+      left: direction === 'left' ? -scrollAmount : scrollAmount,
+      behavior: 'smooth'
+    });
   };
 
   return (
@@ -119,54 +152,19 @@ export default function Pricing() {
         </div>
 
         {/* Model Toggle Switcher */}
-        <div 
-          style={{ 
-            display: "flex", 
-            justifyContent: "center", 
-            marginBottom: "24px" 
-          }}
-        >
-          <div 
-            style={{ 
-              display: "inline-flex", 
-              background: "var(--surface)", 
-              border: "1px solid var(--line-strong)", 
-              borderRadius: "4px", 
-              padding: "4px",
-              gap: "4px"
-            }}
-          >
+        <div className="pricing-switcher-wrap">
+          <div className="pricing-switcher-inner">
             <button
               type="button"
               onClick={() => handleToggle("fixed")}
-              style={{
-                padding: "10px 22px",
-                borderRadius: "4px",
-                border: "none",
-                background: modelType === "fixed" ? "var(--cobalt)" : "transparent",
-                color: modelType === "fixed" ? "var(--on-cobalt)" : "var(--muted)",
-                fontWeight: 600,
-                fontSize: "0.95rem",
-                cursor: "pointer",
-                transition: "background 0.15s ease, color 0.15s ease",
-              }}
+              className={`pricing-toggle-tab ${modelType === "fixed" ? "active" : ""}`}
             >
               Fixed Website Package
             </button>
             <button
               type="button"
               onClick={() => handleToggle("enquiry")}
-              style={{
-                padding: "10px 22px",
-                borderRadius: "4px",
-                border: "none",
-                background: modelType === "enquiry" ? "var(--cobalt)" : "transparent",
-                color: modelType === "enquiry" ? "var(--on-cobalt)" : "var(--muted)",
-                fontWeight: 600,
-                fontSize: "0.95rem",
-                cursor: "pointer",
-                transition: "background 0.15s ease, color 0.15s ease",
-              }}
+              className={`pricing-toggle-tab ${modelType === "enquiry" ? "active" : ""}`}
             >
               Enquiry-Based Performance Model
             </button>
@@ -267,8 +265,7 @@ export default function Pricing() {
                 href={getWhatsAppGrowthPlanLink("FixedPackage_8999")}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn btn-wa"
-                style={{ padding: "14px 28px", fontSize: "1.05rem" }}
+                className="btn btn-wa pricing-fixed-cta"
                 onClick={() => trackFunnelEvent("cta_click", { source: "pricing_fixed_8999" })}
               >
                 <svg className="ic"><use href="#i-wa" /></svg>
@@ -322,28 +319,44 @@ export default function Pricing() {
               </p>
             </div>
 
-            {/* Industry Selector Tabs */}
-            <div style={{ display: "flex", gap: "8px", justifyContent: "center", flexWrap: "wrap", marginBottom: "20px" }}>
-              {SIMULATOR_EXAMPLES.map((ex, idx) => (
-                <button
-                  key={ex.id}
-                  type="button"
-                  onClick={() => handleSimChange(idx)}
-                  style={{
-                    padding: "8px 16px",
-                    borderRadius: "4px",
-                    border: `1px solid ${activeSimIdx === idx ? "var(--cobalt)" : "var(--line)"}`,
-                    background: activeSimIdx === idx ? "var(--cobalt)" : "var(--surface)",
-                    color: activeSimIdx === idx ? "var(--on-cobalt)" : "var(--ink)",
-                    fontSize: "0.9rem",
-                    fontWeight: 600,
-                    cursor: "pointer",
-                    transition: "all 0.15s ease",
-                  }}
-                >
-                  {ex.name}
-                </button>
-              ))}
+            {/* Industry Selector Tabs (Horizontal with Sliding Support) */}
+            <div className="sim-slider-container">
+              <button
+                type="button"
+                className="sim-slide-nav-btn prev"
+                onClick={() => scrollSimSlider('left')}
+                aria-label="Slide industry options left"
+              >
+                ‹
+              </button>
+              <div 
+                className="sim-slider-track" 
+                ref={simTrackRef}
+                role="tablist"
+                aria-label="Select an industry to simulate"
+              >
+                {SIMULATOR_EXAMPLES.map((ex, idx) => (
+                  <button
+                    key={ex.id}
+                    ref={(el) => { simBtnRefs.current[idx] = el; }}
+                    type="button"
+                    role="tab"
+                    aria-selected={activeSimIdx === idx}
+                    onClick={() => handleSimChange(idx)}
+                    className={`sim-tab-pill ${activeSimIdx === idx ? "active" : ""}`}
+                  >
+                    <span>{ex.name}</span>
+                  </button>
+                ))}
+              </div>
+              <button
+                type="button"
+                className="sim-slide-nav-btn next"
+                onClick={() => scrollSimSlider('right')}
+                aria-label="Slide industry options right"
+              >
+                ›
+              </button>
             </div>
 
             {/* Simulator Output Card with Skeleton Transition */}

@@ -361,38 +361,10 @@ export default function LocalHub() {
         </div>
 
         {/* Local Advantage Banner */}
-        <div
-          style={{
-            background: "linear-gradient(135deg, rgba(59, 130, 246, 0.08) 0%, rgba(147, 51, 234, 0.05) 100%)",
-            border: "1px solid var(--line-strong)",
-            borderRadius: "20px",
-            padding: "28px 32px",
-            display: "flex",
-            flexWrap: "wrap",
-            alignItems: "center",
-            justifyContent: "space-between",
-            gap: "20px",
-          }}
-        >
-          <div>
-            <h4
-              style={{
-                fontSize: "1.15rem",
-                fontWeight: 700,
-                marginBottom: "6px",
-                color: "var(--ink)",
-              }}
-            >
-              Looking for a local website designer near you in Hyderabad?
-            </h4>
-            <p
-              style={{
-                fontSize: "0.92rem",
-                color: "var(--muted)",
-                maxWidth: "680px",
-                margin: 0,
-              }}
-            >
+        <div className="local-advantage-banner">
+          <div className="local-advantage-copy">
+            <h4>Looking for a local website designer near you in Hyderabad?</h4>
+            <p>
               Get same-day communication on WhatsApp, direct founder access, and websites built to capture Google search traffic in your specific neighborhood.
             </p>
           </div>
@@ -401,13 +373,7 @@ export default function LocalHub() {
             href="https://wa.me/919959896378?text=Hi%20Webworkflo%27s%2C%20I%20am%20looking%20for%20a%20website%20designer%20in%20Hyderabad%20for%20my%20business."
             target="_blank"
             rel="noopener noreferrer"
-            className="btn btn-wa"
-            style={{
-              padding: "12px 24px",
-              fontSize: "0.95rem",
-              fontWeight: 600,
-              whiteSpace: "nowrap",
-            }}
+            className="btn btn-wa local-advantage-btn"
           >
             Chat on WhatsApp (+91 99598 96378)
           </a>
