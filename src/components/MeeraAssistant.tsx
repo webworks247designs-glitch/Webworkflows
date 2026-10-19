@@ -81,7 +81,7 @@ export default function MeeraAssistant() {
   const [bookingName, setBookingName] = useState("");
   const [bookingPhone, setBookingPhone] = useState("");
   const [bookingBusiness, setBookingBusiness] = useState("");
-  const [bookingTime, setBookingTime] = useState("Immediately (Next 15 mins)");
+  const [bookingTime, setBookingTime] = useState("Within 24 Hours");
   const [bookingStatus, setBookingStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [feedbackMsg, setFeedbackMsg] = useState("");
 
@@ -679,7 +679,7 @@ export default function MeeraAssistant() {
                   onChange={(e) => setBookingTime(e.target.value)}
                   className="form-input form-select"
                 >
-                  <option value="Immediately (Next 15 mins)">Immediately (Next 15 mins)</option>
+                  <option value="Within 24 Hours">Within 24 Hours</option>
                   <option value="Today Evening (5 PM - 8 PM)">Today Evening (5 PM - 8 PM)</option>
                   <option value="Tomorrow Morning (10 AM - 1 PM)">Tomorrow Morning (10 AM - 1 PM)</option>
                   <option value="Tomorrow Afternoon (2 PM - 5 PM)">Tomorrow Afternoon (2 PM - 5 PM)</option>

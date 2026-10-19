@@ -61,34 +61,49 @@ export const meeraKnowledgeBase: KnowledgeItem[] = [
     }
   },
 
-  // 3. Pricing Model & ₹200 Hosting Clarification
+  // 3. Pricing Models: Fixed vs Enquiry-Based
   {
     id: "pricing-model-clarification",
-    topic: "Pricing Model & Hosting Fees",
+    topic: "Pricing Models: Fixed vs Enquiry-Based",
     keywords: [
       "cost",
       "price",
       "pricing",
       "charges",
       "fee",
-      "₹3,000",
-      "3000",
-      "200",
+      "differentiate",
+      "difference",
+      "models",
+      "pricing models",
+      "model",
+      "compare",
+      "options",
+      "fixed",
+      "enquiry",
+      "₹8,999",
+      "8999",
+      "₹4,749",
+      "4749",
       "hosting",
       "ధర",
       "ఖర్చు",
       "ఫీజు",
       "హోస్టింగ్",
+      "మోడల్స్",
+      "తేడా",
+      "రకాలు",
       "खर्च",
       "प्राइस",
       "फीस",
       "चार्ज",
-      "होस्टिंग"
+      "होस्टिंग",
+      "मॉडल",
+      "अंतर"
     ],
     responses: {
-      Telugu: "మా మోడల్ చాలా పారదర్శకమైనది అండి: ప్రాజెక్ట్ సెటప్, బిజినెస్ ఇమెయిల్ మరియు వెబ్‌సైట్ లాంచ్ కోసం మూడు వేల రూపాయల వన్-టైమ్ ఇన్ఫ్రాస్ట్రక్చర్ ఛార్జ్ ఉంటుంది. హోస్టింగ్ అనేది ప్రొవైడర్ అసలు ధరకు అదనంగా రెండు వందల రూపాయల సెటప్ ఫీజు ఉంటుంది. బిల్లింగ్ ఫ్రీక్వెన్సీని శ్రీశాంత్ గారు లిఖితపూర్వకంగా స్పష్టం చేస్తారు. అలాగే క్వాలిఫైడ్ లీడ్స్‌కి మాత్రమే ముందుగా కుదుర్చుకున్న చిన్న రుసుము ఉంటుంది!",
-      Hindi: "हमारी प्राइसिंग बिल्कुल साफ़ है जी: प्रोजेक्ट सेटअप, बिज़नेस ईमेल और लॉन्च के लिए तीन हज़ार रुपये वन-टाइम चार्ज है। होस्टिंग प्रोवाइडर की लागत के साथ दो सौ रुपये सेटअप फीस होती है, जिसकी फ्रीक्वेंसी श्रीशांत जी लिखित में तय करेंगे। बाकी केवल कन्फर्म कस्टमर लीड्स पर पहले से तय फीस लगती है!",
-      English: "The website lists a ₹3,000 one-time launch and infrastructure charge covering setup, business email, and deployment. Hosting is charged at the provider's cost plus a ₹200 hosting setup/processing fee—Srishanth will confirm the exact billing frequency in writing before you decide. Qualified enquiries have a separately agreed rate."
+      Telugu: "వెబ్‌వర్క్‌ఫ్లోస్ రెండు స్పష్టమైన ఇన్వెస్ట్‌మెంట్ మోడళ్లను అందిస్తుంది:\n1. ఫిక్స్‌డ్ వెబ్‌సైట్ ప్యాకేజ్ (₹8,999 నుండి): కస్టమ్ నెక్స్ట్.జేఎస్ వెబ్‌సైట్, మొబైల్-ఫస్ట్ ఆర్కిటెక్చర్, వాట్సాప్ లీడ్ రూటింగ్, మరియు 100% సోర్స్ కోడ్ యాజమాన్యం. ఎటువంటి నెలవారీ ప్లాట్‌ఫారమ్ ఫీజులు ఉండవు.\n2. ఎంక్వైరీ-బేస్డ్ మోడల్: ఒకేసారి ₹4,749 లాంచ్ సెటప్ (క్లౌడ్ హోస్టింగ్ పూర్తిగా ఇందులో ఉంది) మరియు వెరిఫై అయిన జెన్యూన్ కస్టమర్ ఎంక్వైరీలకు మాత్రమే చెల్లింపు (ఉదా. ₹80 నుండి ₹150), 48 గంటల డిస్ప్యూట్ ప్రొటెక్షన్‌తో.",
+      Hindi: "वेबवर्कफ्लोस दो पारदर्शी मॉडल्स प्रदान करता है:\n1. फिक्स्ड वेबसाइट पैकेज (₹8,999 से शुरू): पूरी तरह से कस्टम नेक्स्ट.जेएस वेबसाइट, मोबाइल-फ़र्स्ट आर्किटेक्चर, व्हाट्सएप लीड फ्लो, और 100% कोड ओनरशिप, बिना किसी मासिक प्लेटफ़ॉर्म चार्ज के।\n2. इन्क्वायरी-बेस्ड परफॉर्मेंस मॉडल: ₹4,749 वन-टाइम लॉन्च सेटअप (क्लाउड होस्टिंग इसी में शामिल है) और केवल वेरिफाइड असली कस्टमर लीड्स पर फीस (जैसे ₹80 से ₹150), 48 घंटे की डिस्प्यूट विंडो के साथ।",
+      English: "Webworkflo's offers two distinct investment models:\n1. Fixed Website Package (Starting from ₹8,999): Complete bespoke Next.js development, mobile-first UX, instant WhatsApp lead flow, local SEO schema, and 100% source code & domain ownership with zero recurring monthly platform fees.\n2. Enquiry-Based Performance Model: ₹4,749 one-time launch setup with cloud hosting fully included, plus a mutually agreed rate (e.g. ₹80 to ₹150) charged only for verified, high-intent prospective customers who contact your business, backed by a 48-hour dispute window in your portal."
     }
   },
 
@@ -181,9 +196,9 @@ export const meeraKnowledgeBase: KnowledgeItem[] = [
       "केस स्टडी"
     ],
     responses: {
-      Telugu: "హైదరాబాద్ లోని శోభన మెన్స్ లగ్జరీ సెలూన్ కోసం మేము స్లాట్ సెలెక్టర్ మరియు వాట్సాప్ బుకింగ్ వెబ్‌సైట్ తయారు చేశాము అండి. ఓనర్ సాయికృష్ణ కొండూరి గారు సర్వీస్ చాలా బాగుందని రివ్యూ ఇచ్చారు. వారి వెబ్‌సైట్ లో ఐదు లీడ్స్ రాగా రెండు వెరిఫైడ్ బుకింగ్స్ కి మాత్రమే బిల్లింగ్ జరిగింది!",
-      Hindi: "हैदराबाद के शोभना मेन्स लक्ज़री सैलून के लिए हमने अपॉइंटमेंट सेलेक्टर वाली वेबसाइट बनाई थी जी। ओनर साईकृष्णा कोंडूरी जी ने बहुत शानदार रिव्यू दिया। 5 लीड्स में से केवल 2 कन्फर्म्ड कस्टमर्स के लिए ही बिलिंग हुई, बाकी अनक्वालिफाइड लीड्स पर कोई चार्ज नहीं लगा!",
-      English: "For Shobana Men's Luxury Salon in Hyderabad, we built an appointment selector site (shobanamensalon.vercel.app). Owner Saikrishna Konduri shared great feedback! Out of 5 captured inquiries, only the 2 verified billable appointments were charged at ₹100 each."
+      Telugu: "హైదరాబాద్ లోని శోభన మెన్స్ లగ్జరీ సెలూన్ కోసం మేము స్లాట్ సెలెక్టర్ మరియు వాట్సాప్ బుకింగ్ వెబ్‌సైట్ తయారు చేశాము అండి. లైవ్ అనలిటిక్స్ ప్రకారం మొత్తం 479 లీడ్స్ రాగా, 330 వెరిఫైడ్ బిల్లబుల్ అపాయింట్‌మెంట్స్ కి మాత్రమే ₹3,300 బిల్లింగ్ జరిగింది. మిగతా 149 అన్-కన్ఫర్మ్డ్ విజిట్స్ కి క్లయింట్ ₹0 చెల్లించారు!",
+      Hindi: "हैदराबाद के शोभना मेन्स लक्ज़री सैलून के लिए हमने अपॉइंटमेंट सेलेक्टर वाली वेबसाइट बनाई थी जी। लाइव एनालिटिक्स डैशबोर्ड के अनुसार कुल 479 लीड्स में से 330 वेरिफाइड बिल करने योग्य अपॉइंटमेंट्स के लिए केवल ₹3,300 की बिलिंग हुई (@ ₹100/लीड)। बाकी 149 अनक्वालिफाइड लीड्स पर बिल्कुल ₹0 चार्ज लगा!",
+      English: "In our Shobana Men's Luxury Salon Hyderabad case study: 479 total leads were captured, 330 were verified billable appointments, and total client billing was just ₹3,300 (@ ₹100/lead). The 149 incomplete or unconfirmed visits incurred ₹0 charge, producing over 10x ROI!"
     }
   },
 

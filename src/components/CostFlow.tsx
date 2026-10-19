@@ -9,9 +9,9 @@ const EXAMPLES = [
   {
     id: "restaurant",
     name: "Restaurant",
-    icon: "🍽️",
-    launch: "₹3,000",
-    hosting: "Provider cost + ₹200 fee",
+    icon: "Dining",
+    launch: "₹4,749",
+    hosting: "Hosting Included",
     enquiryType: "Table reservation / online order",
     rate: "₹100",
     leads: "15",
@@ -23,9 +23,9 @@ const EXAMPLES = [
   {
     id: "salon",
     name: "Men's Salon",
-    icon: "✂️",
-    launch: "₹3,000",
-    hosting: "Provider cost + ₹200 fee",
+    icon: "Grooming",
+    launch: "₹4,749",
+    hosting: "Hosting Included",
     enquiryType: "Haircut & grooming appointment",
     rate: "₹80",
     leads: "25",
@@ -37,9 +37,9 @@ const EXAMPLES = [
   {
     id: "bakery",
     name: "Bakery / Cafe",
-    icon: "🥐",
-    launch: "₹3,000",
-    hosting: "Provider cost + ₹200 fee",
+    icon: "Bakery",
+    launch: "₹4,749",
+    hosting: "Hosting Included",
     enquiryType: "Custom cake / catering preorder",
     rate: "₹120",
     leads: "10",
@@ -51,9 +51,9 @@ const EXAMPLES = [
   {
     id: "clinic",
     name: "Physio / Clinic",
-    icon: "🩺",
-    launch: "₹3,000",
-    hosting: "Provider cost + ₹200 fee",
+    icon: "Clinic",
+    launch: "₹4,749",
+    hosting: "Hosting Included",
     enquiryType: "Consultation appointment",
     rate: "₹150",
     leads: "20",
@@ -65,9 +65,9 @@ const EXAMPLES = [
   {
     id: "ecommerce",
     name: "Boutique Store",
-    icon: "🛍️",
-    launch: "₹3,000",
-    hosting: "Provider cost + ₹200 fee",
+    icon: "Retail",
+    launch: "₹4,749",
+    hosting: "Hosting Included",
     enquiryType: "Curated order / bulk enquiry",
     rate: "₹100",
     leads: "30",
@@ -213,7 +213,7 @@ export default function CostFlow() {
           </div>
 
           <p style={{ color: 'var(--muted)', fontSize: '0.82rem', marginTop: '24px', fontStyle: 'italic', textAlign: 'center', marginInline: 'auto', maxWidth: '650px' }}>
-            * The enquiry rate is mutually agreed upon before launch. Hosting is kept transparent at respective provider costs (Hostinger, MilesWeb, or any host of your choice) plus a ₹200 hosting setup and maintenance processing fee.
+            * The enquiry rate is mutually agreed upon before launch. Cloud hosting is included in the ₹4,749 launch setup.
           </p>
         </motion.div>
 

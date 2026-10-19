@@ -54,16 +54,16 @@ export default function Contact() {
                 <svg className="ic"><use href="#i-wa"/></svg>
                 Get a Free Website Growth Plan
               </a>
-              <a className="btn btn-ghost" href="#verification-billing">How Billing Works ↓</a>
+              <a className="btn btn-ghost" href="#pricing">View Pricing Models ↓</a>
             </div>
             <p className="contact-guarantee-note">
-              ⚡ 24-hour turnaround on WhatsApp • 100% Free • Zero commitment
+              24-hour turnaround on WhatsApp / 100% Free / Zero commitment
             </p>
             <div className="direct">
-              <span><b>Founder</b> <span>Srishanth M.</span></span>
+              <span><b>Studio</b> <span>Webworkflo&apos;s</span></span>
               <span><b>WhatsApp</b> <span>+91 99598 96378</span></span>
               <span><b>Email</b> <span>webworks247designs@gmail.com</span></span>
-              <span><b>Reply time</b> Within 1–2 hours</span>
+              <span><b>Reply time</b> Within 1-2 hours</span>
             </div>
           </div>
 

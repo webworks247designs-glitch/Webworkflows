@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion } from "motion/react";
 import Image from "next/image";
 import { getWhatsAppGrowthPlanLink, trackFunnelEvent } from "@/lib/analytics";
 
@@ -12,7 +11,6 @@ const HERO_SAMPLES = [
     id: "boathouse",
     name: "Restaurant",
     label: "The Boat House",
-    icon: "🍽️",
     url: "boat-house-site.vercel.app",
     desktop: "/images/boathouse1.png",
     mobile: "/images/boathouse-mobile.png",
@@ -22,7 +20,6 @@ const HERO_SAMPLES = [
     id: "salon",
     name: "Luxury Salon",
     label: "Shobana Men's Salon",
-    icon: "✂️",
     url: "shobanamensalon.vercel.app",
     desktop: "/images/salon1.png",
     mobile: "/images/salon-mobile.png",
@@ -32,7 +29,6 @@ const HERO_SAMPLES = [
     id: "srishanth",
     name: "Tech Portfolio",
     label: "Srishanth M.",
-    icon: "⚡",
     url: "srishanth-seven.vercel.app",
     desktop: "/images/srishanth1.png",
     mobile: "/images/srishanth-mobile.png",
@@ -84,16 +80,11 @@ export default function Hero() {
       onPointerLeave={handlePointerLeave}
     >
       <div className="wrap hero-grid">
-        <motion.div
-          className="hero-copy"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        >
+        <div className="hero-copy">
           <div className="hero-top-badges">
             <p className="chip-live">
               <span className="live" aria-hidden="true"></span>
-              <span>Available for Projects • Hyderabad</span>
+              <span>Available for Client Builds / Hyderabad</span>
             </p>
             <a
               href={GOOGLE_REVIEWS_URL}
@@ -112,44 +103,38 @@ export default function Hero() {
 
           <h1>Websites that turn visitors into Leads.</h1>
           <p className="lede">
-            <span>Webworkflo&apos;s</span> is a freelance web design & development service in Hyderabad. I personally design and hand-code fast, tailored websites for small businesses, start-ups and creators — no agencies, no middlemen.
+            <span>Webworkflo&apos;s</span> is a web design and frontend engineering studio based in Hyderabad. We build fast, tailored websites for small businesses, startups and professionals with direct, measurable ROI.
           </p>
           
           <div className="cta-row hero-cta-row">
-            <motion.a 
+            <a 
               className="btn btn-wa btn-growth-plan" 
               href={getWhatsAppGrowthPlanLink("Hero")}
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => trackFunnelEvent('cta_click', { source: 'hero_primary_growth_plan' })}
-              whileHover={{ y: -2, scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              transition={{ type: "spring", stiffness: 400, damping: 25 }}
             >
               <svg className="ic"><use href="#i-wa" /></svg>
               Get a Free Website Growth Plan
-            </motion.a>
-            <motion.a 
+            </a>
+            <a 
               className="btn btn-ghost" 
               href="#case-study"
-              whileHover={{ y: -2 }}
-              whileTap={{ scale: 0.98 }}
             >
               See Client Proof ↓
-            </motion.a>
+            </a>
           </div>
 
           <p className="hero-cta-guarantee">
-            <span className="guarantee-icon">⚡</span>
-            <span>Delivered within 24 hours on WhatsApp • 100% Free • Zero commitment</span>
+            <span>Delivered within 24 hours on WhatsApp / 100% Free / Zero commitment</span>
           </p>
 
           <ul className="facts">
-            <li>Design and code by one person</li>
-            <li>Mobile-first and fast</li>
-            <li>Replies within a few hours</li>
+            <li>Custom UI/UX and hand-coded architecture</li>
+            <li>Mobile-first and sub-second load times</li>
+            <li>Direct engineer support within hours</li>
           </ul>
-        </motion.div>
+        </div>
 
         <figure className="scene-wrap">
           <div
@@ -157,22 +142,8 @@ export default function Hero() {
             id="scene"
             ref={sceneRef}
             role="region"
-            aria-label="Interactive 3D device showcase displaying website samples"
+            aria-label="Interactive device showcase displaying website samples"
           >
-            {/* Floating Badges */}
-            <div className="floating-badge badge-1">
-              <span className="badge-icon">⚡</span>
-              <span className="badge-text">99/100 PageSpeed</span>
-            </div>
-            <div className="floating-badge badge-2">
-              <span className="badge-icon">📱</span>
-              <span className="badge-text">100% Mobile First</span>
-            </div>
-            <div className="floating-badge badge-3">
-              <span className="badge-icon">💬</span>
-              <span className="badge-text">{current.metric}</span>
-            </div>
-
             {/* 3D Device Rig */}
             <div className="device-rig">
               {/* MacBook Display */}
@@ -184,7 +155,6 @@ export default function Hero() {
                     <span className="macbook-dot dot-green"></span>
                   </div>
                   <div className="macbook-url">
-                    <span>🔒</span>
                     <span>{current.url}</span>
                   </div>
                 </div>
@@ -231,14 +201,13 @@ export default function Hero() {
                 className={`sample-pill ${activeIdx === idx ? "active" : ""}`}
                 onClick={() => setActiveIdx(idx)}
               >
-                <span>{sample.icon}</span>
                 <span>{sample.name}</span>
               </button>
             ))}
           </div>
 
           <figcaption className="scene-cap">
-            Interactive preview: Real live samples built for desktop and mobile.
+            Live preview: Real production samples built for desktop and mobile.
           </figcaption>
         </figure>
       </div>

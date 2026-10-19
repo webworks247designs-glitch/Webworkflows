@@ -7,7 +7,7 @@ export async function POST(request: Request) {
       name = "Interested Client",
       phone = "",
       business = "Local Business",
-      preferredTime = "Immediately (Next 15 mins)",
+      preferredTime = "Within 24 hours",
       language = "English",
       notes = "Inquired via Meera Voice Assistant about ₹3,000 website model",
     } = body;

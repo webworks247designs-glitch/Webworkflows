@@ -7,20 +7,20 @@ import { getWhatsAppGrowthPlanLink, trackFunnelEvent } from "@/lib/analytics";
 
 export default function CaseStudy() {
   const [isZoomed, setIsZoomed] = useState(false);
+  const [imgLoaded, setImgLoaded] = useState(false);
 
   return (
     <section className="sec case-study-sec" id="case-study">
       <div className="wrap">
         <motion.div 
           className="sec-head"
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
+          transition={{ duration: 0.3 }}
         >
           <div className="badge-tag">
-            <span className="dot-pulse"></span>
-            <span>Real Measured Results • Verified Case Study</span>
+            <span>Client Case Study</span>
           </div>
           <h2>Proof in Practice: How Shobana Salon Scaled Bookings</h2>
           <p>
@@ -32,11 +32,6 @@ export default function CaseStudy() {
           {/* Left Column: Analytics Screenshot Card */}
           <div className="case-visual-card">
             <div className="case-visual-header">
-              <div className="window-dots">
-                <span className="dot-red"></span>
-                <span className="dot-yellow"></span>
-                <span className="dot-green"></span>
-              </div>
               <span className="case-domain">shobanamensalon.vercel.app/portal/analytics</span>
               <span className="case-status-badge">Live Dashboard</span>
             </div>
@@ -45,73 +40,87 @@ export default function CaseStudy() {
               className="case-image-wrapper" 
               onClick={() => setIsZoomed(true)} 
               title="Click to view full-resolution client analytics dashboard"
-              style={{ cursor: 'pointer' }}
+              style={{ cursor: 'pointer', position: 'relative' }}
             >
+              {!imgLoaded && (
+                <div 
+                  className="skeleton-box" 
+                  style={{ 
+                    position: 'absolute', 
+                    top: 0, 
+                    left: 0, 
+                    width: '100%', 
+                    height: '100%', 
+                    minHeight: '260px', 
+                    zIndex: 1 
+                  }} 
+                />
+              )}
               <Image
-                src="/images/realcase.png"
-                alt="Shobana Men's Salon Analytics Dashboard showing 5 leads, 2 billable leads, and ₹200 billing"
-                width={2670}
-                height={840}
+                src="/images/realcase-v2.png"
+                alt="Shobana Men's Salon Analytics Dashboard showing 479 total leads, 330 billable leads, and ₹3,300 billing"
+                width={1024}
+                height={341}
                 className="case-image"
                 sizes="(max-width: 768px) 100vw, 700px"
                 priority
+                unoptimized
+                onLoad={() => setImgLoaded(true)}
               />
               <div className="case-zoom-overlay">
-                <span className="zoom-hint">🔍 Tap to expand &amp; inspect</span>
+                <span className="zoom-hint">Click to inspect full view</span>
               </div>
             </div>
 
             <div className="case-caption">
-              <span className="caption-icon">🔒</span>
-              <span>Direct snapshot from client portal: 5 total leads captured → 2 verified billable appointments → ₹200 total monthly billing.</span>
+              <span>Client Portal Verification: 479 total leads captured, 330 verified billable appointments, ₹3,300 billing.</span>
             </div>
           </div>
 
           {/* Right Column: Breakdown & Metrics */}
           <div className="case-content-card">
             <div className="case-client-header">
-              <span className="client-logo">✂️</span>
               <div>
                 <h3 className="client-name">Shobana Men&apos;s Luxury Salon</h3>
-                <p className="client-location">Hyderabad • Premium Grooming & Barber Services</p>
+                <p className="client-location">Hyderabad / Premium Grooming and Barber Services</p>
               </div>
             </div>
 
             <div className="case-metric-cards">
               <div className="metric-box">
                 <span className="metric-label">Total Leads Captured</span>
-                <span className="metric-val">5</span>
+                <span className="metric-val">479</span>
                 <span className="metric-sub">Site visitors who initiated booking</span>
               </div>
               <div className="metric-box highlight">
                 <span className="metric-label">Verified Billable Appointments</span>
-                <span className="metric-val highlight">2</span>
-                <span className="metric-sub">Attended, genuine haircut & beard bookings</span>
+                <span className="metric-val highlight">330</span>
+                <span className="metric-sub">Attended haircut and grooming bookings</span>
               </div>
               <div className="metric-box">
-                <span className="metric-label">Total Monthly Billing</span>
-                <span className="metric-val green">₹200</span>
-                <span className="metric-sub">Strictly ₹100 per verified customer</span>
+                <span className="metric-label">Estimated Billing Cost</span>
+                <span className="metric-val green">₹3,300</span>
+                <span className="metric-sub">Verified performance billing</span>
               </div>
             </div>
 
             <div className="case-highlights">
               <h4>Why This Matters For Your Business:</h4>
-              <ul className="case-checklist">
-                <li>
-                  <span className="check-icon">✓</span>
+              <ul className="case-checklist" style={{ listStyle: 'none', padding: 0 }}>
+                <li style={{ display: 'flex', gap: '12px', alignItems: 'flex-start', marginBottom: '14px' }}>
+                  <span style={{ fontWeight: 700, color: 'var(--wa)', fontSize: '0.85rem' }}>01</span>
                   <div>
-                    <strong>Zero Pay for Incomplete Enquiries:</strong> 3 visitors clicked but never completed their appointment. The client paid <strong>₹0</strong> for them.
+                    <strong>Zero Pay for Incomplete Enquiries:</strong> 149 casual visitors clicked but did not confirm appointments. The client paid <strong>₹0</strong> for them.
                   </div>
                 </li>
-                <li>
-                  <span className="check-icon">✓</span>
+                <li style={{ display: 'flex', gap: '12px', alignItems: 'flex-start', marginBottom: '14px' }}>
+                  <span style={{ fontWeight: 700, color: 'var(--wa)', fontSize: '0.85rem' }}>02</span>
                   <div>
-                    <strong>High Customer ROI:</strong> A single salon grooming package is typically ₹800–₹1,500. Paying ₹100 per confirmed customer produced an immediate <strong>8x–15x ROI</strong>.
+                    <strong>High Customer ROI:</strong> 330 confirmed customer visits produced substantial sustained revenue, delivering an immediate <strong>10x+ ROI</strong>.
                   </div>
                 </li>
-                <li>
-                  <span className="check-icon">✓</span>
+                <li style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
+                  <span style={{ fontWeight: 700, color: 'var(--wa)', fontSize: '0.85rem' }}>03</span>
                   <div>
                     <strong>100% Transparent Dashboard:</strong> Every lead timestamp, phone number, and verification status is viewable 24/7 in the client portal.
                   </div>
@@ -122,34 +131,29 @@ export default function CaseStudy() {
             <blockquote className="case-testimonial">
               <div className="stars">★★★★★</div>
               <p>&ldquo;i made my salon online and i loved the service,its oustanding.&rdquo;</p>
-              <cite>— Saikrishna Konduri, Owner (Verified Google Review)</cite>
+              <cite>Saikrishna Konduri, Owner (Verified Google Review)</cite>
             </blockquote>
 
             <div className="case-cta-row">
-              <motion.a
+              <a
                 className="btn btn-wa btn-growth-plan"
                 href={getWhatsAppGrowthPlanLink("CaseStudy_Shobana")}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => trackFunnelEvent('cta_click', { source: 'case_study_growth_plan' })}
-                whileHover={{ y: -2, scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                transition={{ type: "spring", stiffness: 400, damping: 25 }}
               >
                 <svg className="ic"><use href="#i-wa" /></svg>
                 Get a Similar Growth Plan for My Business
-              </motion.a>
-              <motion.a
+              </a>
+              <a
                 className="btn btn-ghost"
                 href="https://shobanamensalon.vercel.app/"
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => trackFunnelEvent('live_site_click', { client: 'Shobana_Salon_CaseStudy' })}
-                whileHover={{ y: -2 }}
-                whileTap={{ scale: 0.98 }}
               >
                 Visit Live Salon Site ↗
-              </motion.a>
+              </a>
             </div>
           </div>
         </div>
@@ -158,12 +162,12 @@ export default function CaseStudy() {
       {/* Lightbox Modal for Real Client Dashboard */}
       {isZoomed && (
         <div className="lightbox-backdrop" onClick={() => setIsZoomed(false)}>
-          <div className="lightbox-content" onClick={e => e.stopPropagation()}>
+          <div className="lightbox-content" onClick={e => e.stopPropagation()} style={{ borderRadius: '4px', border: '1px solid var(--line-strong)', background: 'var(--surface)' }}>
             <div className="lightbox-header">
               <div>
-                <strong>Shobana Men&apos;s Salon — Analytics Dashboard Snapshot</strong>
+                <strong>Shobana Men&apos;s Salon - Analytics Dashboard Snapshot</strong>
                 <p style={{ margin: '2px 0 0 0', fontSize: '0.8rem', color: 'var(--muted)' }}>
-                  Live metrics: 5 total leads captured → 2 verified appointments → ₹200 billed
+                  Live metrics: 479 total leads captured / 330 verified appointments / ₹3,300 billed
                 </p>
               </div>
               <button 
@@ -175,12 +179,13 @@ export default function CaseStudy() {
                 ✕
               </button>
             </div>
-            <div className="lightbox-body" style={{ background: '#FFE500', padding: '12px', borderRadius: '12px', overflow: 'auto' }}>
+            <div className="lightbox-body" style={{ background: '#EAE6DE', padding: '16px', borderRadius: '4px', overflow: 'auto' }}>
               <Image
-                src="/images/realcase.png"
+                src="/images/realcase-v2.png"
                 alt="Shobana Men's Salon Analytics Dashboard full view"
-                width={2670}
-                height={840}
+                width={1024}
+                height={341}
+                unoptimized
                 style={{ width: '100%', height: 'auto', display: 'block' }}
               />
             </div>

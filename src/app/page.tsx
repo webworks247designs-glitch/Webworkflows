@@ -6,9 +6,8 @@ import Testimonials from "@/components/Testimonials";
 import ModelDifference from "@/components/ModelDifference";
 import HowItWorks from "@/components/HowItWorks";
 import Pricing from "@/components/Pricing";
-import CostFlow from "@/components/CostFlow";
-import PricingVerification from "@/components/PricingVerification";
-import MeeraAssistant from "@/components/MeeraAssistant";
+import LocalHub from "@/components/LocalHub";
+import FAQ from "@/components/FAQ";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import Fab from "@/components/Fab";
@@ -25,9 +24,8 @@ export default function Home() {
         <ModelDifference />
         <HowItWorks />
         <Pricing />
-        <CostFlow />
-        <PricingVerification />
-        <MeeraAssistant />
+        <LocalHub />
+        <FAQ />
         <Contact />
       </main>
       <Footer />

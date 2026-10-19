@@ -12,11 +12,11 @@ const PROJECTS = [
     mock: 'boathouse',
     category: 'Restaurant',
     status: 'Verified Live Site',
-    colors: { b: '#1C1917', f: '#FFFFFF', a: '#EAB308', s: '#292524', on: '#000000' },
+    colors: { b: '#1C1917', f: '#FFFFFF', a: '#2563EB', s: '#292524', on: '#FFFFFF' },
     font: "Georgia,'Times New Roman',serif",
     desc: 'Slow-smoked Mandi and dum biryani fine dining website in Hyderabad. Features high-res food showcases, an interactive digital menu, and 1-tap table reservation enquiries directly via WhatsApp.',
     result: 'Live online ordering system eliminating delivery aggregator commissions.',
-    proofTag: '🟢 Verified Live Deployment',
+    proofTag: 'Verified Live Deployment',
     clientQuote: 'Seamless digital menu with instant WhatsApp reservation tracking.',
     tags: ['Restaurant', 'Online ordering', 'Digital Menu', 'WhatsApp Direct'],
     liveUrl: 'https://boat-house-site.vercel.app/'
@@ -29,12 +29,12 @@ const PROJECTS = [
     mock: 'salon',
     category: 'Luxury Salon',
     status: 'Verified Live Site',
-    colors: { b: '#171717', f: '#ffffff', a: '#FDE047', s: '#262626', on: '#000000' },
+    colors: { b: '#171717', f: '#ffffff', a: '#2563EB', s: '#262626', on: '#FFFFFF' },
     font: "system-ui,'Segoe UI',sans-serif",
     desc: 'Premium men\'s grooming studio in Hyderabad. Built a dark luxury digital presence with live service menus, hair styling packages, and an interactive appointment slot selector.',
-    result: '5 leads captured → 2 verified billable appointments billed at ₹200 total under our pay-per-lead model.',
-    proofTag: '★★★★★ 5.0 Google Review',
-    clientQuote: '"i made my salon online and i loved the service,its oustanding." — Saikrishna Konduri (Owner)',
+    result: '479 leads captured, 330 verified billable appointments billed at ₹3,300 total under our pay-per-lead model.',
+    proofTag: '5.0 Google Review',
+    clientQuote: '"i made my salon online and i loved the service,its oustanding." - Saikrishna Konduri (Owner)',
     tags: ['Barbershop', 'Slot Booking', 'Dark Mode', 'Pay-Per-Enquiry'],
     liveUrl: 'https://shobanamensalon.vercel.app/'
   },
@@ -46,12 +46,12 @@ const PROJECTS = [
     mock: 'srishanth',
     category: 'Tech Portfolio',
     status: 'Verified Live Site',
-    colors: { b: '#0B1120', f: '#FFFFFF', a: '#06B6D4', s: '#1E293B', on: '#000000' },
+    colors: { b: '#0B1120', f: '#FFFFFF', a: '#2563EB', s: '#1E293B', on: '#FFFFFF' },
     font: "system-ui,'Segoe UI',sans-serif",
-    desc: 'High-performance Next.js portfolio for an AI & Embedded Systems engineer. Highlights open-source publications, dynamic tech stack tokens, and interactive project cards with sub-second load times.',
+    desc: 'High-performance Next.js portfolio for an AI and Embedded Systems engineer. Highlights open-source publications, dynamic tech stack tokens, and interactive project cards with sub-second load times.',
     result: '0.3s Core Web Vitals score and an authoritative technical presence for global recruiters.',
-    proofTag: '★★★★★ 5.0 Google Review',
-    clientQuote: '"I made a portfolio for me and i liked it a lot....." — Srishanth Madanapally',
+    proofTag: '5.0 Google Review',
+    clientQuote: '"I made a portfolio for me and i liked it a lot....." - Srishanth Madanapally',
     tags: ['Next.js', 'AI & Embedded', 'Speed 99', 'Personal Brand'],
     liveUrl: 'https://srishanth-seven.vercel.app/'
   }
@@ -273,7 +273,7 @@ export default function WorkDeck() {
                       <p className="desc">{p.desc}</p>
                       
                       {p.clientQuote ? (
-                        <blockquote style={{ margin: '10px 0', padding: '8px 12px', borderLeft: '3px solid var(--ac)', background: 'var(--bg)', borderRadius: '0 8px 8px 0', fontSize: '0.86rem', fontStyle: 'italic', color: 'var(--ink)' }}>
+                        <blockquote style={{ margin: '10px 0', padding: '10px 14px', border: '1px solid var(--line)', background: 'var(--bg)', borderRadius: '4px', fontSize: '0.86rem', fontStyle: 'italic', color: 'var(--ink)' }}>
                           {p.clientQuote}
                         </blockquote>
                       ) : null}

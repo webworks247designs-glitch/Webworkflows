@@ -8,7 +8,9 @@ export type FunnelEvent =
   | 'case_study_click'
   | 'live_site_click'
   | 'calculator_interact'
-  | 'dispute_info_view';
+  | 'pricing_toggle'
+  | 'dispute_info_view'
+  | 'lead_capture';
 
 export interface EventProperties {
   source?: string;

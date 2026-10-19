@@ -1,16 +1,48 @@
+export const FAQ_ITEMS = [
+  {
+    q: "Who is the best freelance website designer in Hyderabad for small businesses?",
+    a: "Webworkflo's specializes in high-converting, custom websites and landing pages for small businesses, startups, clinics, and local services in Hyderabad. Unlike slow traditional agencies that use bulky templates, we build clean, bespoke Next.js websites that load in under 0.5 seconds, rank on Google, and convert visitors into WhatsApp inquiries.",
+  },
+  {
+    q: "How much does a website designer in Hyderabad charge?",
+    a: "Website design in Hyderabad typically ranges from ₹14,999 for high-converting single landing pages up to ₹34,999+ for full custom multi-page business websites. We also offer a performance-aligned Pay-Per-Enquiry model where you only pay ₹299 per verified customer enquiry after a nominal setup.",
+  },
+  {
+    q: "Do you serve businesses across all areas of Hyderabad?",
+    a: "Yes! We work with clients across all major hubs in Hyderabad, including Hitec City, Madhapur, Gachibowli, Kondapur, Banjara Hills, Jubilee Hills, Kukatpally, and Secunderabad. We collaborate smoothly via WhatsApp, Google Meet, and direct founder phone access.",
+  },
+  {
+    q: "How long does it take to design and launch my website?",
+    a: "A high-impact landing page takes 3 to 5 business days. A complete 4 to 8-page business website takes 10 to 14 days. We work in rapid sprint milestones with zero agency bureaucracy so you can start getting leads fast.",
+  },
+  {
+    q: "Will my website rank on Google Search and Google Maps?",
+    a: "Yes. Every website we build includes full Technical SEO: sub-0.5s loading speed (100/100 Core Web Vitals), clean semantic HTML, mobile responsiveness, XML sitemaps, robots.txt, and LocalBusiness JSON-LD Schema markup. We also help connect your site to your Google Business Profile.",
+  },
+  {
+    q: "Do you offer support and maintenance after launch?",
+    a: "Every build comes with 30 days of complimentary post-launch support and bug fixes. After that, we provide low-cost monthly maintenance retainers for content updates, speed monitoring, and ongoing SEO improvements.",
+  },
+];
+
 export default function FAQ() {
   return (
-    <section className="sec" id="faq" style={{ paddingTop: 0 }}>
+    <section className="sec" id="faq">
       <div className="wrap">
-        <div className="sec-head"><h2>Questions clients ask first.</h2></div>
+        <div className="sec-head">
+          <div className="tag">Frequently Asked Questions</div>
+          <h2>Common Questions About Web Design in Hyderabad</h2>
+          <p>
+            Everything you need to know about pricing, timelines, Google ranking, and how we build fast, high-converting websites.
+          </p>
+        </div>
         <div className="faq">
-          <details><summary>How long does a website take?</summary><p>A landing page takes about a week. A business website of 4 to 8 pages takes 2 to 3 weeks, depending on how quickly we exchange content and feedback.</p></details>
-          <details><summary>What do you need from me?</summary><p>Your logo, text and photos if you have them. If not, I can suggest draft copy and help you find suitable images.</p></details>
-          <details><summary>How many changes are included?</summary><p>Two rounds of changes during design and one round after the build. Extra rounds are quoted fairly.</p></details>
-          <details><summary>How does payment work?</summary><p>Usually 40% to start, 30% after design approval and 30% at launch. I confirm the exact schedule in your quote before we begin.</p></details>
-          <details><summary>Will my site work on phones and appear on Google?</summary><p>Yes. Every site is built mobile-first, tested on real devices and set up with search-friendly markup and fast loading.</p></details>
-          <details><summary>Do you help after the site is live?</summary><p>Yes. You get 30 days of free fixes, then optional monthly plans for updates, edits and small improvements.</p></details>
-          <details><summary>Can you work with clients in other cities or countries?</summary><p>Yes. I work remotely and reply on WhatsApp and email within a few hours on working days.</p></details>
+          {FAQ_ITEMS.map((item, idx) => (
+            <details key={idx}>
+              <summary>{item.q}</summary>
+              <p>{item.a}</p>
+            </details>
+          ))}
         </div>
       </div>
     </section>

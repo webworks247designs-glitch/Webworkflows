@@ -1,7 +1,12 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
 
 export default function Footer() {
   const year = new Date().getFullYear();
+  const [legalModal, setLegalModal] = useState<"terms" | "privacy" | null>(null);
+
   return (
     <footer className="foot">
       <div className="wrap">
@@ -21,10 +26,11 @@ export default function Footer() {
             <span className="foot-col-title">Navigation</span>
             <nav className="foot-nav" aria-label="Footer">
               <a href="#work">Work</a>
-              <a href="#how-it-works">Process</a>
+              <a href="#case-study">Case Study</a>
+              <a href="#testimonials">Reviews</a>
               <a href="#pricing">Pricing</a>
-              <a href="#cost-flow">Example</a>
-              <a href="#ai-assistant">AI Assistant (Meera)</a>
+              <a href="/website-designer-hyderabad">Hyderabad Web Design</a>
+              <a href="#faq">FAQ</a>
               <a href="#contact">Contact</a>
             </nav>
           </div>
@@ -58,7 +64,7 @@ export default function Footer() {
                   width={100}
                   height={100}
                   className="foot-google-qr"
-                  style={{ width: 'auto', height: 'auto', borderRadius: '8px' }}
+                  style={{ width: 'auto', height: 'auto', borderRadius: '4px' }}
                 />
               </div>
             </a>
@@ -66,10 +72,104 @@ export default function Footer() {
 
         </div>
 
-        <div className="foot-bottom">
-          <p className="copy">&copy; {year} <span>Webworkflo&apos;s</span>. Designed and built by hand in Hyderabad.</p>
+        <div className="foot-bottom" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
+          <p className="copy">&copy; {year} <span>Webworkflo&apos;s</span>. Handcrafted in Hyderabad, India.</p>
+          <div style={{ display: 'flex', gap: '20px', fontSize: '0.85rem', color: 'var(--muted)' }}>
+            <button 
+              type="button" 
+              onClick={() => setLegalModal("terms")} 
+              style={{ background: 'none', border: 'none', padding: 0, color: 'var(--muted)', cursor: 'pointer', textDecoration: 'underline' }}
+            >
+              Terms of Service
+            </button>
+            <button 
+              type="button" 
+              onClick={() => setLegalModal("privacy")} 
+              style={{ background: 'none', border: 'none', padding: 0, color: 'var(--muted)', cursor: 'pointer', textDecoration: 'underline' }}
+            >
+              Privacy Policy
+            </button>
+          </div>
         </div>
       </div>
+
+      {/* Legal Document Modal */}
+      {legalModal && (
+        <div 
+          className="lightbox-backdrop" 
+          onClick={() => setLegalModal(null)}
+          style={{ zIndex: 100 }}
+        >
+          <div 
+            className="lightbox-content" 
+            onClick={e => e.stopPropagation()} 
+            style={{ 
+              maxWidth: '680px', 
+              borderRadius: '4px', 
+              border: '1px solid var(--line-strong)', 
+              background: 'var(--surface)',
+              maxHeight: '85vh',
+              overflowY: 'auto',
+              padding: 'clamp(24px, 4vw, 36px)'
+            }}
+          >
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', borderBottom: '1px solid var(--line)', paddingBottom: '16px' }}>
+              <h3 style={{ margin: 0, fontSize: '1.3rem', color: 'var(--ink)' }}>
+                {legalModal === "terms" ? "Terms of Service" : "Privacy Policy"}
+              </h3>
+              <button 
+                type="button" 
+                onClick={() => setLegalModal(null)} 
+                style={{ background: 'none', border: 'none', fontSize: '1.2rem', cursor: 'pointer', color: 'var(--muted)' }}
+                aria-label="Close modal"
+              >
+                ✕
+              </button>
+            </div>
+
+            {legalModal === "terms" ? (
+              <div style={{ fontSize: '0.9rem', lineHeight: 1.7, color: 'var(--muted)' }}>
+                <p style={{ marginBottom: '16px' }}>
+                  <strong style={{ color: 'var(--ink)' }}>1. Scope of Engagement & Pricing Models:</strong> Webworkflo&apos;s provides bespoke Next.js web development, mobile-first design systems, and digital growth infrastructure. Fixed custom builds start from ₹8,999 with zero recurring monthly platform fees. Our performance enquiry model starts from ₹4,749 one-time (cloud hosting included) with agreed pay-per-verified-lead billing.
+                </p>
+                <p style={{ marginBottom: '16px' }}>
+                  <strong style={{ color: 'var(--ink)' }}>2. 100% Client Code & Asset Ownership:</strong> Upon completion of development and settlement of invoices, all custom source code, frontend assets, design tokens, domain configurations, and credentials belong 100% to the client with zero vendor lock-in.
+                </p>
+                <p style={{ marginBottom: '16px' }}>
+                  <strong style={{ color: 'var(--ink)' }}>3. 48-Hour Enquiry Dispute Standard:</strong> For clients operating on the enquiry-based model, each lead is logged with timestamp and verified contact parameters in your client dashboard. If any enquiry is unreachable, duplicate, spam, or out-of-service, it can be flagged within 48 hours for immediate zero-charge exclusion.
+                </p>
+                <p style={{ marginBottom: '16px' }}>
+                  <strong style={{ color: 'var(--ink)' }}>4. Hosting & Infrastructure Transparency:</strong> Cloud hosting is included in the ₹4,749 launch setup. For custom third-party host migrations (Hostinger, MilesWeb, AWS, Vercel), accounts are registered in the client&apos;s name for full operational independence.
+                </p>
+                <p style={{ marginBottom: '16px' }}>
+                  <strong style={{ color: 'var(--ink)' }}>5. Delivery Timelines & Revisions:</strong> Standard project delivery is 5 to 7 business days from receipt of brand collateral. Each package includes dedicated revision cycles prior to production deployment.
+                </p>
+                <p>
+                  <strong style={{ color: 'var(--ink)' }}>6. Governing Law:</strong> All contracts, representations, and services are governed under the jurisdiction of the commercial courts in Hyderabad, Telangana, India.
+                </p>
+              </div>
+            ) : (
+              <div style={{ fontSize: '0.9rem', lineHeight: 1.7, color: 'var(--muted)' }}>
+                <p style={{ marginBottom: '16px' }}>
+                  <strong style={{ color: 'var(--ink)' }}>1. Information Collected:</strong> We collect only business details voluntarily submitted through our website forms, direct WhatsApp consultations, or client onboarding workflows (such as client name, phone number, business niche, and domain preferences).
+                </p>
+                <p style={{ marginBottom: '16px' }}>
+                  <strong style={{ color: 'var(--ink)' }}>2. Strict Zero Data-Selling Policy:</strong> We enforce an absolute policy against selling, leasing, renting, or trading client contact details, phone numbers, or lead logs to third-party marketing companies, advertisers, or data brokers.
+                </p>
+                <p style={{ marginBottom: '16px' }}>
+                  <strong style={{ color: 'var(--ink)' }}>3. Lead Privacy & Cryptographic Security:</strong> Customer phone numbers and booking inquiries generated on client websites are transmitted over encrypted TLS/HTTPS protocols and routed strictly to the designated business owner.
+                </p>
+                <p style={{ marginBottom: '16px' }}>
+                  <strong style={{ color: 'var(--ink)' }}>4. WhatsApp Communication:</strong> WhatsApp inquiries initiated through our website are governed by end-to-end messaging encryption protocols. We use this direct channel solely for project discussions, growth plan delivery, and client support.
+                </p>
+                <p>
+                  <strong style={{ color: 'var(--ink)' }}>5. Right to Erasure & Inquiries:</strong> Clients have the full right to request an extract or permanent deletion of their contact records and consultation notes at any time by reaching out directly via our official channels.
+                </p>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </footer>
   );
 }
