@@ -59,10 +59,12 @@ export default function Footer() {
 
               <div className="foot-google-qr-wrap">
                 <Image
-                  src="/images/google-qr.png"
+                  src="/images/google-qr.webp"
                   alt="Find us on Google QR Code"
                   width={100}
                   height={100}
+                  loading="lazy"
+                  decoding="async"
                   className="foot-google-qr"
                   style={{ width: 'auto', height: 'auto', borderRadius: '4px' }}
                 />

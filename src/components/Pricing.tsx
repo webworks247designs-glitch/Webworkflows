@@ -29,7 +29,7 @@ const SIMULATOR_EXAMPLES: SimulatorExample[] = [
     leads: "15",
     totalCharge: "₹1,500",
     estimatedValue: "₹15,000+",
-    image: "/images/boathouse1.png",
+    image: "/images/boathouse1.webp",
     exampleText: "If 15 table reservations or dining orders are generated, your enquiry investment is ₹1,500 for over ₹15,000 in dining revenue.",
   },
   {
@@ -42,7 +42,7 @@ const SIMULATOR_EXAMPLES: SimulatorExample[] = [
     leads: "25",
     totalCharge: "₹2,000",
     estimatedValue: "₹18,000+",
-    image: "/images/salon1.png",
+    image: "/images/salon1.webp",
     exampleText: "If 25 grooming appointments are booked through the website, your enquiry cost is ₹2,000, bringing in repeat clients worth thousands.",
   },
   {
@@ -55,7 +55,7 @@ const SIMULATOR_EXAMPLES: SimulatorExample[] = [
     leads: "10",
     totalCharge: "₹1,200",
     estimatedValue: "₹22,000+",
-    image: "/images/bakery-showcase.jpg",
+    image: "/images/bakery-showcase.webp",
     exampleText: "High-ticket custom cakes or event catering enquiries at ₹120 each generate substantial profit margins on every confirmed bake.",
   },
   {
@@ -68,7 +68,7 @@ const SIMULATOR_EXAMPLES: SimulatorExample[] = [
     leads: "20",
     totalCharge: "₹3,000",
     estimatedValue: "₹30,000+",
-    image: "/images/clinic-showcase.jpg",
+    image: "/images/clinic-showcase.webp",
     exampleText: "A clinic charging ₹1,500 per session pays ₹150 for a patient who often requires multiple recurring follow-up visits.",
   },
   {
@@ -81,7 +81,7 @@ const SIMULATOR_EXAMPLES: SimulatorExample[] = [
     leads: "30",
     totalCharge: "₹3,000",
     estimatedValue: "₹45,000+",
-    image: "/images/ecommerce-showcase.jpg",
+    image: "/images/ecommerce-showcase.webp",
     exampleText: "Bespoke product orders and bulk corporate gifting requests generate high-margin turnover with direct UPI payments.",
   },
 ];
@@ -435,6 +435,8 @@ export default function Pricing() {
                       alt={`${curSim.name} Website Sample`}
                       fill
                       sizes="(max-width: 768px) 100vw, 400px"
+                      loading="lazy"
+                      decoding="async"
                       style={{ objectFit: "cover", objectPosition: "top" }}
                     />
                   </div>

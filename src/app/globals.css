@@ -310,6 +310,20 @@ p{ margin:0; }
 a{ color:inherit; }
 ul{ margin:0; padding:0; list-style:none; }
 img{ max-width:100%; height:auto; }
+
+/* Below-the-fold content optimization for Core Web Vitals (speeds up initial paint) */
+.work,
+.case-study-sec,
+.testimonials-sec,
+#services,
+#how-it-works,
+#pricing,
+#hyderabad-locations,
+#faq,
+#contact {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 650px;
+}
 .wrap{ max-width:1180px; margin:0 auto; padding:0 24px; }
 .sec{ padding:clamp(36px, 4.5vw, 56px) 0; }
 .sec-head{ max-width:660px; margin-bottom:clamp(16px, 2.5vw, 24px); }

@@ -59,41 +59,41 @@ const PROJECTS = [
 
 const MockSalon = () => (
   <a href="https://shobanamensalon.vercel.app/" target="_blank" rel="noopener noreferrer" style={{ display: 'block', textDecoration: 'none', color: 'inherit', height: '100%' }}>
-    <img src="/images/salon1.png" alt="Shobana Men's Salon 1" style={{ width: '100%', display: 'block' }} />
-    <img src="/images/salon2.png" alt="Shobana Men's Salon 2" style={{ width: '100%', display: 'block' }} />
-    <img src="/images/salon3.png" alt="Shobana Men's Salon 3" style={{ width: '100%', display: 'block' }} />
+    <img src="/images/salon1.webp" alt="Shobana Men's Salon 1" loading="lazy" decoding="async" width={1200} height={645} style={{ width: '100%', height: 'auto', display: 'block' }} />
+    <img src="/images/salon2.webp" alt="Shobana Men's Salon 2" loading="lazy" decoding="async" width={1200} height={648} style={{ width: '100%', height: 'auto', display: 'block' }} />
+    <img src="/images/salon3.webp" alt="Shobana Men's Salon 3" loading="lazy" decoding="async" width={1200} height={645} style={{ width: '100%', height: 'auto', display: 'block' }} />
   </a>
 );
 
 const MockSrishanth = () => (
   <a href="https://srishanth-seven.vercel.app/" target="_blank" rel="noopener noreferrer" style={{ display: 'block', textDecoration: 'none', color: 'inherit', height: '100%' }}>
-    <img src="/images/srishanth1.png" alt="Srishanth Portfolio 1" style={{ width: '100%', display: 'block' }} />
-    <img src="/images/srishanth2.png" alt="Srishanth Portfolio 2" style={{ width: '100%', display: 'block' }} />
+    <img src="/images/srishanth1.webp" alt="Srishanth Portfolio 1" loading="lazy" decoding="async" width={1200} height={677} style={{ width: '100%', height: 'auto', display: 'block' }} />
+    <img src="/images/srishanth2.webp" alt="Srishanth Portfolio 2" loading="lazy" decoding="async" width={1200} height={672} style={{ width: '100%', height: 'auto', display: 'block' }} />
   </a>
 );
 
 const MockBoatHouse = () => (
   <a href="https://boat-house-site.vercel.app/" target="_blank" rel="noopener noreferrer" style={{ display: 'block', textDecoration: 'none', color: 'inherit', height: '100%' }}>
-    <img src="/images/boathouse1.png" alt="Boat House 1" style={{ width: '100%', display: 'block' }} />
-    <img src="/images/boathouse2.png" alt="Boat House 2" style={{ width: '100%', display: 'block' }} />
+    <img src="/images/boathouse1.webp" alt="Boat House 1" loading="lazy" decoding="async" width={1200} height={645} style={{ width: '100%', height: 'auto', display: 'block' }} />
+    <img src="/images/boathouse2.webp" alt="Boat House 2" loading="lazy" decoding="async" width={1200} height={648} style={{ width: '100%', height: 'auto', display: 'block' }} />
   </a>
 );
 
 const MockBakery = () => (
   <a href="#contact" style={{ display: 'block', textDecoration: 'none', color: 'inherit', height: '100%' }}>
-    <img src="/images/bakery-showcase.jpg" alt="Kaveri Kitchen & Bakery Website" style={{ width: '100%', display: 'block' }} />
+    <img src="/images/bakery-showcase.webp" alt="Kaveri Kitchen & Bakery Website" loading="lazy" decoding="async" width={1200} height={670} style={{ width: '100%', height: 'auto', display: 'block' }} />
   </a>
 );
 
 const MockClinic = () => (
   <a href="#contact" style={{ display: 'block', textDecoration: 'none', color: 'inherit', height: '100%' }}>
-    <img src="/images/clinic-showcase.jpg" alt="Northwind Physio & Wellness Website" style={{ width: '100%', display: 'block' }} />
+    <img src="/images/clinic-showcase.webp" alt="Northwind Physio & Wellness Website" loading="lazy" decoding="async" width={1200} height={670} style={{ width: '100%', height: 'auto', display: 'block' }} />
   </a>
 );
 
 const MockStore = () => (
   <a href="#contact" style={{ display: 'block', textDecoration: 'none', color: 'inherit', height: '100%' }}>
-    <img src="/images/ecommerce-showcase.jpg" alt="Loom & Leaf Boutique Website" style={{ width: '100%', display: 'block' }} />
+    <img src="/images/ecommerce-showcase.webp" alt="Loom & Leaf Boutique Website" loading="lazy" decoding="async" width={1200} height={670} style={{ width: '100%', height: 'auto', display: 'block' }} />
   </a>
 );
 

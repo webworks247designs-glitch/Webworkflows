@@ -7,12 +7,16 @@ const bricolage = Bricolage_Grotesque({
   variable: "--font-bricolage",
   subsets: ["latin"],
   display: "swap",
+  preload: true,
+  fallback: ["system-ui", "-apple-system", "sans-serif"],
 });
 
 const figtree = Figtree({
   variable: "--font-figtree",
   subsets: ["latin"],
   display: "swap",
+  preload: true,
+  fallback: ["system-ui", "-apple-system", "sans-serif"],
 });
 
 const baseUrl = "https://webworkflows-owh1.vercel.app";

@@ -17,7 +17,7 @@ const EXAMPLES = [
     leads: "15",
     totalCharge: "₹1,500",
     estimatedValue: "₹15,000+",
-    image: "/images/boathouse1.png",
+    image: "/images/boathouse1.webp",
     exampleText: "If 15 table reservations or dining orders are generated, your enquiry investment is ₹1,500 for over ₹15,000+ in dining receipts.",
   },
   {
@@ -31,7 +31,7 @@ const EXAMPLES = [
     leads: "25",
     totalCharge: "₹2,000",
     estimatedValue: "₹18,000+",
-    image: "/images/salon1.png",
+    image: "/images/salon1.webp",
     exampleText: "If 25 grooming appointments are booked through the website, your enquiry cost is ₹2,000, bringing in repeat clients worth thousands.",
   },
   {
@@ -45,7 +45,7 @@ const EXAMPLES = [
     leads: "10",
     totalCharge: "₹1,200",
     estimatedValue: "₹22,000+",
-    image: "/images/bakery-showcase.jpg",
+    image: "/images/bakery-showcase.webp",
     exampleText: "High-ticket custom cakes or event catering enquiries at ₹120 each generate substantial profit margins on every confirmed bake.",
   },
   {
@@ -59,7 +59,7 @@ const EXAMPLES = [
     leads: "20",
     totalCharge: "₹3,000",
     estimatedValue: "₹30,000+",
-    image: "/images/clinic-showcase.jpg",
+    image: "/images/clinic-showcase.webp",
     exampleText: "A clinic charging ₹1,500 per session pays just ₹150 for a patient who often requires 4 to 8 follow-up sessions.",
   },
   {
@@ -73,7 +73,7 @@ const EXAMPLES = [
     leads: "30",
     totalCharge: "₹3,000",
     estimatedValue: "₹45,000+",
-    image: "/images/ecommerce-showcase.jpg",
+    image: "/images/ecommerce-showcase.webp",
     exampleText: "Bespoke home decor orders and bulk corporate gifting requests generate high-margin turnover with direct UPI payments.",
   },
 ];

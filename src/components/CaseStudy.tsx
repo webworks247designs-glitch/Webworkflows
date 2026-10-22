@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "motion/react";
 import Image from "next/image";
 import { getWhatsAppGrowthPlanLink, trackFunnelEvent } from "@/lib/analytics";
 
@@ -12,13 +11,7 @@ export default function CaseStudy() {
   return (
     <section className="sec case-study-sec" id="case-study">
       <div className="wrap">
-        <motion.div 
-          className="sec-head"
-          initial={{ opacity: 0, y: 15 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.3 }}
-        >
+        <div className="sec-head">
           <div className="badge-tag">
             <span>Client Case Study</span>
           </div>
@@ -26,7 +19,7 @@ export default function CaseStudy() {
           <p>
             Real data from an active Hyderabad client dashboard. See how our pay-per-enquiry model generated genuine customers while eliminating risk.
           </p>
-        </motion.div>
+        </div>
 
         <div className="case-grid">
           {/* Left Column: Analytics Screenshot Card */}
@@ -57,14 +50,14 @@ export default function CaseStudy() {
                 />
               )}
               <Image
-                src="/images/realcase-v2.png"
+                src="/images/realcase-v2.webp"
                 alt="Shobana Men's Salon Analytics Dashboard showing 479 total leads, 330 billable leads, and ₹3,300 billing"
                 width={1024}
                 height={341}
                 className="case-image"
                 sizes="(max-width: 768px) 100vw, 700px"
-                priority
-                unoptimized
+                loading="lazy"
+                decoding="async"
                 onLoad={() => setImgLoaded(true)}
               />
               <div className="case-zoom-overlay">
@@ -181,11 +174,12 @@ export default function CaseStudy() {
             </div>
             <div className="lightbox-body" style={{ background: '#EAE6DE', padding: '16px', borderRadius: '4px', overflow: 'auto' }}>
               <Image
-                src="/images/realcase-v2.png"
+                src="/images/realcase-v2.webp"
                 alt="Shobana Men's Salon Analytics Dashboard full view"
                 width={1024}
                 height={341}
-                unoptimized
+                loading="lazy"
+                decoding="async"
                 style={{ width: '100%', height: 'auto', display: 'block' }}
               />
             </div>

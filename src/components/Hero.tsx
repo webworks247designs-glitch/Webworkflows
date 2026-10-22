@@ -12,8 +12,8 @@ const HERO_SAMPLES = [
     name: "Restaurant",
     label: "The Boat House",
     url: "boat-house-site.vercel.app",
-    desktop: "/images/boathouse1.png",
-    mobile: "/images/boathouse-mobile.png",
+    desktop: "/images/boathouse1.webp",
+    mobile: "/images/boathouse-mobile.webp",
     metric: "Instant Online Orders",
   },
   {
@@ -21,8 +21,8 @@ const HERO_SAMPLES = [
     name: "Luxury Salon",
     label: "Shobana Men's Salon",
     url: "shobanamensalon.vercel.app",
-    desktop: "/images/salon1.png",
-    mobile: "/images/salon-mobile.png",
+    desktop: "/images/salon1.webp",
+    mobile: "/images/salon-mobile.webp",
     metric: "1-Tap Booking Flow",
   },
   {
@@ -30,8 +30,8 @@ const HERO_SAMPLES = [
     name: "Tech Portfolio",
     label: "Srishanth M.",
     url: "srishanth-seven.vercel.app",
-    desktop: "/images/srishanth1.png",
-    mobile: "/images/srishanth-mobile.png",
+    desktop: "/images/srishanth1.webp",
+    mobile: "/images/srishanth-mobile.webp",
     metric: "High-Performance Next.js",
   },
 ];
@@ -164,9 +164,10 @@ export default function Hero() {
                     src={current.desktop}
                     alt={`${current.label} Desktop Website Preview`}
                     fill
-                    sizes="(max-width: 768px) 100vw, 500px"
-                    priority
-                    loading="eager"
+                    sizes="(max-width: 768px) 270px, 420px"
+                    priority={activeIdx === 0}
+                    loading={activeIdx === 0 ? "eager" : "lazy"}
+                    fetchPriority={activeIdx === 0 ? "high" : "auto"}
                     className="macbook-img"
                   />
                 </div>
@@ -181,9 +182,10 @@ export default function Hero() {
                     src={current.mobile}
                     alt={`${current.label} Mobile Website Preview`}
                     fill
-                    sizes="200px"
-                    priority
-                    loading="eager"
+                    sizes="(max-width: 768px) 110px, 170px"
+                    priority={activeIdx === 0}
+                    loading={activeIdx === 0 ? "eager" : "lazy"}
+                    fetchPriority={activeIdx === 0 ? "high" : "auto"}
                     className="phone-img"
                   />
                 </div>
