@@ -59,41 +59,141 @@ const PROJECTS = [
 
 const MockSalon = () => (
   <a href="https://shobanamensalon.vercel.app/" target="_blank" rel="noopener noreferrer" style={{ display: 'block', textDecoration: 'none', color: 'inherit', height: '100%' }}>
-    <img src="/images/salon1.webp" alt="Shobana Men's Salon 1" loading="lazy" decoding="async" width={1200} height={645} style={{ width: '100%', height: 'auto', display: 'block' }} />
-    <img src="/images/salon2.webp" alt="Shobana Men's Salon 2" loading="lazy" decoding="async" width={1200} height={648} style={{ width: '100%', height: 'auto', display: 'block' }} />
-    <img src="/images/salon3.webp" alt="Shobana Men's Salon 3" loading="lazy" decoding="async" width={1200} height={645} style={{ width: '100%', height: 'auto', display: 'block' }} />
+    <img
+      src="/images/salon1-600.webp"
+      srcSet="/images/salon1-600.webp 600w, /images/salon1.webp 1200w"
+      sizes="(max-width: 768px) 100vw, 600px"
+      alt="Shobana Men's Salon 1"
+      loading="lazy"
+      decoding="async"
+      width={600}
+      height={323}
+      style={{ width: '100%', height: 'auto', display: 'block' }}
+    />
+    <img
+      src="/images/salon2-600.webp"
+      srcSet="/images/salon2-600.webp 600w, /images/salon2.webp 1200w"
+      sizes="(max-width: 768px) 100vw, 600px"
+      alt="Shobana Men's Salon 2"
+      loading="lazy"
+      decoding="async"
+      width={600}
+      height={324}
+      style={{ width: '100%', height: 'auto', display: 'block' }}
+    />
+    <img
+      src="/images/salon3-600.webp"
+      srcSet="/images/salon3-600.webp 600w, /images/salon3.webp 1200w"
+      sizes="(max-width: 768px) 100vw, 600px"
+      alt="Shobana Men's Salon 3"
+      loading="lazy"
+      decoding="async"
+      width={600}
+      height={323}
+      style={{ width: '100%', height: 'auto', display: 'block' }}
+    />
   </a>
 );
 
 const MockSrishanth = () => (
   <a href="https://srishanth-seven.vercel.app/" target="_blank" rel="noopener noreferrer" style={{ display: 'block', textDecoration: 'none', color: 'inherit', height: '100%' }}>
-    <img src="/images/srishanth1.webp" alt="Srishanth Portfolio 1" loading="lazy" decoding="async" width={1200} height={677} style={{ width: '100%', height: 'auto', display: 'block' }} />
-    <img src="/images/srishanth2.webp" alt="Srishanth Portfolio 2" loading="lazy" decoding="async" width={1200} height={672} style={{ width: '100%', height: 'auto', display: 'block' }} />
+    <img
+      src="/images/srishanth1-600.webp"
+      srcSet="/images/srishanth1-600.webp 600w, /images/srishanth1.webp 1200w"
+      sizes="(max-width: 768px) 100vw, 600px"
+      alt="Srishanth Portfolio 1"
+      loading="lazy"
+      decoding="async"
+      width={600}
+      height={339}
+      style={{ width: '100%', height: 'auto', display: 'block' }}
+    />
+    <img
+      src="/images/srishanth2-600.webp"
+      srcSet="/images/srishanth2-600.webp 600w, /images/srishanth2.webp 1200w"
+      sizes="(max-width: 768px) 100vw, 600px"
+      alt="Srishanth Portfolio 2"
+      loading="lazy"
+      decoding="async"
+      width={600}
+      height={336}
+      style={{ width: '100%', height: 'auto', display: 'block' }}
+    />
   </a>
 );
 
 const MockBoatHouse = () => (
   <a href="https://boat-house-site.vercel.app/" target="_blank" rel="noopener noreferrer" style={{ display: 'block', textDecoration: 'none', color: 'inherit', height: '100%' }}>
-    <img src="/images/boathouse1.webp" alt="Boat House 1" loading="lazy" decoding="async" width={1200} height={645} style={{ width: '100%', height: 'auto', display: 'block' }} />
-    <img src="/images/boathouse2.webp" alt="Boat House 2" loading="lazy" decoding="async" width={1200} height={648} style={{ width: '100%', height: 'auto', display: 'block' }} />
+    <img
+      src="/images/boathouse1-600.webp"
+      srcSet="/images/boathouse1-600.webp 600w, /images/boathouse1.webp 1200w"
+      sizes="(max-width: 768px) 100vw, 600px"
+      alt="Boat House 1"
+      loading="lazy"
+      decoding="async"
+      width={600}
+      height={323}
+      style={{ width: '100%', height: 'auto', display: 'block' }}
+    />
+    <img
+      src="/images/boathouse2-600.webp"
+      srcSet="/images/boathouse2-600.webp 600w, /images/boathouse2.webp 1200w"
+      sizes="(max-width: 768px) 100vw, 600px"
+      alt="Boat House 2"
+      loading="lazy"
+      decoding="async"
+      width={600}
+      height={324}
+      style={{ width: '100%', height: 'auto', display: 'block' }}
+    />
   </a>
 );
 
 const MockBakery = () => (
   <a href="#contact" style={{ display: 'block', textDecoration: 'none', color: 'inherit', height: '100%' }}>
-    <img src="/images/bakery-showcase.webp" alt="Kaveri Kitchen & Bakery Website" loading="lazy" decoding="async" width={1200} height={670} style={{ width: '100%', height: 'auto', display: 'block' }} />
+    <img
+      src="/images/bakery-showcase-600.webp"
+      srcSet="/images/bakery-showcase-600.webp 600w, /images/bakery-showcase.webp 1200w"
+      sizes="(max-width: 768px) 100vw, 600px"
+      alt="Kaveri Kitchen & Bakery Website"
+      loading="lazy"
+      decoding="async"
+      width={600}
+      height={335}
+      style={{ width: '100%', height: 'auto', display: 'block' }}
+    />
   </a>
 );
 
 const MockClinic = () => (
   <a href="#contact" style={{ display: 'block', textDecoration: 'none', color: 'inherit', height: '100%' }}>
-    <img src="/images/clinic-showcase.webp" alt="Northwind Physio & Wellness Website" loading="lazy" decoding="async" width={1200} height={670} style={{ width: '100%', height: 'auto', display: 'block' }} />
+    <img
+      src="/images/clinic-showcase-600.webp"
+      srcSet="/images/clinic-showcase-600.webp 600w, /images/clinic-showcase.webp 1200w"
+      sizes="(max-width: 768px) 100vw, 600px"
+      alt="Northwind Physio & Wellness Website"
+      loading="lazy"
+      decoding="async"
+      width={600}
+      height={335}
+      style={{ width: '100%', height: 'auto', display: 'block' }}
+    />
   </a>
 );
 
 const MockStore = () => (
   <a href="#contact" style={{ display: 'block', textDecoration: 'none', color: 'inherit', height: '100%' }}>
-    <img src="/images/ecommerce-showcase.webp" alt="Loom & Leaf Boutique Website" loading="lazy" decoding="async" width={1200} height={670} style={{ width: '100%', height: 'auto', display: 'block' }} />
+    <img
+      src="/images/ecommerce-showcase-600.webp"
+      srcSet="/images/ecommerce-showcase-600.webp 600w, /images/ecommerce-showcase.webp 1200w"
+      sizes="(max-width: 768px) 100vw, 600px"
+      alt="Loom & Leaf Boutique Website"
+      loading="lazy"
+      decoding="async"
+      width={600}
+      height={335}
+      style={{ width: '100%', height: 'auto', display: 'block' }}
+    />
   </a>
 );
 
@@ -113,88 +213,117 @@ export default function WorkDeck() {
   const deckRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!deckRef.current) return;
+    const el = deckRef.current;
+    if (!el) return;
     
-    const slots = Array.from(deckRef.current.querySelectorAll('.slot')) as HTMLElement[];
-    const cards = Array.from(deckRef.current.querySelectorAll('.card')) as HTMLElement[];
-    let tops: number[] = [];
-    let vh = window.innerHeight;
-    let queued = false;
-    
-    const st = cards.map(() => ({ s: 1, rx: 0, tx: 0, ty: 0 }));
+    let isTracking = false;
+    let removeListeners: (() => void) | null = null;
 
-    const measure = () => {
-      vh = window.innerHeight;
-      tops = slots.map(s => parseFloat(getComputedStyle(s).top) || 0);
-    };
+    const startTracking = () => {
+      if (isTracking || !deckRef.current) return;
+      isTracking = true;
 
-    const apply = (i: number) => {
-      const s = st[i];
-      cards[i].style.transform = `perspective(1400px) rotateX(${(s.rx + s.tx).toFixed(2)}deg) rotateY(${s.ty.toFixed(2)}deg) scale(${s.s.toFixed(4)})`;
-    };
+      const slots = Array.from(deckRef.current.querySelectorAll('.slot')) as HTMLElement[];
+      const cards = Array.from(deckRef.current.querySelectorAll('.card')) as HTMLElement[];
+      let tops: number[] = [];
+      let vh = window.innerHeight;
+      let queued = false;
+      
+      const st = cards.map(() => ({ s: 1, rx: 0, tx: 0, ty: 0 }));
 
-    const update = () => {
-      queued = false;
-      const isMobile = window.innerWidth < 768;
-      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      
-      const cov = slots.map((sl, i) => {
-        const span = Math.max(vh - tops[i], 1);
-        return Math.min(Math.max((vh - sl.getBoundingClientRect().top) / span, 0), 1);
-      });
-      
-      let front = 0;
-      cov.forEach((c, i) => { if (c >= 0.98) front = i; });
-      
-      for (let i = 0; i < slots.length; i++) {
-        if (!reduce) {
-          let depth = 0;
-          for (let j = i + 1; j < slots.length; j++) depth += cov[j];
-          st[i].s = 1 - Math.min(depth * 0.02, 0.07);
-          // Subtle rotateX on mobile to ensure clean edges and avoid overflow jitter
-          st[i].rx = isMobile ? -(1 - cov[i]) * 2.5 : -(1 - cov[i]) * 8;
-          cards[i].style.setProperty('--dim', Math.min(depth * 0.1, 0.42).toFixed(3));
-          apply(i);
+      const measure = () => {
+        vh = window.innerHeight;
+        tops = slots.map(s => parseFloat(getComputedStyle(s).top) || 0);
+      };
+
+      const apply = (i: number) => {
+        const s = st[i];
+        cards[i].style.transform = `perspective(1400px) rotateX(${(s.rx + s.tx).toFixed(2)}deg) rotateY(${s.ty.toFixed(2)}deg) scale(${s.s.toFixed(4)})`;
+      };
+
+      const update = () => {
+        queued = false;
+        const isMobile = window.innerWidth < 768;
+        const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        
+        // Read phase
+        const rects = slots.map(sl => sl.getBoundingClientRect().top);
+        const cov = slots.map((sl, i) => {
+          const span = Math.max(vh - tops[i], 1);
+          return Math.min(Math.max((vh - rects[i]) / span, 0), 1);
+        });
+        
+        let front = 0;
+        cov.forEach((c, i) => { if (c >= 0.98) front = i; });
+        
+        // Write phase
+        for (let i = 0; i < slots.length; i++) {
+          if (!reduce) {
+            let depth = 0;
+            for (let j = i + 1; j < slots.length; j++) depth += cov[j];
+            st[i].s = 1 - Math.min(depth * 0.02, 0.07);
+            st[i].rx = isMobile ? -(1 - cov[i]) * 2.5 : -(1 - cov[i]) * 8;
+            cards[i].style.setProperty('--dim', Math.min(depth * 0.1, 0.42).toFixed(3));
+            apply(i);
+          }
+          slots[i].classList.toggle('is-front', i === front);
         }
-        slots[i].classList.toggle('is-front', i === front);
-      }
+      };
+
+      const queue = () => {
+        if (!queued) {
+          queued = true;
+          requestAnimationFrame(update);
+        }
+      };
+
+      // Defer initial measurement with requestAnimationFrame to avoid blocking paint
+      requestAnimationFrame(() => {
+        measure();
+        update();
+      });
+
+      window.addEventListener('scroll', queue, { passive: true });
+      window.addEventListener('resize', () => { measure(); queue(); });
+
+      // Handle hover 3D effect
+      cards.forEach((card, i) => {
+        card.addEventListener('pointermove', (e: PointerEvent) => {
+          if (window.innerWidth < 768) return;
+          const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          if (reduce || e.pointerType !== 'mouse' || !slots[i].classList.contains('is-front')) return;
+          const r = card.getBoundingClientRect();
+          st[i].ty = ((e.clientX - r.left) / r.width - 0.5) * 4;
+          st[i].tx = -((e.clientY - r.top) / r.height - 0.5) * 4;
+          apply(i);
+        });
+        card.addEventListener('pointerleave', () => {
+          if (window.innerWidth < 768) return;
+          st[i].tx = 0;
+          st[i].ty = 0;
+          const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          if (!reduce) apply(i);
+        });
+      });
+
+      removeListeners = () => {
+        window.removeEventListener('scroll', queue);
+      };
     };
 
-    const queue = () => {
-      if (!queued) {
-        queued = true;
-        requestAnimationFrame(update);
+    // Use IntersectionObserver to only measure and track when approaching the deck
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        startTracking();
+        observer.disconnect();
       }
-    };
+    }, { rootMargin: '300px' });
 
-    measure();
-    update();
-
-    window.addEventListener('scroll', queue, { passive: true });
-    window.addEventListener('resize', () => { measure(); queue(); });
-
-    // Handle hover 3D effect
-    cards.forEach((card, i) => {
-      card.addEventListener('pointermove', (e: PointerEvent) => {
-        if (window.innerWidth < 768) return;
-        const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        if (reduce || e.pointerType !== 'mouse' || !slots[i].classList.contains('is-front')) return;
-        const r = card.getBoundingClientRect();
-        st[i].ty = ((e.clientX - r.left) / r.width - 0.5) * 4;
-        st[i].tx = -((e.clientY - r.top) / r.height - 0.5) * 4;
-        apply(i);
-      });
-      card.addEventListener('pointerleave', () => {
-        if (window.innerWidth < 768) return;
-        st[i].tx = 0;
-        st[i].ty = 0;
-        const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        if (!reduce) apply(i);
-      });
-    });
+    observer.observe(el);
 
     return () => {
-      window.removeEventListener('scroll', queue);
+      observer.disconnect();
+      if (removeListeners) removeListeners();
     };
   }, []);
 
@@ -288,6 +417,7 @@ export default function WorkDeck() {
                           href={p.liveUrl} 
                           target="_blank" 
                           rel="noopener noreferrer"
+                          aria-label={`Visit live website for ${p.name}`}
                           onClick={() => trackFunnelEvent('live_site_click', { client: p.name, url: p.liveUrl })}
                         >
                           Live Site ↗
@@ -297,6 +427,7 @@ export default function WorkDeck() {
                           href={getWhatsAppGrowthPlanLink(`WorkDeck_${p.name}`)}
                           target="_blank"
                           rel="noopener noreferrer"
+                          aria-label={`Get a Website Growth Plan for ${p.name} on WhatsApp`}
                           onClick={() => trackFunnelEvent('cta_click', { source: `workdeck_growth_plan_${p.name}` })}
                         >
                           Get Similar Growth Plan →
@@ -321,6 +452,7 @@ export default function WorkDeck() {
               href={getWhatsAppGrowthPlanLink("WorkDeck_Bottom")}
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="Get a Free Website Growth Plan on WhatsApp"
               onClick={() => trackFunnelEvent('cta_click', { source: 'workdeck_bottom_growth_plan' })}
             >
               <svg className="ic"><use href="#i-wa"/></svg>

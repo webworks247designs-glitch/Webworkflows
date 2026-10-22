@@ -112,6 +112,7 @@ export default function Hero() {
               href={getWhatsAppGrowthPlanLink("Hero")}
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="Get a Free Website Growth Plan on WhatsApp"
               onClick={() => trackFunnelEvent('cta_click', { source: 'hero_primary_growth_plan' })}
             >
               <svg className="ic"><use href="#i-wa" /></svg>

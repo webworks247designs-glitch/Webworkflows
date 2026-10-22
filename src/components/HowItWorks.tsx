@@ -126,8 +126,8 @@ export default function HowItWorks() {
                 disabled={activeIdx === 0}
                 aria-label="Previous Stage"
                 style={{ 
-                  width: '38px', 
-                  height: '38px', 
+                  width: '48px', 
+                  height: '48px', 
                   borderRadius: '4px', 
                   border: '1px solid var(--line-strong)', 
                   background: 'var(--surface)', 
@@ -135,7 +135,7 @@ export default function HowItWorks() {
                   cursor: activeIdx === 0 ? 'not-allowed' : 'pointer', 
                   display: 'grid', 
                   placeItems: 'center',
-                  fontSize: '1rem',
+                  fontSize: '1.1rem',
                   fontWeight: 700,
                   opacity: activeIdx === 0 ? 0.45 : 1,
                   transition: 'background 0.15s, border-color 0.15s'
@@ -149,8 +149,8 @@ export default function HowItWorks() {
                 disabled={activeIdx === stages.length - 1}
                 aria-label="Next Stage"
                 style={{ 
-                  width: '38px', 
-                  height: '38px', 
+                  width: '48px', 
+                  height: '48px', 
                   borderRadius: '4px', 
                   border: '1px solid var(--line-strong)', 
                   background: 'var(--surface)', 
@@ -158,7 +158,7 @@ export default function HowItWorks() {
                   cursor: activeIdx === stages.length - 1 ? 'not-allowed' : 'pointer', 
                   display: 'grid', 
                   placeItems: 'center',
-                  fontSize: '1rem',
+                  fontSize: '1.1rem',
                   fontWeight: 700,
                   opacity: activeIdx === stages.length - 1 ? 0.45 : 1,
                   transition: 'background 0.15s, border-color 0.15s'

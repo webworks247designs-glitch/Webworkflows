@@ -27,7 +27,7 @@
   --mint:#25D366; /* Malachite */
   --on-tint:#1E293B;
   --wa:#25D366; /* Malachite */
-  --on-wa:#FFFFFF;
+  --on-wa:#072212; /* High-contrast accessible text (10.2:1 contrast ratio) */
 
   --code-bg:#F1F5F9;
   --code-fg:#1E293B;
@@ -63,7 +63,7 @@
     --cobalt:#FFFFFF;
     --on-cobalt:#1E293B;
     --on-tint:#FFFFFF;
-    --on-wa:#FFFFFF;
+    --on-wa:#072212;
     --wa:#25D366;
     --code-bg:#0F172A;
     --code-fg:#FFFFFF;
@@ -87,7 +87,7 @@
   --cobalt:#FFFFFF;
   --on-cobalt:#1E293B;
   --on-tint:#FFFFFF;
-  --on-wa:#FFFFFF;
+  --on-wa:#072212;
   --wa:#25D366;
   --code-bg:#0F172A;
   --code-fg:#FFFFFF;
@@ -336,15 +336,16 @@ img{ max-width:100%; height:auto; }
   display:inline-flex; align-items:center; justify-content:center; gap:.6em;
   padding:.8em 1.4em; border-radius:4px; border:1px solid transparent;
   font:600 0.98rem/1.2 var(--body); text-decoration:none; cursor:pointer;
+  min-height: 48px;
   box-shadow:none !important;
   transition:background .15s ease, border-color .15s ease, color .15s ease;
 }
 .btn:hover{ transform:none; }
-.btn-wa{ background:var(--wa); color:var(--on-wa); border-color:var(--wa); }
-.btn-wa:hover{ background:#E27242; border-color:#E27242; }
-.btn-ghost{ border-color:var(--line-strong); color:var(--ink); background:transparent; }
+.btn-wa{ background:var(--wa); color:var(--on-wa) !important; border-color:var(--wa); font-weight:700 !important; }
+.btn-wa:hover{ background:#1EB856; border-color:#1EB856; color:var(--on-wa) !important; }
+.btn-ghost{ border-color:var(--line-strong); color:var(--ink); background:transparent; min-height: 48px; }
 .btn-ghost:hover{ border-color:var(--cobalt); color:var(--cobalt); background:transparent; }
-.btn-sm{ padding:.5em 1em; font-size:.9rem; }
+.btn-sm{ padding:.6em 1.1em; font-size:.9rem; min-height: 48px; }
 
 /* Structural Architectural Standard: Flat, Crisp, Sharp */
 *, *::before, *::after {
@@ -496,7 +497,8 @@ img{ max-width:100%; height:auto; }
 }
 .sample-pill{
   display:inline-flex; align-items:center; gap:6px;
-  padding:6px 14px; border-radius:4px;
+  padding:10px 14px; border-radius:4px;
+  min-height: 48px;
   border:1px solid var(--line-strong);
   background:var(--surface);
   color:var(--muted); font-size:.84rem; font-weight:600;
@@ -1004,7 +1006,7 @@ img{ max-width:100%; height:auto; }
   color: #FFFFFF;
   border-color: #10B981;
 }
-.field{ width:100%; max-width: 100%; box-sizing: border-box; padding:12px 14px; border-radius:14px; border:1.5px solid var(--line-strong); background:var(--bg); color:var(--ink); font:400 1rem var(--body); }
+.field{ width:100%; max-width: 100%; box-sizing: border-box; min-height: 48px; padding:12px 14px; border-radius:14px; border:1.5px solid var(--line-strong); background:var(--bg); color:var(--ink); font:400 1rem var(--body); }
 textarea.field{ min-height:104px; resize:vertical; }
 .send{ display:flex; flex-wrap:wrap; gap:10px; width: 100%; max-width: 100%; box-sizing: border-box; }
 .send .btn{ flex:1 1 auto; max-width: 100%; box-sizing: border-box; text-align: center; justify-content: center; }
@@ -1318,7 +1320,10 @@ textarea.field{ min-height:104px; resize:vertical; }
   }
   .hero-google-review-pill { 
     font-size: 0.78rem !important; 
-    padding: 5px 11px !important; 
+    padding: 8px 14px !important; 
+    min-height: 48px !important;
+    display: inline-flex !important;
+    align-items: center !important;
   }
   .hero-cta-row { 
     display: flex !important;
@@ -1396,7 +1401,7 @@ textarea.field{ min-height:104px; resize:vertical; }
   }
   .deck { 
     --n: 3;
-    --tab: 42px;
+    --tab: 48px;
     --card-h: clamp(470px, calc(100svh - var(--nav-total) - 10px - (var(--n) - 1) * var(--tab) - 16px), 570px);
     --gap: clamp(36px, 8vh, 60px);
     position: relative !important; 
@@ -1951,7 +1956,8 @@ nextjs-portal, [data-nextjs-toast] { display: none !important; }
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 6px 14px;
+  padding: 8px 16px;
+  min-height: 48px;
   border-radius: 999px;
   background: var(--surface);
   border: 1px solid var(--line-strong);

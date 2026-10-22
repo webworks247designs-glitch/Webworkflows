@@ -46,6 +46,7 @@ export default function Navbar() {
                 href={getWhatsAppGrowthPlanLink("MobileMenu")}
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="Get a Free Website Growth Plan on WhatsApp"
                 onClick={() => {
                   trackFunnelEvent('whatsapp_click', { source: 'mobile_menu' });
                   setMenuOpen(false);
@@ -71,6 +72,7 @@ export default function Navbar() {
             href={getWhatsAppGrowthPlanLink("Navbar")}
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="Get a Free Website Growth Plan on WhatsApp"
             onClick={() => trackFunnelEvent('whatsapp_click', { source: 'navbar' })}
           >
             <svg className="ic"><use href="#i-wa"/></svg>

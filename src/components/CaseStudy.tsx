@@ -133,6 +133,7 @@ export default function CaseStudy() {
                 href={getWhatsAppGrowthPlanLink("CaseStudy_Shobana")}
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="Get a Free Website Growth Plan on WhatsApp"
                 onClick={() => trackFunnelEvent('cta_click', { source: 'case_study_growth_plan' })}
               >
                 <svg className="ic"><use href="#i-wa" /></svg>
@@ -143,6 +144,7 @@ export default function CaseStudy() {
                 href="https://shobanamensalon.vercel.app/"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="Visit live Shobana Salon website"
                 onClick={() => trackFunnelEvent('live_site_click', { client: 'Shobana_Salon_CaseStudy' })}
               >
                 Visit Live Salon Site ↗

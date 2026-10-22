@@ -50,6 +50,7 @@ export default function Contact() {
                 href={waLink} 
                 target="_blank" 
                 rel="noopener noreferrer"
+                aria-label="Get a Free Website Growth Plan on WhatsApp"
               >
                 <svg className="ic"><use href="#i-wa"/></svg>
                 Get a Free Website Growth Plan
