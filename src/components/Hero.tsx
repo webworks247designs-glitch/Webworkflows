@@ -84,7 +84,9 @@ export default function Hero() {
           <div className="hero-top-badges">
             <p className="chip-live">
               <span className="live" aria-hidden="true"></span>
-              <span>Available for Client Builds / Hyderabad</span>
+              <a href="/website-designer-hyderabad" style={{ color: "inherit", textDecoration: "none" }}>
+                Available for Client Builds / Hyderabad &rarr;
+              </a>
             </p>
             <a
               href={GOOGLE_REVIEWS_URL}
@@ -101,7 +103,12 @@ export default function Hero() {
             </a>
           </div>
 
-          <h1>Websites that turn visitors into Leads.</h1>
+          <h1>
+            Freelance Web Designer in Hyderabad
+            <span style={{ display: "block", fontSize: "clamp(1.5rem, 3.2vw, 2.4rem)", fontWeight: 700, color: "var(--ink)", marginTop: "12px", letterSpacing: "-0.025em", lineHeight: 1.15 }}>
+              Websites that turn visitors into Leads.
+            </span>
+          </h1>
           <p className="lede">
             <span>Webworkflo&apos;s</span> is a web design and frontend engineering studio based in Hyderabad. We build fast, tailored websites for small businesses, startups and professionals with direct, measurable ROI.
           </p>

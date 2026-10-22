@@ -30,6 +30,7 @@ export default function Footer() {
               <a href="#testimonials">Reviews</a>
               <a href="#pricing">Pricing</a>
               <a href="/website-designer-hyderabad">Hyderabad Web Design</a>
+              <a href="/inquiry">Project Inquiry Form</a>
               <a href="#faq">FAQ</a>
               <a href="#contact">Contact</a>
             </nav>

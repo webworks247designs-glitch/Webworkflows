@@ -139,7 +139,7 @@ export default function LocalHub() {
               Website Design Engineered for Every Hyderabad Hub
             </h2>
             <p style={{ margin: 0, color: "var(--muted)", fontSize: "1rem", lineHeight: 1.6 }}>
-              Drag or swipe through key commercial hubs. We craft custom websites tailored to rank on Google and convert local searchers into paying clients across Hyderabad.
+              Drag or swipe through key commercial hubs. As your dedicated <a href="/website-designer-hyderabad" style={{ color: "var(--accent)", textDecoration: "underline" }}>freelance website designer in Hyderabad</a>, we craft custom websites tailored to rank on Google and convert local searchers into paying clients across Hyderabad.
             </p>
           </div>
 
@@ -369,14 +369,29 @@ export default function LocalHub() {
             </p>
           </div>
 
-          <a
-            href="https://wa.me/919959896378?text=Hi%20Webworkflo%27s%2C%20I%20am%20looking%20for%20a%20website%20designer%20in%20Hyderabad%20for%20my%20business."
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn btn-wa local-advantage-btn"
-          >
-            Chat on WhatsApp (+91 99598 96378)
-          </a>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "10px", alignItems: "center" }}>
+            <a
+              href="/website-designer-hyderabad"
+              className="btn btn-ghost"
+              style={{
+                padding: "12px 20px",
+                fontSize: "0.92rem",
+                borderColor: "var(--line-strong)",
+                background: "var(--surface)",
+                color: "var(--ink)",
+              }}
+            >
+              Explore Hyderabad Services &rarr;
+            </a>
+            <a
+              href="https://wa.me/919959896378?text=Hi%20Webworkflo%27s%2C%20I%20am%20looking%20for%20a%20website%20designer%20in%20Hyderabad%20for%20my%20business."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-wa local-advantage-btn"
+            >
+              Chat on WhatsApp (+91 99598 96378)
+            </a>
+          </div>
         </div>
       </div>
     </section>

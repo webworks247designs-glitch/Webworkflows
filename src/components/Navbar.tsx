@@ -30,16 +30,17 @@ export default function Navbar() {
       </svg>
       <header className={`nav ${menuOpen ? "open" : ""}`} id="nav">
         <div className="wrap nav-in">
-          <a className="brand" href="#top" onClick={() => setMenuOpen(false)}>
+          <a className="brand" href="/" onClick={() => setMenuOpen(false)}>
             <span className="mark" aria-hidden="true"></span>
             <span>Webworkflo's</span>
           </a>
           <nav className="links" id="links" aria-label="Main">
-            <a href="#work" onClick={() => setMenuOpen(false)}>Work</a>
-            <a href="#case-study" onClick={() => setMenuOpen(false)}>Proof</a>
-            <a href="#testimonials" onClick={() => setMenuOpen(false)}>Reviews</a>
-            <a href="#pricing" onClick={() => setMenuOpen(false)}>Pricing</a>
-            <a href="#contact" onClick={() => setMenuOpen(false)}>Contact</a>
+            <a href="/#work" onClick={() => setMenuOpen(false)}>Work</a>
+            <a href="/#case-study" onClick={() => setMenuOpen(false)}>Proof</a>
+            <a href="/#testimonials" onClick={() => setMenuOpen(false)}>Reviews</a>
+            <a href="/#pricing" onClick={() => setMenuOpen(false)}>Pricing</a>
+            <a href="/website-designer-hyderabad" onClick={() => setMenuOpen(false)}>Hyderabad</a>
+            <a href="/#contact" onClick={() => setMenuOpen(false)}>Contact</a>
             <div className="mobile-menu-cta">
               <a 
                 className="btn btn-wa btn-sm" 

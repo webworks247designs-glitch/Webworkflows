@@ -51,12 +51,21 @@ export const metadata: Metadata = {
     siteName: "Webworkflo's",
     locale: "en_IN",
     type: "website",
+    images: [
+      {
+        url: "/images/LOGO.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Webworkflo's - Freelance Web Designer in Hyderabad",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Freelance Web Designer in Hyderabad | Webworkflo's",
     description:
       "Expert freelance web designer and frontend developer in Hyderabad. Custom, fast websites for small businesses.",
+    images: ["/images/LOGO.jpg"],
   },
   robots: {
     index: true,
@@ -94,9 +103,44 @@ const jsonLd = {
       inLanguage: "en-IN",
     },
     {
+      "@type": "Organization",
+      "@id": `${baseUrl}/#organization`,
+      name: "Webworkflo's",
+      alternateName: ["Webworkflows", "Web Workflows", "Webworkflos"],
+      url: baseUrl,
+      logo: `${baseUrl}/images/LOGO.jpg`,
+      image: `${baseUrl}/images/LOGO.jpg`,
+      description:
+        "Freelance web designer and frontend developer in Hyderabad crafting high-converting, modern websites for small businesses, startups, and creators.",
+      email: "webworks247designs@gmail.com",
+      telephone: "+919959896378",
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Hyderabad",
+        addressRegion: "Telangana",
+        postalCode: "500001",
+        addressCountry: "IN",
+      },
+      sameAs: [
+        "https://www.google.co.in/search?q=Webworkflo%27s&ludocid=13756383820960255399",
+      ],
+      contactPoint: [
+        {
+          "@type": "ContactPoint",
+          telephone: "+919959896378",
+          contactType: "customer service",
+          areaServed: "IN",
+          availableLanguage: ["English", "Telugu", "Hindi"],
+        },
+      ],
+    },
+    {
       "@type": "ProfessionalService",
       "@id": `${baseUrl}/#business`,
       name: "Webworkflo's",
+      parentOrganization: {
+        "@id": `${baseUrl}/#organization`,
+      },
       alternateName: ["Webworkflows", "Web Workflows"],
       url: baseUrl,
       telephone: "+919959896378",

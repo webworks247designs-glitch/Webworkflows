@@ -1,5 +1,38 @@
 import React from "react";
+import type { Metadata } from "next";
 import { ArrowRight, Mail, User, Building, MessageSquare, CheckCircle2 } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: "Project Inquiry",
+  description:
+    "Tell us about your website project. Webworkflo's builds fast, high-converting Next.js websites for businesses across Hyderabad and worldwide.",
+  alternates: {
+    canonical: "/inquiry",
+  },
+  openGraph: {
+    title: "Project Inquiry | Webworkflo's",
+    description:
+      "Tell us about your website project. Get a custom proposal, timeline, and growth roadmap within 24 hours.",
+    url: "https://webworkflows-owh1.vercel.app/inquiry",
+    siteName: "Webworkflo's",
+    locale: "en_IN",
+    type: "website",
+    images: [
+      {
+        url: "/images/LOGO.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Webworkflo's Project Inquiry",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Project Inquiry | Webworkflo's",
+    description: "Tell us about your website project. Response within 24 hours.",
+    images: ["/images/LOGO.jpg"],
+  },
+};
 
 export default function InquiryPage() {
   return (
@@ -10,10 +43,33 @@ export default function InquiryPage() {
         <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-blue-900/20 blur-[120px]" />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 py-24 sm:py-32 lg:px-8">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 py-12 sm:py-20 lg:px-8">
+        {/* Navigation Breadcrumb / Header */}
+        <div className="flex items-center justify-between mb-12 pb-6 border-b border-neutral-800">
+          <a
+            href="/"
+            className="inline-flex items-center gap-2 text-sm text-neutral-400 hover:text-white transition-colors"
+          >
+            &larr; Back to Webworkflo&apos;s Home
+          </a>
+          <div className="flex items-center gap-4 text-sm text-neutral-400">
+            <a href="/website-designer-hyderabad" className="hover:text-white transition-colors">
+              Hyderabad Services
+            </a>
+            <a
+              href="https://wa.me/919959896378"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-emerald-400 hover:underline"
+            >
+              WhatsApp Support
+            </a>
+          </div>
+        </div>
+
         <div className="mx-auto max-w-2xl text-center mb-16">
           <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-white to-white/60 mb-6">
-            Let's build something extraordinary
+            Let&apos;s build something extraordinary
           </h1>
           <p className="text-lg leading-8 text-neutral-400">
             Tell us about your project, and our team will get back to you within 24 hours to discuss how we can help you achieve your goals.
@@ -148,6 +204,16 @@ export default function InquiryPage() {
              <span className="flex items-center gap-2">
                <CheckCircle2 className="h-4 w-4 text-purple-500" /> NDA available upon request
              </span>
+          </div>
+
+          <div className="mt-12 pt-8 border-t border-neutral-900 flex flex-wrap items-center justify-between gap-4 text-xs text-neutral-500">
+            <span>&copy; {new Date().getFullYear()} Webworkflo&apos;s. Handcrafted in Hyderabad, India.</span>
+            <div className="flex gap-4">
+              <a href="/" className="hover:text-white transition-colors">Home</a>
+              <a href="/website-designer-hyderabad" className="hover:text-white transition-colors">Hyderabad Services</a>
+              <a href="/#pricing" className="hover:text-white transition-colors">Pricing</a>
+              <a href="/#contact" className="hover:text-white transition-colors">Contact</a>
+            </div>
           </div>
         </div>
       </div>

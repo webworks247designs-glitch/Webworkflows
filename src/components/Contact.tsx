@@ -127,6 +127,12 @@ export default function Contact() {
               <a className="btn btn-wa btn-growth-plan" href={waLink} target="_blank" rel="noopener noreferrer"><svg className="ic"><use href="#i-wa"/></svg>Request Free Growth Plan on WhatsApp</a>
               <a className="btn btn-ghost" href={mailLink}><svg className="ic"><use href="#i-mail"/></svg>Send by email</a>
             </div>
+            <div style={{ marginTop: '16px', textAlign: 'center', fontSize: '0.88rem', color: 'var(--muted)' }}>
+              Prefer a comprehensive project brief?{" "}
+              <a href="/inquiry" style={{ color: "var(--accent)", textDecoration: "underline", fontWeight: 500 }}>
+                Open Full Project Inquiry Form &rarr;
+              </a>
+            </div>
           </div>
         </div>
       </div>

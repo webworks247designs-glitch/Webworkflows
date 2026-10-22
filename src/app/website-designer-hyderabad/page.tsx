@@ -13,7 +13,7 @@ import Footer from "@/components/Footer";
 import Fab from "@/components/Fab";
 
 export const metadata: Metadata = {
-  title: "Best Website Designer in Hyderabad | Top Freelance Web Developer",
+  title: "Best Website Designer in Hyderabad",
   description:
     "Looking for the best website designer in Hyderabad? Webworkflo's designs fast, modern, and high-converting websites for businesses, clinics, and startups across Hyderabad.",
   keywords: [
@@ -30,13 +30,28 @@ export const metadata: Metadata = {
     canonical: "/website-designer-hyderabad",
   },
   openGraph: {
-    title: "Best Website Designer in Hyderabad | Top Freelance Web Developer",
+    title: "Best Website Designer in Hyderabad | Webworkflo's",
     description:
       "Webworkflo's designs fast, bespoke Next.js websites for businesses across Hyderabad. Zero agency bloat, direct founder collaboration, sub-0.5s speeds.",
     url: "https://webworkflows-owh1.vercel.app/website-designer-hyderabad",
     siteName: "Webworkflo's",
     locale: "en_IN",
     type: "website",
+    images: [
+      {
+        url: "/images/LOGO.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Best Website Designer in Hyderabad - Webworkflo's",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Best Website Designer in Hyderabad | Webworkflo's",
+    description:
+      "Webworkflo's designs fast, bespoke Next.js websites for businesses across Hyderabad. Zero agency bloat, sub-0.5s speeds.",
+    images: ["/images/LOGO.jpg"],
   },
 };
 
